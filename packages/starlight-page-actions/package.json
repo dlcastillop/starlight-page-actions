@@ -1,0 +1,31 @@
+{
+  "name": "starlight-page-actions",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "My awesome Starlight plugin",
+  "author": "dlcastillop",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "devDependencies": {
+    "@astrojs/starlight": "^0.36.1",
+    "astro": "^5.15.1"
+  },
+  "peerDependencies": {
+    "@astrojs/starlight": ">=0.36"
+  },
+  "engines": {
+    "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/dlcastillop/starlight-page-actions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dlcastillop/starlight-page-actions.git",
+    "directory": "packages/starlight-page-actions"
+  },
+  "bugs": "https://github.com/dlcastillop/starlight-page-actions/issues"
+}
