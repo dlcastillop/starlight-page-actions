@@ -1,8 +1,11 @@
 ---
 import Default from "@astrojs/starlight/components/PageTitle.astro";
 import { Icon } from "@astrojs/starlight/components";
+import config from "virtual:starlight-page-actions/config";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
+const currentUrl = Astro.url.href.replace(/\/$/, ".md");
+const prompt = config.prompt?.replace("{url}", currentUrl);
 ---
 
 <Default />

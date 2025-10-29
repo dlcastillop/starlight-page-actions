@@ -10,7 +10,7 @@ export default function starlightPageActions(
   userConfig?: PageActionsConfig
 ): StarlightPlugin {
   const config: PageActionsConfig = {
-    prompt: "",
+    prompt: "Read {url}. I want to ask questions about it.",
     ...userConfig,
   };
 
