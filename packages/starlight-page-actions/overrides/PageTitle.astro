@@ -1,0 +1,28 @@
+---
+import Default from "@astrojs/starlight/components/PageTitle.astro";
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
+---
+
+<Default />
+<button id="copy-markdown" data-path={currentPath}>Copy Markdown</button>
+
+<script>
+  const copyButton = document.querySelector(
+    "#copy-markdown"
+  ) as HTMLButtonElement;
+
+  copyButton?.addEventListener("click", async () => {
+    try {
+      const currentPath = copyButton.dataset.path;
+      const mdPath = `${currentPath}.md`;
+
+      const res = await fetch(mdPath);
+      const contentForClipboard = await res.text();
+
+      await navigator.clipboard.writeText(contentForClipboard);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+</script>
