@@ -7,6 +7,20 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
 <Default />
 <button id="copy-markdown" data-path={currentPath}>Copy Markdown</button>
 
+<style>
+  #copy-markdown {
+    background-color: var(--sl-color-text-accent);
+    color: var(--sl-color-black);
+    border: 1px solid var(--sl-color-text-accent);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: var(--sl-font);
+  }
+</style>
+
 <script>
   const copyButton = document.querySelector(
     "#copy-markdown"
