@@ -6,7 +6,7 @@ export default function starlightPageActions(): StarlightPlugin {
   return {
     name: "starlight-page-actions",
     hooks: {
-      "config:setup"({ addIntegration }) {
+      "config:setup"({ addIntegration, updateConfig }) {
         addIntegration({
           name: "starlight-page-actions-integration",
           hooks: {
@@ -64,6 +64,12 @@ export default function starlightPageActions(): StarlightPlugin {
                 },
               });
             },
+          },
+        });
+
+        updateConfig({
+          components: {
+            PageTitle: "starlight-page-actions/overrides/PageTitle.astro",
           },
         });
       },
