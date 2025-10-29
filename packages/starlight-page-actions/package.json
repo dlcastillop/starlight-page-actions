@@ -6,7 +6,8 @@
   "author": "dlcastillop",
   "type": "module",
   "exports": {
-    ".": "./index.ts"
+    ".": "./index.ts",
+    "./overrides/PageTitle.astro": "./overrides/PageTitle.astro"
   },
   "devDependencies": {
     "@astrojs/starlight": "^0.36.1",
