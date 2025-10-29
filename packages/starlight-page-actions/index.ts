@@ -2,7 +2,7 @@ import type { StarlightPlugin } from "@astrojs/starlight/types";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { normalizePath } from "vite";
 
-export default function starlightSidebarTopicsPlugin(): StarlightPlugin {
+export default function starlightPageActions(): StarlightPlugin {
   return {
     name: "starlight-page-actions",
     hooks: {
