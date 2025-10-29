@@ -6,14 +6,39 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
 ---
 
 <Default />
-<button id="copy-markdown" data-path={currentPath}>
-  <Icon name="mdx" size="1rem" class="icon-default" />
-  <Icon name="approve-check" size="1rem" class="icon-success" />
-  Copy Markdown
-</button>
+<div class="actions-container">
+  <button class="action-button" id="copy-markdown" data-path={currentPath}>
+    <Icon name="mdx" size="1rem" class="icon-default" />
+    <Icon name="approve-check" size="1rem" class="icon-success" />
+    <span>Copy Markdown</span>
+  </button>
+
+  <div class="dropdown">
+    <button
+      class="action-button"
+      id="dropdown-toggle"
+      aria-label="More options"
+    >
+      <span>Open</span>
+      <Icon name="down-caret" size="1rem" />
+    </button>
+
+    <div id="dropdown-menu">
+      <a href="#" class="dropdown-item">
+        <span>Open in ChatGPT</span>
+        <Icon name="external" size="1rem" class="external-icon" />
+      </a>
+    </div>
+  </div>
+</div>
 
 <style>
-  #copy-markdown {
+  .actions-container {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .action-button {
     background-color: var(--sl-color-text-accent);
     color: var(--sl-color-black);
     border: 1px solid var(--sl-color-text-accent);
@@ -34,10 +59,6 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
     cursor: not-allowed;
   }
 
-  #copy-markdown :global(svg) {
-    flex-shrink: 0;
-  }
-
   .icon-success {
     display: none;
   }
@@ -48,6 +69,60 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
 
   #copy-markdown.copied .icon-success {
     display: block;
+  }
+
+  .dropdown {
+    position: relative;
+  }
+
+  #dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background-color: var(--sl-color-gray-6);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    min-width: 200px;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 10;
+  }
+
+  #dropdown-menu.show {
+    display: block;
+  }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    color: var(--sl-color-white);
+    text-decoration: none;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    transition: background-color 0.15s ease;
+    cursor: pointer;
+  }
+
+  .dropdown-item:hover {
+    background-color: var(--sl-color-gray-5);
+  }
+
+  .dropdown-item :global(svg) {
+    flex-shrink: 0;
+  }
+
+  .dropdown-item span {
+    flex: 1;
+  }
+
+  .dropdown-item .external-icon {
+    opacity: 0.6;
+    margin-left: auto;
   }
 </style>
 
@@ -78,5 +153,23 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
       console.log(error);
       copyButton.disabled = false;
     }
+  });
+
+  const dropdownToggle = document.querySelector(
+    "#dropdown-toggle"
+  ) as HTMLButtonElement;
+  const dropdownMenu = document.querySelector("#dropdown-menu") as HTMLElement;
+
+  dropdownToggle?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdownMenu.classList.toggle("show");
+  });
+
+  document.addEventListener("click", () => {
+    dropdownMenu?.classList.remove("show");
+  });
+
+  dropdownMenu?.addEventListener("click", (e) => {
+    e.stopPropagation();
   });
 </script>
