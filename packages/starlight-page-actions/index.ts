@@ -2,7 +2,18 @@ import type { StarlightPlugin } from "@astrojs/starlight/types";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { normalizePath } from "vite";
 
-export default function starlightPageActions(): StarlightPlugin {
+export interface PageActionsConfig {
+  prompt?: string;
+}
+
+export default function starlightPageActions(
+  userConfig?: PageActionsConfig
+): StarlightPlugin {
+  const config: PageActionsConfig = {
+    prompt: "",
+    ...userConfig,
+  };
+
   return {
     name: "starlight-page-actions",
     hooks: {
@@ -14,6 +25,19 @@ export default function starlightPageActions(): StarlightPlugin {
               updateConfig({
                 vite: {
                   plugins: [
+                    {
+                      name: "starlight-page-actions-config",
+                      resolveId(id) {
+                        if (id === "virtual:starlight-page-actions/config") {
+                          return "\0" + id;
+                        }
+                      },
+                      load(id) {
+                        if (id === "\0virtual:starlight-page-actions/config") {
+                          return `export default ${JSON.stringify(config)}`;
+                        }
+                      },
+                    },
                     viteStaticCopy({
                       targets: [
                         {
