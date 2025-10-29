@@ -5,7 +5,24 @@ import config from "virtual:starlight-page-actions/config";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
 const currentUrl = Astro.url.href.replace(/\/$/, ".md");
+
 const prompt = config.prompt?.replace("{url}", currentUrl);
+const encodedPrompt = encodeURIComponent(prompt as string);
+
+const options = [
+  {
+    label: "Open in ChatGPT",
+    href: `https://chatgpt.com/?q=${encodedPrompt}`,
+  },
+  {
+    label: "Open in Claude",
+    href: `https://claude.ai/new?q=${encodedPrompt}`,
+  },
+  {
+    label: "View in Markdown",
+    href: `${currentPath}.md`,
+  },
+];
 ---
 
 <Default />
@@ -27,10 +44,16 @@ const prompt = config.prompt?.replace("{url}", currentUrl);
     </button>
 
     <div id="dropdown-menu">
-      <a href="#" class="dropdown-item">
-        <span>Open in ChatGPT</span>
-        <Icon name="external" size="1rem" class="external-icon" />
-      </a>
+      {
+        options.map((option) => {
+          return (
+            <a href={option.href} class="dropdown-item">
+              <span>{option.label}</span>
+              <Icon name="external" size="1rem" class="external-icon" />
+            </a>
+          );
+        })
+      }
     </div>
   </div>
 </div>
