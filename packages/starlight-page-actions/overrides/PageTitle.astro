@@ -65,24 +65,25 @@ const options = [
   }
 
   .action-button {
-    background-color: var(--sl-color-text-accent);
-    color: var(--sl-color-black);
-    border: 1px solid var(--sl-color-text-accent);
-    padding: 0.25rem 0.5rem;
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+    border: 1px solid var(--sl-color-gray-5);
+    padding: 0.5rem 0.75rem;
     border-radius: 0.25rem;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
     font-family: var(--sl-font);
     display: inline-flex;
     align-items: center;
-    gap: 0.375rem;
+    gap: 0.5rem;
     transition: opacity 0.2s ease;
+    height: 2rem;
+    line-height: 1;
   }
 
   #copy-markdown:disabled {
     opacity: 0.7;
-    cursor: not-allowed;
   }
 
   .icon-success {
@@ -138,16 +139,11 @@ const options = [
     background-color: var(--sl-color-gray-5);
   }
 
-  .dropdown-item :global(svg) {
-    flex-shrink: 0;
-  }
-
   .dropdown-item span {
     flex: 1;
   }
 
   .dropdown-item .external-icon {
-    opacity: 0.6;
     margin-left: auto;
   }
 </style>
@@ -170,13 +166,13 @@ const options = [
       await navigator.clipboard.writeText(contentForClipboard);
 
       copyButton.classList.add("copied");
-      copyButton.disabled = false;
 
       setTimeout(() => {
         copyButton.classList.remove("copied");
       }, 3000);
     } catch (error) {
       console.log(error);
+    } finally {
       copyButton.disabled = false;
     }
   });
