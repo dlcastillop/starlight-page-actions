@@ -57,7 +57,11 @@ export default defineConfig({
           label: "Threads account",
         },
       ],
-      plugins: [starlightPageActions()],
+      plugins: [
+        starlightPageActions({
+          baseUrl: "https://starlight-page-actions.dlcastillop.com",
+        }),
+      ],
     }),
   ],
 });
