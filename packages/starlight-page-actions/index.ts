@@ -103,12 +103,9 @@ export default function starlightPageActions(
               const distPath = fileURLToPath(dir);
               const mdFiles = pages
                 .filter(
-                  (page) => page.pathname !== "" && page.pathname !== "404"
+                  (page) => page.pathname !== "" && page.pathname !== "404/"
                 )
-                .map((page) => {
-                  const a = page.pathname.replace(/\/$/, "");
-                  return `${a}.md`;
-                });
+                .map((page) => page.pathname.replace(/\/$/, ".md"));
 
               const urls = mdFiles.map((file) =>
                 baseUrl.endsWith("/")
