@@ -1,6 +1,9 @@
 import type { StarlightPlugin } from "@astrojs/starlight/types";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { normalizePath } from "vite";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 export interface PageActionsConfig {
   prompt?: string;
@@ -17,7 +20,11 @@ export default function starlightPageActions(
   return {
     name: "starlight-page-actions",
     hooks: {
-      "config:setup"({ addIntegration, updateConfig }) {
+      "config:setup"({
+        addIntegration,
+        updateConfig,
+        config: starlightConfig,
+      }) {
         addIntegration({
           name: "starlight-page-actions-integration",
           hooks: {
@@ -87,6 +94,33 @@ export default function starlightPageActions(
                   ],
                 },
               });
+            },
+            "astro:build:done": async ({ dir, pages }) => {
+              //if (!config.generateLlmsTxt) return;
+
+              const baseUrl = "https://dlcastillop.com/";
+              const distPath = fileURLToPath(dir);
+              const mdFiles = pages
+                .filter(
+                  (page) => page.pathname !== "" && page.pathname !== "404"
+                )
+                .map((page) => {
+                  const a = page.pathname.replace(/\/$/, "");
+                  return `${a}.md`;
+                });
+
+              const urls = mdFiles.map((file) => {
+                // Normalizar la ruta
+                const normalizedPath = file.replace(/\\/g, "/");
+                return `${baseUrl}${normalizedPath}`.replace(/\/+/g, "/");
+              });
+
+              const llmsTxtContent =
+                `# ${starlightConfig.title} Documentation\n\n` +
+                urls.join("\n");
+
+              const llmsTxtPath = path.join(distPath, "llms.txt");
+              fs.writeFileSync(llmsTxtPath, llmsTxtContent, "utf-8");
             },
           },
         });
