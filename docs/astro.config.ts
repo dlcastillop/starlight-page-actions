@@ -21,8 +21,8 @@ export default defineConfig({
           label: "Guides",
           items: [
             {
-              label: "Personalize the Prompt",
-              link: "docs/personalize-prompt",
+              label: "Customize the Prompt",
+              link: "docs/customize-prompt",
             },
             {
               label: "Generate the llms.txt file",
