@@ -35,7 +35,7 @@ export default defineConfig({
           items: [
             {
               label: "Configuration Reference",
-              link: "docs/getting-started",
+              link: "docs/configuration-reference",
             },
           ],
         },
