@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 
 export interface PageActionsConfig {
   prompt?: string;
+  baseUrl?: string;
 }
 
 export default function starlightPageActions(
@@ -96,9 +97,9 @@ export default function starlightPageActions(
               });
             },
             "astro:build:done": async ({ dir, pages }) => {
-              //if (!config.generateLlmsTxt) return;
+              if (!config.baseUrl) return;
 
-              const baseUrl = "https://dlcastillop.com/";
+              const baseUrl = config.baseUrl;
               const distPath = fileURLToPath(dir);
               const mdFiles = pages
                 .filter(
@@ -109,11 +110,11 @@ export default function starlightPageActions(
                   return `${a}.md`;
                 });
 
-              const urls = mdFiles.map((file) => {
-                // Normalizar la ruta
-                const normalizedPath = file.replace(/\\/g, "/");
-                return `${baseUrl}${normalizedPath}`.replace(/\/+/g, "/");
-              });
+              const urls = mdFiles.map((file) =>
+                baseUrl.endsWith("/")
+                  ? `- ${baseUrl}${file}`
+                  : `- ${baseUrl}/${file}`
+              );
 
               const llmsTxtContent =
                 `# ${starlightConfig.title} Documentation\n\n` +
