@@ -21,8 +21,8 @@ export default defineConfig({
           label: "Guides",
           items: [
             {
-              label: "Personalize the prompt",
-              link: "docs/getting-started",
+              label: "Personalize the Prompt",
+              link: "docs/personalize-prompt",
             },
             {
               label: "Generate the llms.txt file",
@@ -38,6 +38,23 @@ export default defineConfig({
               link: "docs/getting-started",
             },
           ],
+        },
+      ],
+      social: [
+        {
+          icon: "github",
+          href: "https://github.com/dlcastillop/starlight-page-actions",
+          label: "Github repo",
+        },
+        {
+          icon: "linkedin",
+          href: "https://linkedin.com/dlcastillop",
+          label: "LinkedIn account",
+        },
+        {
+          icon: "threads",
+          href: "https://threads.com/@dlcastillop",
+          label: "Threads account",
         },
       ],
       plugins: [starlightPageActions()],
