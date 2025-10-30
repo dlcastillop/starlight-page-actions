@@ -26,7 +26,7 @@ export default defineConfig({
             },
             {
               label: "Generate the llms.txt file",
-              link: "docs/getting-started",
+              link: "docs/generate-llms-txt",
             },
           ],
         },
