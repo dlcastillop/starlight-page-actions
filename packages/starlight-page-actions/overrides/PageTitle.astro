@@ -6,7 +6,9 @@ import config from "virtual:starlight-page-actions/config";
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
 const currentUrl = Astro.url.href.replace(/\/$/, ".md");
 
-const prompt = config.prompt?.replace("{url}", currentUrl);
+const prompt = config.prompt?.includes("{url}")
+  ? config.prompt?.replace("{url}", currentUrl)
+  : `${config.prompt} ${currentUrl}`;
 const encodedPrompt = encodeURIComponent(prompt as string);
 
 const options = [
