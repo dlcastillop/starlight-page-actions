@@ -7,6 +7,9 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Starlight Page Actions",
+      logo: {
+        src: "./src/assets/logo.svg",
+      },
       sidebar: [
         {
           label: "Overview",
