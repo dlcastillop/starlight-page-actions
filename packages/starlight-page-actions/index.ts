@@ -99,23 +99,79 @@ export default function starlightPageActions(
             "astro:build:done": async ({ dir, pages }) => {
               if (!config.baseUrl) return;
 
-              const baseUrl = config.baseUrl;
+              const baseUrl = config.baseUrl.endsWith("/")
+                ? config.baseUrl.slice(0, -1)
+                : config.baseUrl;
               const distPath = fileURLToPath(dir);
-              const mdFiles = pages
-                .filter(
-                  (page) => page.pathname !== "" && page.pathname !== "404/"
-                )
-                .map((page) => page.pathname.replace(/\/$/, ".md"));
+              const sidebar = starlightConfig.sidebar;
+              let llmsTxtContent = `# ${starlightConfig.title} Documentation\n\n`;
 
-              const urls = mdFiles.map((file) =>
-                baseUrl.endsWith("/")
-                  ? `- ${baseUrl}${file}`
-                  : `- ${baseUrl}/${file}`
-              );
+              if (sidebar && Array.isArray(sidebar)) {
+                const processSidebarItem = (item: any, level = 2): string => {
+                  let content = "";
 
-              const llmsTxtContent =
-                `# ${starlightConfig.title} Documentation\n\n` +
-                urls.join("\n");
+                  if (item.label && !item.link) {
+                    content += `${"#".repeat(level)} ${item.label}\n\n`;
+                  }
+
+                  if (item.link && typeof item.link === "string") {
+                    const cleanLink = item.link.replace(/^\/+|\/+$/g, "");
+                    const url = cleanLink
+                      ? `${baseUrl}/${cleanLink}.md`
+                      : `${baseUrl}/index.md`;
+
+                    if (item.label && level > 2) {
+                      content += `- [${item.label}](${url})\n`;
+                    } else {
+                      content += `- ${url}\n`;
+                    }
+                  }
+
+                  if (item.slug && typeof item.slug === "string") {
+                    const cleanSlug = item.slug.replace(/^\/+|\/+$/g, "");
+                    const url = cleanSlug
+                      ? `${baseUrl}/${cleanSlug}.md`
+                      : `${baseUrl}/index.md`;
+                    content += `- ${url}\n`;
+                  }
+
+                  if (item.items && Array.isArray(item.items)) {
+                    for (const subItem of item.items) {
+                      if (typeof subItem === "string") {
+                        const cleanSlug = subItem.replace(/^\/+|\/+$/g, "");
+                        const url = cleanSlug
+                          ? `${baseUrl}/${cleanSlug}.md`
+                          : `${baseUrl}/index.md`;
+                        content += `- ${url}\n`;
+                      } else if (typeof subItem === "object") {
+                        const hasNestedItems =
+                          subItem.items && Array.isArray(subItem.items);
+                        const nextLevel = hasNestedItems ? level + 1 : level;
+                        content += processSidebarItem(subItem, nextLevel);
+                      }
+                    }
+                  }
+
+                  if (item.label && !item.link) {
+                    content += "\n";
+                  }
+
+                  return content;
+                };
+
+                for (const group of sidebar) {
+                  llmsTxtContent += processSidebarItem(group);
+                }
+              } else {
+                const mdFiles = pages
+                  .filter(
+                    (page) => page.pathname !== "" && page.pathname !== "404/"
+                  )
+                  .map((page) => page.pathname.replace(/\/$/, ".md"));
+
+                const urls = mdFiles.map((file) => `- ${baseUrl}/${file}`);
+                llmsTxtContent += urls.join("\n");
+              }
 
               const llmsTxtPath = path.join(distPath, "llms.txt");
               fs.writeFileSync(llmsTxtPath, llmsTxtContent, "utf-8");
