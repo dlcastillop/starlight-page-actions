@@ -120,7 +120,7 @@ export default function starlightPageActions(
                       ? `${baseUrl}/${cleanLink}.md`
                       : `${baseUrl}/index.md`;
 
-                    if (item.label && level > 2) {
+                    if (item.label && level >= 2) {
                       content += `- [${item.label}](${url})\n`;
                     } else {
                       content += `- ${url}\n`;
