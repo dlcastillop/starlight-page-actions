@@ -1,0 +1,102 @@
+---
+title: Generate the llms.txt file
+description: Learn how to automatically generate the llms.txt file for your documentation site.
+lastUpdated: 2025-10-30
+---
+
+import { Steps, Tabs, TabItem } from "@astrojs/starlight/components";
+
+Starlight Page Actions can automatically generate the `llms.txt` file for your documentation site.
+
+This file lists all the pages in your documentation with their section headings, titles, and URLs.
+
+## Enabling `llms.txt` generation
+
+To generate the `llms.txt` file, you must specify the `baseUrl` option in the plugin configuration. Without it, the file will not be created.
+
+```js
+import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config";
+import starlightPageActions from "starlight-page-actions";
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      plugins: [
+        starlightPageActions({
+          baseUrl: "https://mydocs.example.com/",
+        }),
+      ],
+      title: "My Docs",
+    }),
+  ],
+});
+```
+
+## Viewing the `llms.txt` file
+
+<Steps>
+
+1. Run a build for your Starlight project.
+
+   <Tabs syncKey="pkg">
+
+   <TabItem label="npm">
+
+   ```sh
+   npm run build
+   ```
+
+   </TabItem>
+
+   <TabItem label="yarn">
+
+   ```sh
+   yarn build
+   ```
+
+   </TabItem>
+
+   <TabItem label="pnpm">
+
+   ```sh
+   pnpm build
+   ```
+
+   </TabItem>
+
+   </Tabs>
+
+2. Start the preview server.
+
+   <Tabs syncKey="pkg">
+
+   <TabItem label="npm">
+
+   ```sh
+   npm run preview
+   ```
+
+   </TabItem>
+
+   <TabItem label="yarn">
+
+   ```sh
+   yarn preview
+   ```
+
+   </TabItem>
+
+   <TabItem label="pnpm">
+
+   ```sh
+   pnpm preview
+   ```
+
+   </TabItem>
+
+   </Tabs>
+
+3. Open http://localhost:4321/llms.txt in your browser to see the generated file.
+
+</Steps>

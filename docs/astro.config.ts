@@ -3,27 +3,68 @@ import { defineConfig } from "astro/config";
 import starlightPageActions from "starlight-page-actions";
 
 export default defineConfig({
+  site: "https://starlight-page-actions.dlcastillop.com",
   integrations: [
     starlight({
-      editLink: {
-        baseUrl:
-          "https://github.com/dlcastillop/starlight-page-actions/edit/main/docs/",
+      title: "Starlight Page Actions",
+      logo: {
+        src: "./src/assets/logo.svg",
       },
-      plugins: [starlightPageActions()],
       sidebar: [
         {
-          label: "Start Here",
-          items: ["getting-started"],
+          label: "Overview",
+          items: [
+            {
+              label: "Getting Started",
+              link: "docs/getting-started",
+            },
+          ],
+        },
+        {
+          label: "Guides",
+          items: [
+            {
+              label: "Customize the Prompt",
+              link: "docs/customize-prompt",
+            },
+            {
+              label: "Generate the llms.txt file",
+              link: "docs/generate-llms-txt",
+            },
+          ],
+        },
+        {
+          label: "Reference",
+          items: [
+            {
+              label: "Configuration Reference",
+              link: "docs/configuration-reference",
+            },
+          ],
         },
       ],
       social: [
         {
-          href: "https://github.com/dlcastillop/starlight-page-actions",
           icon: "github",
-          label: "GitHub",
+          href: "https://github.com/dlcastillop/starlight-page-actions",
+          label: "Github repo",
+        },
+        {
+          icon: "linkedin",
+          href: "https://linkedin.com/dlcastillop",
+          label: "LinkedIn account",
+        },
+        {
+          icon: "threads",
+          href: "https://threads.com/@dlcastillop",
+          label: "Threads account",
         },
       ],
-      title: "starlight-page-actions",
+      plugins: [
+        starlightPageActions({
+          baseUrl: "https://starlight-page-actions.dlcastillop.com",
+        }),
+      ],
     }),
   ],
 });
