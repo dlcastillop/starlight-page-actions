@@ -4,7 +4,7 @@ description: Learn how to customize the prompt in Starlight Page Actions to prov
 lastUpdated: 2025-10-30
 ---
 
-Starlight Page Actions comes with a default prompt that is sent to AI tools when you open a documentation page. This default prompt looks like this:
+Starlight Page Actions includes a default prompt that is automatically applied when a user opens the documentation in an AI tool like ChatGPT. This default prompt looks like this:
 
 ```
 Read {url}. I want to ask questions about it.
