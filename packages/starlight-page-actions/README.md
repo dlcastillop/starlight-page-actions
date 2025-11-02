@@ -1,15 +1,21 @@
-# `starlight-page-actions`
+# Starlight Page Actions
 
-My awesome Starlight plugin
+A Starlight plugin that adds page action buttons to your documentation.
 
-## Documentation
+This plugin adds:
 
-Want to get started immediately?
+- A "Copy Markdown" button to copy the raw markdown content
+- An "Open" dropdown menu with options to open the page in AI chat services (ChatGPT, Claude, etc.)
+- Automatic generation of the `llms.txt` file with all documentation URLs during build
 
-Check out the `starlight-page-actions` getting started guide.
+## Getting started
+
+Please follow the documentation at [starlight-page-actions.dlcastillop.com](https://starlight-page-actions.dlcastillop.com/).
+
+## Questions
+
+For questions and support please [open a discussion](https://github.com/dlcastillop/starlight-page-actions/discussions).
 
 ## License
 
-Licensed under the MIT License, Copyright © dlcastillop.
-
-See [LICENSE](https://github.com/dlcastillop/starlight-page-actions/blob/main/LICENSE) for more information.
+[MIT](https://github.com/dlcastillop/starlight-page-actions/blob/main/LICENSE)

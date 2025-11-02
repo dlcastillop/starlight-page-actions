@@ -16,7 +16,7 @@ export interface PageActionsConfig {
  * This plugin adds:
  * - A "Copy Markdown" button to copy the raw markdown content
  * - An "Open" dropdown menu with options to open the page in AI chat services (ChatGPT, Claude, etc.)
- * - Automatic generation of llms.txt file with all documentation URLs during build
+ * - Automatic generation of the `llms.txt` file with all documentation URLs during build
  *
  * @param {PageActionsConfig} [userConfig] - Configuration options for the plugin.
  * @param {string} [userConfig.prompt] - The prompt template for AI chat services. Use `{url}` as placeholder for the markdown URL.
