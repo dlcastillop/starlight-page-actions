@@ -1,6 +1,6 @@
 {
   "name": "starlight-page-actions",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "description": "A Starlight plugin that adds page action buttons to your documentation.",
   "author": {
