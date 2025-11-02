@@ -2,8 +2,19 @@
   "name": "starlight-page-actions",
   "version": "0.0.0",
   "license": "MIT",
-  "description": "My awesome Starlight plugin",
-  "author": "dlcastillop",
+  "description": "A Starlight plugin that adds page action buttons to your documentation.",
+  "author": {
+    "name": "Daniel Castillo",
+    "email": "daniel@dlcastillop.com",
+    "url": "https://dlcastillop.com"
+  },
+  "homepage": "https://github.com/dlcastillop/starlight-page-actions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dlcastillop/starlight-page-actions.git",
+    "directory": "packages/starlight-page-actions"
+  },
+  "bugs": "https://github.com/dlcastillop/starlight-page-actions/issues",
   "type": "module",
   "exports": {
     ".": "./index.ts",
@@ -23,12 +34,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "homepage": "https://github.com/dlcastillop/starlight-page-actions",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dlcastillop/starlight-page-actions.git",
-    "directory": "packages/starlight-page-actions"
-  },
-  "bugs": "https://github.com/dlcastillop/starlight-page-actions/issues"
+  }
 }

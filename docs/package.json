@@ -1,8 +1,5 @@
 {
   "name": "starlight-page-actions-docs",
-  "license": "MIT",
-  "description": "My awesome Starlight plugin",
-  "author": "dlcastillop",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
@@ -19,13 +16,5 @@
   },
   "engines": {
     "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
-  },
-  "private": true,
-  "homepage": "https://github.com/dlcastillop/starlight-page-actions",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dlcastillop/starlight-page-actions.git",
-    "directory": "docs"
-  },
-  "bugs": "https://github.com/dlcastillop/starlight-page-actions/issues"
+  }
 }
