@@ -18,6 +18,10 @@ export default defineConfig({
               label: "Getting Started",
               link: "docs/getting-started",
             },
+            {
+              label: "Changelog",
+              link: "docs/changelog",
+            },
           ],
         },
         {
