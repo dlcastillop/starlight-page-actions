@@ -1,10 +1,16 @@
 ---
 title: Changelog
 description: New features, bug fixes, and improvements made to Starlight Page Actions.
-lastUpdated: 2025-11-03
+lastUpdated: 2025-11-08
 ---
 
 New features, bug fixes, and improvements made to Starlight Page Actions.
+
+## v0.1.1
+
+### Bug Fixes
+
+- Fixed dependency configuration: moved `vite` and `vite-plugin-static-copy` from `devDependencies` to `dependencies` to prevent missing module errors during development and build
 
 ## v0.1.0
 
