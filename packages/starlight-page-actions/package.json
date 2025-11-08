@@ -8,7 +8,7 @@
     "email": "daniel@dlcastillop.com",
     "url": "https://dlcastillop.com"
   },
-  "homepage": "https://github.com/dlcastillop/starlight-page-actions",
+  "homepage": "https://starlight-page-actions.dlcastillop.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/dlcastillop/starlight-page-actions.git",
@@ -20,11 +20,13 @@
     ".": "./index.ts",
     "./overrides/PageTitle.astro": "./overrides/PageTitle.astro"
   },
-  "devDependencies": {
-    "@astrojs/starlight": "^0.36.1",
-    "astro": "^5.15.1",
+  "dependencies": {
     "vite-plugin-static-copy": "^3.1.3",
     "vite": "^6.1.0"
+  },
+  "devDependencies": {
+    "@astrojs/starlight": "^0.36.1",
+    "astro": "^5.15.1"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.36"

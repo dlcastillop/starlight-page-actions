@@ -24,6 +24,13 @@ importers:
         version: link:../packages/starlight-page-actions
 
   packages/starlight-page-actions:
+    dependencies:
+      vite:
+        specifier: ^6.1.0
+        version: 6.4.1(@types/node@24.9.1)
+      vite-plugin-static-copy:
+        specifier: ^3.1.3
+        version: 3.1.4(vite@6.4.1(@types/node@24.9.1))
     devDependencies:
       '@astrojs/starlight':
         specifier: ^0.36.1
@@ -31,12 +38,6 @@ importers:
       astro:
         specifier: ^5.15.1
         version: 5.15.1(@types/node@24.9.1)(rollup@4.52.5)(typescript@5.9.3)
-      vite:
-        specifier: ^6.1.0
-        version: 6.4.1(@types/node@24.9.1)
-      vite-plugin-static-copy:
-        specifier: ^3.1.3
-        version: 3.1.4(vite@6.4.1(@types/node@24.9.1))
 
 packages:
 
