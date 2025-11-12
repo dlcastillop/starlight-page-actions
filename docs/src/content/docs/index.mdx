@@ -1,16 +1,114 @@
 ---
 title: Turn your Starlight docs into AI-ready documentation
-description: Add page actions and llms.txt to your Starlight docs in seconds. Let users instantly chat with ChatGPT, Claude, or any AI about your documentation. No copy-paste needed.
+description: Let users instantly chat with ChatGPT, Claude, or any AI about your documentation.
 template: splash
-editUrl: false
 hero:
-  tagline: Add page actions and llms.txt to your Starlight docs in seconds. Let users instantly chat with ChatGPT, Claude, or any AI about your documentation. No copy-paste needed.
-  image:
-    file: ../../assets/logo.svg
-  actions:
-    - text: Get Started
-      link: /docs/getting-started
-      icon: right-arrow
+  title: ""
 ---
 
-<div class="bg-red-500">A</div>
+import {
+  Hero,
+  Features,
+  Faq,
+  Cta,
+} from "@dlcastillop/starlight-marketing-components";
+import Copy from "@lucide/astro/icons/copy";
+import MessageCircle from "@lucide/astro/icons/message-circle";
+import Eye from "@lucide/astro/icons/eye";
+import Bot from "@lucide/astro/icons/bot";
+
+<Hero
+  title={{
+    fistPart: "Turn your Starlight docs into",
+    highlightedPart: "AI-ready",
+    secondPart: "documentation",
+  }}
+  description="Let users instantly chat with ChatGPT, Claude, or any AI about your documentation."
+  primaryCta={{
+    title: "Get Started",
+    href: "docs/getting-started",
+  }}
+  secondaryCta={{
+    title: "More developer tools",
+    href: "https://dlcastillop.lemonsqueezy.com",
+  }}
+/>
+
+<Features
+  highlightedTitle="Supercharge your documentation"
+  title="Make your docs accessible to developers and AI"
+  description="Turn your Starlight site into a knowledge source ready to share, query, and process."
+  features={[
+    {
+      name: "Copy to Markdown",
+      description:
+        "Copy any documentation page in clean Markdown format with a single click.",
+      icon: Copy,
+    },
+    {
+      name: "Open in ChatGPT or Claude",
+      description:
+        "Open documentation directly in ChatGPT or Claude with the full page context. Let your users ask specific questions about your docs without manual copy-pasting.",
+      icon: MessageCircle,
+    },
+    {
+      name: "See Markdown",
+      description: "View the raw Markdown of any page.",
+      icon: Eye,
+    },
+    {
+      name: "llms.txt Generator",
+      description:
+        "Automatically generate an optimized llms.txt file for your entire site. Follows community standards so LLMs can better index and understand your documentation.",
+      icon: Bot,
+    },
+  ]}
+/>
+
+<Faq
+  faqs={[
+    {
+      question: "What is llms.txt and why do I need it?",
+      answer:
+        "llms.txt is a community standard file that helps AI models better understand and index your site. It provides a structured format that LLMs can easily parse, making your docs more discoverable and useful when users interact with AI assistants.",
+    },
+    {
+      question: "Does this plugin work with all Starlight themes?",
+      answer:
+        "Yes! The plugin is designed to work seamlessly with any Starlight theme. It integrates with Starlight's built-in components and styling system, so it will automatically match your site's look and feel.",
+    },
+    {
+      question: "Can I customize which actions appear on my pages?",
+      answer:
+        "Currently, all actions are enabled by default and cannot be individually disabled. We're considering adding granular control in future versions based on community feedback.",
+    },
+    {
+      question: "How is the Markdown generated?",
+      answer:
+        "The plugin uses vite-plugin-static-copy to create copies of your .md and .mdx files during the build process. This exposes the original Markdown files, making them accessible and ready to be consumed by LLMs or copied by users while preserving all formatting, code blocks, and structure.",
+    },
+    {
+      question: "How is the llms.txt file generated?",
+      answer:
+        "The llms.txt file is automatically generated from your Starlight sidebar configuration. The plugin reads your sidebar structure and creates a properly formatted llms.txt file that maps your documentation hierarchy, making it easy for LLMs to understand and navigate your content.",
+    },
+    {
+      question: "Is this plugin free?",
+      answer:
+        "Yes, the plugin is open source and free to use. You can find it on npm and GitHub.",
+    },
+  ]}
+/>
+
+<Cta
+  title="Ready to make your docs AI-friendly?"
+  description="Join developers who are making their documentation more accessible, shareable, and AI-ready with just one plugin."
+  primaryCta={{
+    title: "Get Started",
+    href: "docs/getting-started",
+  }}
+  secondaryCta={{
+    title: "More developer tools",
+    href: "https://dlcastillop.lemonsqueezy.com",
+  }}
+/>
