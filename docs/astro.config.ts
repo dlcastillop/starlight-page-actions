@@ -1,6 +1,7 @@
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 import starlightPageActions from "starlight-page-actions";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://starlight-page-actions.dlcastillop.com",
@@ -9,6 +10,7 @@ export default defineConfig({
       title: "Starlight Page Actions",
       logo: {
         src: "./src/assets/logo.svg",
+        replacesTitle: true,
       },
       sidebar: [
         {
@@ -69,6 +71,10 @@ export default defineConfig({
           baseUrl: "https://starlight-page-actions.dlcastillop.com",
         }),
       ],
+      customCss: ["./src/styles/global.css"],
     }),
   ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
