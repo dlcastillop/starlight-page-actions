@@ -1,0 +1,30 @@
+@source "../../node_modules/@dlcastillop/starlight-marketing-components/src";
+@import "@dlcastillop/starlight-marketing-components/styles";
+
+@theme {
+  /* Accent color palettes. */
+  --color-accent-50: #ecf4ff;
+  --color-accent-100: #ddeaff;
+  --color-accent-200: #c2d9ff;
+  --color-accent-300: #9cbeff;
+  --color-accent-400: #7598ff;
+  --color-accent-500: #5574ff;
+  --color-accent-600: #3d50f5;
+  --color-accent-700: #2a39d8;
+  --color-accent-800: #2533ae;
+  --color-accent-900: #263389;
+  --color-accent-950: #161b50;
+
+  /* Gray color palettes. */
+  --color-gray-50: oklch(98.5% 0 0);
+  --color-gray-100: oklch(96.7% 0.001 286.375);
+  --color-gray-200: oklch(92% 0.004 286.32);
+  --color-gray-300: oklch(87.1% 0.006 286.286);
+  --color-gray-400: oklch(70.5% 0.015 286.067);
+  --color-gray-500: oklch(55.2% 0.016 285.938);
+  --color-gray-600: oklch(44.2% 0.017 285.786);
+  --color-gray-700: oklch(37% 0.013 285.805);
+  --color-gray-800: oklch(27.4% 0.006 286.033);
+  --color-gray-900: oklch(21% 0.006 285.885);
+  --color-gray-950: oklch(14.1% 0.005 285.823);
+}
