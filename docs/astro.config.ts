@@ -51,6 +51,11 @@ export default defineConfig({
       ],
       social: [
         {
+          icon: "email",
+          href: "mailto:daniel@dlcastillop.com",
+          label: "Email",
+        },
+        {
           icon: "github",
           href: "https://github.com/dlcastillop/starlight-page-actions",
           label: "Github repo",

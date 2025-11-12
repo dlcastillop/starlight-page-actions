@@ -16,6 +16,12 @@ importers:
       '@astrojs/starlight-tailwind':
         specifier: ^4.0.2
         version: 4.0.2(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(tailwindcss@4.1.17)
+      '@dlcastillop/starlight-marketing-components':
+        specifier: ^0.1.0
+        version: 0.1.0(@astrojs/starlight-tailwind@4.0.2(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(tailwindcss@4.1.17))(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(@lucide/astro@0.553.0(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))(tailwindcss@4.1.17)
+      '@lucide/astro':
+        specifier: ^0.553.0
+        version: 0.553.0(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))
       '@tailwindcss/vite':
         specifier: ^4.1.17
         version: 4.1.17(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2))
@@ -115,6 +121,15 @@ packages:
   '@ctrl/tinycolor@4.2.0':
     resolution: {integrity: sha512-kzyuwOAQnXJNLS9PSyrk0CWk35nWJW/zl/6KvnTBMFK65gm7U1/Z5BqjxeapjZCIhQcM/DsrEmcbRwDyXyXK4A==}
     engines: {node: '>=14'}
+
+  '@dlcastillop/starlight-marketing-components@0.1.0':
+    resolution: {integrity: sha512-tpXkAyljOx1ENynFIDJzk2SsaziOvIQB+HyFlCIE+GoJH/kNPZr0uNo2lkkz/bO+s1bHMsf0Hb4pvYGnoq+0gg==, tarball: https://npm.pkg.github.com/download/@dlcastillop/starlight-marketing-components/0.1.0/5b70855b917eceec26fb9c10ebbac4d323f90696}
+    peerDependencies:
+      '@astrojs/starlight': 0.36.0
+      '@astrojs/starlight-tailwind': 4.0.1
+      '@lucide/astro': ^0.553.0
+      astro: 5.6.1
+      tailwindcss: 4.0.7
 
   '@emnapi/runtime@1.6.0':
     resolution: {integrity: sha512-obtUmAHTMjll499P+D9A3axeJFlhdjOWdKUNs/U6QIGT7V5RjcUW1xToAzjvmgTSQhDbYn/NwfTRoJcQ2rNBxA==}
@@ -428,6 +443,11 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@lucide/astro@0.553.0':
+    resolution: {integrity: sha512-yiHpOKGBPOy+pmZfkQmZcFAETU8FvkqWdoLCboSZGuZ1zgwFHGxBmr/brmk5PxVFOUnImzsRFGzAX2O2A88hmQ==}
+    peerDependencies:
+      astro: ^4 || ^5
 
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
@@ -2186,6 +2206,14 @@ snapshots:
 
   '@ctrl/tinycolor@4.2.0': {}
 
+  '@dlcastillop/starlight-marketing-components@0.1.0(@astrojs/starlight-tailwind@4.0.2(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(tailwindcss@4.1.17))(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(@lucide/astro@0.553.0(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))(tailwindcss@4.1.17)':
+    dependencies:
+      '@astrojs/starlight': 0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))
+      '@astrojs/starlight-tailwind': 4.0.2(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(tailwindcss@4.1.17)
+      '@lucide/astro': 0.553.0(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))
+      astro: 5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)
+      tailwindcss: 4.1.17
+
   '@emnapi/runtime@1.6.0':
     dependencies:
       tslib: 2.8.1
@@ -2400,6 +2428,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@lucide/astro@0.553.0(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))':
+    dependencies:
+      astro: 5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)
 
   '@mdx-js/mdx@3.1.1':
     dependencies:

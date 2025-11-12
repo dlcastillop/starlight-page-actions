@@ -1,5 +1,30 @@
-@layer base, starlight, theme, components, utilities;
+@source "../../node_modules/@dlcastillop/starlight-marketing-components/src";
+@import "@dlcastillop/starlight-marketing-components/styles";
 
-@import "@astrojs/starlight-tailwind";
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/utilities.css" layer(utilities);
+@theme {
+  /* Accent color palettes. */
+  --color-accent-50: oklch(97.7% 0.013 236.62);
+  --color-accent-100: oklch(95.1% 0.026 236.824);
+  --color-accent-200: oklch(90.1% 0.058 230.902);
+  --color-accent-300: oklch(82.8% 0.111 230.318);
+  --color-accent-400: oklch(74.6% 0.16 232.661);
+  --color-accent-500: oklch(68.5% 0.169 237.323);
+  --color-accent-600: oklch(58.8% 0.158 241.966);
+  --color-accent-700: oklch(50% 0.134 242.749);
+  --color-accent-800: oklch(44.3% 0.11 240.79);
+  --color-accent-900: oklch(39.1% 0.09 240.876);
+  --color-accent-950: oklch(29.3% 0.066 243.157);
+
+  /* Gray color palettes. */
+  --color-gray-50: oklch(98.5% 0 0);
+  --color-gray-100: oklch(96.7% 0.001 286.375);
+  --color-gray-200: oklch(92% 0.004 286.32);
+  --color-gray-300: oklch(87.1% 0.006 286.286);
+  --color-gray-400: oklch(70.5% 0.015 286.067);
+  --color-gray-500: oklch(55.2% 0.016 285.938);
+  --color-gray-600: oklch(44.2% 0.017 285.786);
+  --color-gray-700: oklch(37% 0.013 285.805);
+  --color-gray-800: oklch(27.4% 0.006 286.033);
+  --color-gray-900: oklch(21% 0.006 285.885);
+  --color-gray-950: oklch(14.1% 0.005 285.823);
+}
