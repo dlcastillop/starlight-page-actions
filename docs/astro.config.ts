@@ -32,11 +32,11 @@ export default defineConfig({
           items: [
             {
               label: "Customize the Prompt",
-              link: "docs/customize-prompt",
+              link: "docs/guides/customize-prompt",
             },
             {
               label: "Generate the llms.txt file",
-              link: "docs/generate-llms-txt",
+              link: "docs/guides/generate-llms-txt",
             },
           ],
         },
@@ -45,7 +45,7 @@ export default defineConfig({
           items: [
             {
               label: "Configuration Reference",
-              link: "docs/configuration-reference",
+              link: "docs/reference/configuration",
             },
           ],
         },
