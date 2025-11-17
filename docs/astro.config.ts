@@ -1,6 +1,7 @@
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 import starlightPageActions from "starlight-page-actions";
+import starlightUiTweaks from "starlight-ui-tweaks";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
@@ -74,6 +75,75 @@ export default defineConfig({
       plugins: [
         starlightPageActions({
           baseUrl: "https://starlight-page-actions.dlcastillop.com",
+        }),
+        starlightUiTweaks({
+          footer: {
+            copyright: "Daniel Castillo. All rights reserved.",
+            firstColumn: {
+              title: "Developer Tools",
+              links: [
+                {
+                  label: "SEO in Next.js",
+                  href: "https://seo-in-nextjs.dlcastillop.com/",
+                },
+                {
+                  label: "SEO in Astro",
+                  href: "https://seo-in-astro.dlcastillop.com/",
+                },
+                {
+                  label: "Nova.js",
+                  href: "https://novajs.dev/",
+                },
+                {
+                  label: "Starlight UI Tweaks",
+                  href: "https://starlight-ui-tweaks.dlcastillop.com/",
+                },
+                {
+                  label: "Hook Crafter",
+                  href: "https://hookcrafter.dev/",
+                },
+              ],
+            },
+            secondColumn: {
+              title: "Resources",
+              links: [
+                {
+                  label: "Guides",
+                  href: "/docs/guides/customize-prompt",
+                },
+                {
+                  label: "Reference",
+                  href: "/docs/reference/configuration",
+                },
+              ],
+            },
+            thirdColumn: {
+              title: "Support",
+              links: [
+                {
+                  label: "Issues",
+                  href: "https://github.com/dlcastillop/starlight-page-actions/issues",
+                },
+                {
+                  label: "Discussions",
+                  href: "https://github.com/dlcastillop/starlight-page-actions/discussions",
+                },
+              ],
+            },
+            fourthColumn: {
+              title: "More",
+              links: [
+                {
+                  label: "Contact",
+                  href: "mailto:daniel@dlcastillop.com",
+                },
+                {
+                  label: "Changelog",
+                  href: "/docs/changelog",
+                },
+              ],
+            },
+          },
         }),
       ],
       customCss: ["./src/styles/global.css"],
