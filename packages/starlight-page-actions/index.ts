@@ -22,6 +22,8 @@ export interface PageActionsConfig {
  * @param {string} [userConfig.prompt] - The prompt template for AI chat services. Use `{url}` as placeholder for the markdown URL.
  * @param {string} [userConfig.baseUrl] - The base URL of your site, required for generating the `llms.txt` file.
  *
+ * @see {@link https://starlight-page-actions.dlcastillop.com/docs/reference/configuration|Configuration Reference}
+ *
  * @example
  * ```javascript
  * // astro.config.mjs
