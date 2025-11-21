@@ -1,10 +1,18 @@
 ---
 title: Changelog
 description: New features, bug fixes, and improvements made to Starlight Page Actions.
-lastUpdated: 2025-11-08
+lastUpdated: 2025-11-21
 ---
 
 New features, bug fixes, and improvements made to Starlight Page Actions.
+
+## v0.2.0
+
+### Features
+
+- Handle "Copy Markdown" errors
+- Remove frontmatter and imports from .md and .mdx files
+- Replace .md references with direct URLs in Page Actions and `llms.txt`
 
 ## v0.1.1
 
