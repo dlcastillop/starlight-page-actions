@@ -84,6 +84,47 @@ export default function starlightPageActions(
                         {
                           src: "src/content/docs/**/*.{md,mdx}",
                           dest: "",
+                          transform: (content: string) => {
+                            const frontmatterRegex =
+                              /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+                            const match = content.match(frontmatterRegex);
+
+                            let title = "";
+                            let markdownContent = content;
+
+                            if (
+                              match &&
+                              match[1] !== undefined &&
+                              match[2] !== undefined
+                            ) {
+                              const frontmatter = match[1];
+                              markdownContent = match[2];
+
+                              const titleMatch = frontmatter.match(
+                                /title:\s*["']?([^"'\n]+)["']?/
+                              );
+                              if (titleMatch && titleMatch[1] !== undefined) {
+                                title = titleMatch[1].trim();
+                              }
+                            }
+
+                            const contentWithoutImports = markdownContent
+                              .split("\n")
+                              .filter(
+                                (line) => !line.trim().startsWith("import ")
+                              )
+                              .join("\n");
+
+                            let newContent = "";
+
+                            if (title) {
+                              newContent = `# ${title}\n\n`;
+                            }
+
+                            newContent += contentWithoutImports.trim();
+
+                            return newContent;
+                          },
                           rename: (
                             fileName: string,
                             fileExtension: string,
