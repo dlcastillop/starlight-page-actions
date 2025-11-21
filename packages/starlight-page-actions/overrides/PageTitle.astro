@@ -4,7 +4,7 @@ import { Icon } from "@astrojs/starlight/components";
 import config from "virtual:starlight-page-actions/config";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
-const currentUrl = Astro.url.href.replace(/\/$/, ".md");
+const currentUrl = Astro.url.href;
 
 const prompt = config.prompt?.includes("{url}")
   ? config.prompt?.replace("{url}", currentUrl)
