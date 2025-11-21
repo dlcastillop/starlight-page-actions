@@ -193,8 +193,8 @@ export default function starlightPageActions(
                   if (item.link && typeof item.link === "string") {
                     const cleanLink = item.link.replace(/^\/+|\/+$/g, "");
                     const url = cleanLink
-                      ? `${baseUrl}/${cleanLink}.md`
-                      : `${baseUrl}/index.md`;
+                      ? `${baseUrl}/${cleanLink}`
+                      : `${baseUrl}`;
 
                     if (item.label && level >= 2) {
                       content += `- [${item.label}](${url})\n`;
@@ -206,8 +206,8 @@ export default function starlightPageActions(
                   if (item.slug && typeof item.slug === "string") {
                     const cleanSlug = item.slug.replace(/^\/+|\/+$/g, "");
                     const url = cleanSlug
-                      ? `${baseUrl}/${cleanSlug}.md`
-                      : `${baseUrl}/index.md`;
+                      ? `${baseUrl}/${cleanSlug}`
+                      : `${baseUrl}`;
                     content += `- ${url}\n`;
                   }
 
@@ -216,8 +216,8 @@ export default function starlightPageActions(
                       if (typeof subItem === "string") {
                         const cleanSlug = subItem.replace(/^\/+|\/+$/g, "");
                         const url = cleanSlug
-                          ? `${baseUrl}/${cleanSlug}.md`
-                          : `${baseUrl}/index.md`;
+                          ? `${baseUrl}/${cleanSlug}`
+                          : `${baseUrl}`;
                         content += `- ${url}\n`;
                       } else if (typeof subItem === "object") {
                         const hasNestedItems =
@@ -239,11 +239,9 @@ export default function starlightPageActions(
                   llmsTxtContent += processSidebarItem(group);
                 }
               } else {
-                const mdFiles = pages
-                  .filter(
-                    (page) => page.pathname !== "" && page.pathname !== "404/"
-                  )
-                  .map((page) => page.pathname.replace(/\/$/, ".md"));
+                const mdFiles = pages.filter(
+                  (page) => page.pathname !== "" && page.pathname !== "404/"
+                );
 
                 const urls = mdFiles.map((file) => `- ${baseUrl}/${file}`);
                 llmsTxtContent += urls.join("\n");
