@@ -3,28 +3,58 @@ import Default from "@astrojs/starlight/components/PageTitle.astro";
 import { Icon } from "@astrojs/starlight/components";
 import config from "virtual:starlight-page-actions/config";
 
+interface OptionsProps {
+  label: string;
+  href: string;
+  id: "chatgpt" | "claude" | "markdown" | "v0" | "t3chat";
+}
+
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
 const currentUrl = Astro.url.href;
+const { dropdownMenu, prompt: userPrompt } = config;
 
-const prompt = config.prompt?.includes("{url}")
-  ? config.prompt?.replace("{url}", currentUrl)
-  : `${config.prompt} ${currentUrl}`;
+const prompt = userPrompt?.includes("{url}")
+  ? userPrompt?.replace("{url}", currentUrl)
+  : `${userPrompt} ${currentUrl}`;
 const encodedPrompt = encodeURIComponent(prompt as string);
 
-const options = [
+const allOptions: OptionsProps[] = [
   {
     label: "Open in ChatGPT",
     href: `https://chatgpt.com/?q=${encodedPrompt}`,
+    id: "chatgpt",
   },
   {
     label: "Open in Claude",
     href: `https://claude.ai/new?q=${encodedPrompt}`,
+    id: "claude",
+  },
+  {
+    label: "Open in T3 Chat",
+    href: `https://t3.chat/new?q=${encodedPrompt}`,
+    id: "t3chat",
+  },
+  {
+    label: "Open in v0",
+    href: `https://v0.dev/?q=${encodedPrompt}`,
+    id: "v0",
   },
   {
     label: "View in Markdown",
     href: `${currentPath}.md`,
+    id: "markdown",
   },
 ];
+
+const options = allOptions.filter((option) => {
+  const id = option.id;
+
+  if (dropdownMenu && dropdownMenu[id]) {
+    return option;
+  }
+
+  return;
+});
 ---
 
 <Default />

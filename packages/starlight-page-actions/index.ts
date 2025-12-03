@@ -8,6 +8,13 @@ import { fileURLToPath } from "node:url";
 export interface PageActionsConfig {
   prompt?: string;
   baseUrl?: string;
+  dropdownMenu?: {
+    chatgpt?: boolean;
+    claude?: boolean;
+    t3chat?: boolean;
+    v0?: boolean;
+    markdown?: boolean;
+  };
 }
 
 /**
@@ -50,6 +57,13 @@ export default function starlightPageActions(
 ): StarlightPlugin {
   const config: PageActionsConfig = {
     prompt: "Read {url}. I want to ask questions about it.",
+    dropdownMenu: {
+      chatgpt: true,
+      claude: true,
+      t3chat: false,
+      v0: false,
+      markdown: true,
+    },
     ...userConfig,
   };
 
