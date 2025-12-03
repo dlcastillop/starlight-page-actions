@@ -55,7 +55,7 @@ export interface PageActionsConfig {
 export default function starlightPageActions(
   userConfig?: PageActionsConfig
 ): StarlightPlugin {
-  const config: PageActionsConfig = {
+  const defaultConfig: PageActionsConfig = {
     prompt: "Read {url}. I want to ask questions about it.",
     dropdownMenu: {
       chatgpt: true,
@@ -64,7 +64,15 @@ export default function starlightPageActions(
       v0: false,
       markdown: true,
     },
+  };
+
+  const config: PageActionsConfig = {
+    ...defaultConfig,
     ...userConfig,
+    dropdownMenu: {
+      ...defaultConfig.dropdownMenu,
+      ...userConfig?.dropdownMenu,
+    },
   };
 
   return {
