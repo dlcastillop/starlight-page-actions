@@ -1,21 +1,23 @@
 // env.d.ts
 declare module "virtual:starlight-page-actions/config" {
+  interface ActionsProps {
+    chatgpt?: boolean;
+    claude?: boolean;
+    t3chat?: boolean;
+    v0?: boolean;
+    markdown?: boolean;
+    custom?: Record<string, CustomActionsProps>;
+  }
+
   interface CustomActionsProps {
-    name: string;
+    label: string;
     href: string;
   }
 
   export interface PageActionsConfig {
     prompt?: string;
     baseUrl?: string;
-    dropdownMenu?: {
-      chatgpt?: boolean;
-      claude?: boolean;
-      t3chat?: boolean;
-      v0?: boolean;
-      markdown?: boolean;
-      customActions?: Record<string, CustomActionsProps>;
-    };
+    actions?: ActionsProps;
   }
 
   const config: PageActionsConfig;

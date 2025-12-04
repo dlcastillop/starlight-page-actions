@@ -5,22 +5,24 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+interface ActionsProps {
+  chatgpt?: boolean;
+  claude?: boolean;
+  t3chat?: boolean;
+  v0?: boolean;
+  markdown?: boolean;
+  custom?: Record<string, CustomActionsProps>;
+}
+
 interface CustomActionsProps {
-  name: string;
+  label: string;
   href: string;
 }
 
 export interface PageActionsConfig {
   prompt?: string;
   baseUrl?: string;
-  dropdownMenu?: {
-    chatgpt?: boolean;
-    claude?: boolean;
-    t3chat?: boolean;
-    v0?: boolean;
-    markdown?: boolean;
-    customActions?: Record<string, CustomActionsProps>;
-  };
+  actions?: ActionsProps;
 }
 
 /**
@@ -63,7 +65,7 @@ export default function starlightPageActions(
 ): StarlightPlugin {
   const defaultConfig: PageActionsConfig = {
     prompt: "Read {url}. I want to ask questions about it.",
-    dropdownMenu: {
+    actions: {
       chatgpt: true,
       claude: true,
       t3chat: false,
@@ -75,9 +77,9 @@ export default function starlightPageActions(
   const config: PageActionsConfig = {
     ...defaultConfig,
     ...userConfig,
-    dropdownMenu: {
-      ...defaultConfig.dropdownMenu,
-      ...userConfig?.dropdownMenu,
+    actions: {
+      ...defaultConfig.actions,
+      ...userConfig?.actions,
     },
   };
 
