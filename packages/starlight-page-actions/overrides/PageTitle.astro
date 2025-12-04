@@ -77,29 +77,31 @@ const options = [...filteredDefaultOptions, ...customOptions];
     <span>Copy Markdown</span>
   </button>
 
-  <div class="dropdown">
-    <button
-      class="action-button"
-      id="dropdown-toggle"
-      aria-label="More options"
-    >
-      <span>Open</span>
-      <Icon name="down-caret" size="1rem" />
-    </button>
+  {
+    options.length !== 0 && (
+      <div class="dropdown">
+        <button
+          class="action-button"
+          id="dropdown-toggle"
+          aria-label="More options"
+        >
+          <span>Open</span>
+          <Icon name="down-caret" size="1rem" />
+        </button>
 
-    <div id="dropdown-menu">
-      {
-        options.map((option) => {
-          return (
-            <a href={option.href} class="dropdown-item" target="_blank">
-              <span>{option.label}</span>
-              <Icon name="external" size="1rem" class="external-icon" />
-            </a>
-          );
-        })
-      }
-    </div>
-  </div>
+        <div id="dropdown-menu">
+          {options.map((option) => {
+            return (
+              <a href={option.href} class="dropdown-item" target="_blank">
+                <span>{option.label}</span>
+                <Icon name="external" size="1rem" class="external-icon" />
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    )
+  }
 </div>
 
 <style>

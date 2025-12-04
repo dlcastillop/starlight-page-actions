@@ -101,7 +101,21 @@ export default function starlightPageActions(
         addIntegration,
         updateConfig,
         config: starlightConfig,
+        logger,
       }) {
+        const hasActions =
+          config.actions?.chatgpt ||
+          config.actions?.claude ||
+          config.actions?.t3chat ||
+          config.actions?.v0 ||
+          config.actions?.markdown ||
+          (config.actions?.custom &&
+            Object.keys(config.actions.custom).length > 0);
+
+        if (!hasActions) {
+          logger.warn("No actions enabled. The dropdown will be hidden.");
+        }
+
         addIntegration({
           name: "starlight-page-actions-integration",
           hooks: {
