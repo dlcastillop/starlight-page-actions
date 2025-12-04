@@ -241,20 +241,26 @@ export default function starlightPageActions(
                 const processSidebarItem = (item: any, level = 2): string => {
                   let content = "";
 
-                  if (item.label && !item.link) {
+                  if (item.label && !item.link && !item.slug) {
                     content += `${"#".repeat(level)} ${item.label}\n\n`;
                   }
 
                   if (item.link && typeof item.link === "string") {
-                    const cleanLink = item.link.replace(/^\/+|\/+$/g, "");
-                    const url = cleanLink
-                      ? `${baseUrl}/${cleanLink}`
-                      : `${baseUrl}`;
+                    const isExternalLink =
+                      item.link.startsWith("http://") ||
+                      item.link.startsWith("https://");
 
-                    if (item.label && level >= 2) {
-                      content += `- [${item.label}](${url})\n`;
-                    } else {
-                      content += `- ${url}\n`;
+                    if (!isExternalLink) {
+                      const cleanLink = item.link.replace(/^\/+|\/+$/g, "");
+                      const url = cleanLink
+                        ? `${baseUrl}/${cleanLink}`
+                        : `${baseUrl}`;
+
+                      if (item.label) {
+                        content += `- [${item.label}](${url})\n`;
+                      } else {
+                        content += `- ${url}\n`;
+                      }
                     }
                   }
 
@@ -263,7 +269,12 @@ export default function starlightPageActions(
                     const url = cleanSlug
                       ? `${baseUrl}/${cleanSlug}`
                       : `${baseUrl}`;
-                    content += `- ${url}\n`;
+
+                    if (item.label) {
+                      content += `- [${item.label}](${url})\n`;
+                    } else {
+                      content += `- ${url}\n`;
+                    }
                   }
 
                   if (item.items && Array.isArray(item.items)) {
@@ -283,7 +294,7 @@ export default function starlightPageActions(
                     }
                   }
 
-                  if (item.label && !item.link) {
+                  if (item.label && !item.link && !item.slug) {
                     content += "\n";
                   }
 
