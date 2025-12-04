@@ -5,16 +5,16 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-interface ActionsProps {
+interface Actions {
   chatgpt?: boolean;
   claude?: boolean;
   t3chat?: boolean;
   v0?: boolean;
   markdown?: boolean;
-  custom?: Record<string, CustomActionsProps>;
+  custom?: Record<string, CustomAction>;
 }
 
-interface CustomActionsProps {
+interface CustomAction {
   label: string;
   href: string;
 }
@@ -22,7 +22,7 @@ interface CustomActionsProps {
 export interface PageActionsConfig {
   prompt?: string;
   baseUrl?: string;
-  actions?: ActionsProps;
+  actions?: Actions;
 }
 
 /**
@@ -36,6 +36,7 @@ export interface PageActionsConfig {
  * @param {PageActionsConfig} [userConfig] - Configuration options for the plugin.
  * @param {string} [userConfig.prompt] - The prompt template for AI chat services. Use `{url}` as placeholder for the markdown URL.
  * @param {string} [userConfig.baseUrl] - The base URL of your site, required for generating the `llms.txt` file.
+ * @param {Actions} [userConfig.actions] - Configure which built-in actions to display and define custom actions.
  *
  * @see {@link https://starlight-page-actions.dlcastillop.com/docs/reference/configuration|Configuration Reference}
  *
@@ -51,7 +52,17 @@ export interface PageActionsConfig {
  *       plugins: [
  *         starlightPageActions({
  *           prompt: "Read {url} and explain its main points briefly.",
- *           baseUrl: "https://mydocs.example.com"
+ *           baseUrl: "https://mydocs.example.com",
+ *           actions: {
+ *            chatgpt: false,
+ *            v0: true,
+ *            custom: {
+ *              sciraAi: {
+ *                label: "Open in Scira AI",
+ *                href: "https://scira.ai/?q="
+ *              }
+ *            }
+ *           }
  *         })
  *       ]
  *     })

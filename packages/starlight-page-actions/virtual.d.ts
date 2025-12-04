@@ -1,15 +1,15 @@
 // env.d.ts
 declare module "virtual:starlight-page-actions/config" {
-  interface ActionsProps {
+  interface Actions {
     chatgpt?: boolean;
     claude?: boolean;
     t3chat?: boolean;
     v0?: boolean;
     markdown?: boolean;
-    custom?: Record<string, CustomActionsProps>;
+    custom?: Record<string, CustomAction>;
   }
 
-  interface CustomActionsProps {
+  interface CustomAction {
     label: string;
     href: string;
   }
@@ -17,7 +17,7 @@ declare module "virtual:starlight-page-actions/config" {
   export interface PageActionsConfig {
     prompt?: string;
     baseUrl?: string;
-    actions?: ActionsProps;
+    actions?: Actions;
   }
 
   const config: PageActionsConfig;
