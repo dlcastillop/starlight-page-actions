@@ -12,6 +12,7 @@ interface OptionsProps {
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
 const currentUrl = Astro.url.href;
 const { actions, prompt: userPrompt } = config;
+const { pageActions } = (Astro.locals as any).starlightRoute.entry.data;
 
 const prompt = userPrompt?.includes("{url}")
   ? userPrompt?.replace("{url}", currentUrl)
@@ -54,7 +55,6 @@ const filteredDefaultOptions = defaultOptions.filter((option) => {
 
   return;
 });
-
 const customOptions: OptionsProps[] = actions?.custom
   ? Object.entries(actions.custom).map(([key, value]) => {
       return {
@@ -64,45 +64,50 @@ const customOptions: OptionsProps[] = actions?.custom
       };
     })
   : [];
-
 const options = [...filteredDefaultOptions, ...customOptions];
 ---
 
-<Default />
-<div class="actions-container">
-  <button class="action-button" id="copy-markdown" data-path={currentPath}>
-    <Icon name="mdx" size="1rem" class="icon-default" />
-    <Icon name="approve-check" size="1rem" class="icon-success" />
-    <Icon name="error" size="1rem" class="icon-error" />
-    <span>Copy Markdown</span>
-  </button>
+{
+  pageActions || typeof pageActions === "undefined" ? (
+    <Default />
+    <div class="actions-container">
+      <button class="action-button" id="copy-markdown" data-path={currentPath}>
+        <Icon name="mdx" size="1rem" class="icon-default" />
+        <Icon name="approve-check" size="1rem" class="icon-success" />
+        <Icon name="error" size="1rem" class="icon-error" />
+        <span>Copy Markdown</span>
+      </button>
 
-  {
-    options.length !== 0 && (
-      <div class="dropdown">
-        <button
-          class="action-button"
-          id="dropdown-toggle"
-          aria-label="More options"
-        >
-          <span>Open</span>
-          <Icon name="down-caret" size="1rem" />
-        </button>
+      {
+        options.length !== 0 && (
+          <div class="dropdown">
+            <button
+              class="action-button"
+              id="dropdown-toggle"
+              aria-label="More options"
+            >
+              <span>Open</span>
+              <Icon name="down-caret" size="1rem" />
+            </button>
 
-        <div id="dropdown-menu">
-          {options.map((option) => {
-            return (
-              <a href={option.href} class="dropdown-item" target="_blank">
-                <span>{option.label}</span>
-                <Icon name="external" size="1rem" class="external-icon" />
-              </a>
-            );
-          })}
-        </div>
-      </div>
-    )
-  }
-</div>
+            <div id="dropdown-menu">
+              {options.map((option) => {
+                return (
+                  <a href={option.href} class="dropdown-item" target="_blank">
+                    <span>{option.label}</span>
+                    <Icon name="external" size="1rem" class="external-icon" />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )
+      }
+    </div>
+  ) : (
+    <Default />
+  )
+}
 
 <style>
   .actions-container {
