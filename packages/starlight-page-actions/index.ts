@@ -5,6 +5,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+interface CustomActionsProps {
+  name: string;
+  href: string;
+}
+
 export interface PageActionsConfig {
   prompt?: string;
   baseUrl?: string;
@@ -14,6 +19,7 @@ export interface PageActionsConfig {
     t3chat?: boolean;
     v0?: boolean;
     markdown?: boolean;
+    customActions?: Record<string, CustomActionsProps>;
   };
 }
 

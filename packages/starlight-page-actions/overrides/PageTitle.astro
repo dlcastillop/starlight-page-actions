@@ -18,7 +18,7 @@ const prompt = userPrompt?.includes("{url}")
   : `${userPrompt} ${currentUrl}`;
 const encodedPrompt = encodeURIComponent(prompt as string);
 
-const allOptions: OptionsProps[] = [
+const defaultOptions: OptionsProps[] = [
   {
     label: "Open in ChatGPT",
     href: `https://chatgpt.com/?q=${encodedPrompt}`,
@@ -45,8 +45,7 @@ const allOptions: OptionsProps[] = [
     id: "markdown",
   },
 ];
-
-const options = allOptions.filter((option) => {
+const filteredDefaultOptions = defaultOptions.filter((option) => {
   const id = option.id;
 
   if (dropdownMenu && dropdownMenu[id]) {
@@ -55,6 +54,18 @@ const options = allOptions.filter((option) => {
 
   return;
 });
+
+const customOptions: OptionsProps[] = dropdownMenu?.customActions
+  ? Object.entries(dropdownMenu.customActions).map(([key, value]) => {
+      return {
+        label: value.name,
+        href: `${value.href}${encodedPrompt}`,
+        id: key as OptionsProps["id"],
+      };
+    })
+  : [];
+
+const options = [...filteredDefaultOptions, ...customOptions];
 ---
 
 <Default />
