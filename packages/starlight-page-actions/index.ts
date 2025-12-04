@@ -5,9 +5,24 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+interface Actions {
+  chatgpt?: boolean;
+  claude?: boolean;
+  t3chat?: boolean;
+  v0?: boolean;
+  markdown?: boolean;
+  custom?: Record<string, CustomAction>;
+}
+
+interface CustomAction {
+  label: string;
+  href: string;
+}
+
 export interface PageActionsConfig {
   prompt?: string;
   baseUrl?: string;
+  actions?: Actions;
 }
 
 /**
@@ -21,6 +36,7 @@ export interface PageActionsConfig {
  * @param {PageActionsConfig} [userConfig] - Configuration options for the plugin.
  * @param {string} [userConfig.prompt] - The prompt template for AI chat services. Use `{url}` as placeholder for the markdown URL.
  * @param {string} [userConfig.baseUrl] - The base URL of your site, required for generating the `llms.txt` file.
+ * @param {Actions} [userConfig.actions] - Configure which built-in actions to display and define custom actions.
  *
  * @see {@link https://starlight-page-actions.dlcastillop.com/docs/reference/configuration|Configuration Reference}
  *
@@ -36,7 +52,17 @@ export interface PageActionsConfig {
  *       plugins: [
  *         starlightPageActions({
  *           prompt: "Read {url} and explain its main points briefly.",
- *           baseUrl: "https://mydocs.example.com"
+ *           baseUrl: "https://mydocs.example.com",
+ *           actions: {
+ *            chatgpt: false,
+ *            v0: true,
+ *            custom: {
+ *              sciraAi: {
+ *                label: "Open in Scira AI",
+ *                href: "https://scira.ai/?q="
+ *              }
+ *            }
+ *           }
  *         })
  *       ]
  *     })
@@ -48,9 +74,24 @@ export interface PageActionsConfig {
 export default function starlightPageActions(
   userConfig?: PageActionsConfig
 ): StarlightPlugin {
-  const config: PageActionsConfig = {
+  const defaultConfig: PageActionsConfig = {
     prompt: "Read {url}. I want to ask questions about it.",
+    actions: {
+      chatgpt: true,
+      claude: true,
+      t3chat: false,
+      v0: false,
+      markdown: true,
+    },
+  };
+
+  const config: PageActionsConfig = {
+    ...defaultConfig,
     ...userConfig,
+    actions: {
+      ...defaultConfig.actions,
+      ...userConfig?.actions,
+    },
   };
 
   return {
@@ -60,7 +101,21 @@ export default function starlightPageActions(
         addIntegration,
         updateConfig,
         config: starlightConfig,
+        logger,
       }) {
+        const hasActions =
+          config.actions?.chatgpt ||
+          config.actions?.claude ||
+          config.actions?.t3chat ||
+          config.actions?.v0 ||
+          config.actions?.markdown ||
+          (config.actions?.custom &&
+            Object.keys(config.actions.custom).length > 0);
+
+        if (!hasActions) {
+          logger.warn("No actions enabled. The dropdown will be hidden.");
+        }
+
         addIntegration({
           name: "starlight-page-actions-integration",
           hooks: {
