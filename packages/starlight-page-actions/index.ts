@@ -237,24 +237,55 @@ export default function starlightPageActions(
               const sidebar = starlightConfig.sidebar;
               let llmsTxtContent = `# ${starlightConfig.title} Documentation\n\n`;
 
-              if (sidebar && Array.isArray(sidebar)) {
+              const checkSidebar = (items: any[]): boolean => {
+                for (const item of items) {
+                  if (item.autogenerate) {
+                    return false;
+                  }
+
+                  if (item.slug && !item.label) {
+                    return false;
+                  }
+                  if (item.items && Array.isArray(item.items)) {
+                    for (const subItem of item.items) {
+                      if (typeof subItem === "object") {
+                        if (!checkSidebar([subItem])) {
+                          return false;
+                        }
+                      }
+                    }
+                  }
+                }
+                return true;
+              };
+
+              const canGenerateFromSidebar =
+                sidebar && Array.isArray(sidebar) && checkSidebar(sidebar);
+
+              if (canGenerateFromSidebar) {
                 const processSidebarItem = (item: any, level = 2): string => {
                   let content = "";
 
-                  if (item.label && !item.link) {
+                  if (item.label && !item.link && !item.slug) {
                     content += `${"#".repeat(level)} ${item.label}\n\n`;
                   }
 
                   if (item.link && typeof item.link === "string") {
-                    const cleanLink = item.link.replace(/^\/+|\/+$/g, "");
-                    const url = cleanLink
-                      ? `${baseUrl}/${cleanLink}`
-                      : `${baseUrl}`;
+                    const isExternalLink =
+                      item.link.startsWith("http://") ||
+                      item.link.startsWith("https://");
 
-                    if (item.label && level >= 2) {
-                      content += `- [${item.label}](${url})\n`;
-                    } else {
-                      content += `- ${url}\n`;
+                    if (!isExternalLink) {
+                      const cleanLink = item.link.replace(/^\/+|\/+$/g, "");
+                      const url = cleanLink
+                        ? `${baseUrl}/${cleanLink}`
+                        : `${baseUrl}`;
+
+                      if (item.label) {
+                        content += `- [${item.label}](${url})\n`;
+                      } else {
+                        content += `- ${url}\n`;
+                      }
                     }
                   }
 
@@ -263,7 +294,12 @@ export default function starlightPageActions(
                     const url = cleanSlug
                       ? `${baseUrl}/${cleanSlug}`
                       : `${baseUrl}`;
-                    content += `- ${url}\n`;
+
+                    if (item.label) {
+                      content += `- [${item.label}](${url})\n`;
+                    } else {
+                      content += `- ${url}\n`;
+                    }
                   }
 
                   if (item.items && Array.isArray(item.items)) {
@@ -283,7 +319,7 @@ export default function starlightPageActions(
                     }
                   }
 
-                  if (item.label && !item.link) {
+                  if (item.label && !item.link && !item.slug) {
                     content += "\n";
                   }
 
@@ -298,7 +334,9 @@ export default function starlightPageActions(
                   (page) => page.pathname !== "" && page.pathname !== "404/"
                 );
 
-                const urls = mdFiles.map((file) => `- ${baseUrl}/${file}`);
+                const urls = mdFiles.map(
+                  (file) => `- ${baseUrl}/${file.pathname}`
+                );
                 llmsTxtContent += urls.join("\n");
               }
 
