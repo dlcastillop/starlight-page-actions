@@ -237,7 +237,30 @@ export default function starlightPageActions(
               const sidebar = starlightConfig.sidebar;
               let llmsTxtContent = `# ${starlightConfig.title} Documentation\n\n`;
 
-              if (sidebar && Array.isArray(sidebar)) {
+              const checkSidebarLabels = (items: any[]): boolean => {
+                for (const item of items) {
+                  if (item.slug && !item.label) {
+                    return false;
+                  }
+                  if (item.items && Array.isArray(item.items)) {
+                    for (const subItem of item.items) {
+                      if (typeof subItem === "object") {
+                        if (!checkSidebarLabels([subItem])) {
+                          return false;
+                        }
+                      }
+                    }
+                  }
+                }
+                return true;
+              };
+
+              const canGenerateFromSidebar =
+                sidebar &&
+                Array.isArray(sidebar) &&
+                checkSidebarLabels(sidebar);
+
+              if (canGenerateFromSidebar) {
                 const processSidebarItem = (item: any, level = 2): string => {
                   let content = "";
 
@@ -309,7 +332,9 @@ export default function starlightPageActions(
                   (page) => page.pathname !== "" && page.pathname !== "404/"
                 );
 
-                const urls = mdFiles.map((file) => `- ${baseUrl}/${file}`);
+                const urls = mdFiles.map(
+                  (file) => `- ${baseUrl}/${file.pathname}`
+                );
                 llmsTxtContent += urls.join("\n");
               }
 
