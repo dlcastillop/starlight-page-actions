@@ -237,15 +237,19 @@ export default function starlightPageActions(
               const sidebar = starlightConfig.sidebar;
               let llmsTxtContent = `# ${starlightConfig.title} Documentation\n\n`;
 
-              const checkSidebarLabels = (items: any[]): boolean => {
+              const checkSidebar = (items: any[]): boolean => {
                 for (const item of items) {
+                  if (item.autogenerate) {
+                    return false;
+                  }
+
                   if (item.slug && !item.label) {
                     return false;
                   }
                   if (item.items && Array.isArray(item.items)) {
                     for (const subItem of item.items) {
                       if (typeof subItem === "object") {
-                        if (!checkSidebarLabels([subItem])) {
+                        if (!checkSidebar([subItem])) {
                           return false;
                         }
                       }
@@ -256,9 +260,7 @@ export default function starlightPageActions(
               };
 
               const canGenerateFromSidebar =
-                sidebar &&
-                Array.isArray(sidebar) &&
-                checkSidebarLabels(sidebar);
+                sidebar && Array.isArray(sidebar) && checkSidebar(sidebar);
 
               if (canGenerateFromSidebar) {
                 const processSidebarItem = (item: any, level = 2): string => {
