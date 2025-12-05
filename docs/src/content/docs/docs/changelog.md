@@ -1,10 +1,24 @@
 ---
 title: Changelog
 description: New features, bug fixes, and improvements made to Starlight Page Actions.
-lastUpdated: 2025-11-21
+lastUpdated: 2025-12-05
 ---
 
 New features, bug fixes, and improvements made to Starlight Page Actions.
+
+## v0.3.0
+
+### Features
+
+- Customize page actions
+- Per-page opt-out for page actions
+
+### Bug Fixes
+
+- Fix edge cases in the `llms.txt` generation
+  - Handle case when `slug` prop is used instead of `link`
+  - Handle case when `slug` prop is used without specifying the `label` prop
+  - Handle case when `autogenerate` is being used
 
 ## v0.2.0
 
