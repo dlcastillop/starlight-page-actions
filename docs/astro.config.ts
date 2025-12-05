@@ -38,6 +38,10 @@ export default defineConfig({
               label: "Generate the llms.txt file",
               link: "docs/guides/generate-llms-txt",
             },
+            {
+              label: "Configure Page Actions",
+              link: "docs/guides/configure-page-actions",
+            },
           ],
         },
         {
