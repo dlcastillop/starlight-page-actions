@@ -1,7 +1,7 @@
 ---
 title: Configuration Reference
 description: The full reference documentation for Starlight Page Actions plugin options.
-lastUpdated: 2025-10-30
+lastUpdated: 2025-12-05
 ---
 
 Starlight Page Actions exposes a two options to control its behavior.
@@ -57,6 +57,37 @@ export default defineConfig({
         }),
       ],
       title: "My Docs",
+    }),
+  ],
+});
+```
+
+### `actions`
+
+**type:** [`Actions`](/docs/reference/types#actions)
+
+Configure which built-in actions to display and define custom actions.
+
+You can enable or disable built-in actions (ChatGPT, Claude, T3 Chat, v0, Markdown) and define custom actions to integrate with additional tools or services.
+
+```js
+import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config";
+import starlightPageActions from "starlight-page-actions";
+
+export default defineConfig({
+  integrations: [
+    starlightPageActions({
+      actions: {
+        chatgpt: false,
+        v0: true,
+        custom: {
+          sciraAi: {
+            label: "Open in Scira AI",
+            href: "https://scira.ai/?q=",
+          },
+        },
+      },
     }),
   ],
 });
