@@ -10,7 +10,7 @@ Starlight Page Actions allows you to customize which actions appear on your docu
 
 By default, the plugin displays three actions: "Open in ChatGPT", "Open in Claude", and "View in Markdown".
 
-The plugin includes five built-in actions that you can enable or disable:
+The plugin includes five built-in actions that you can enable or disable using the `actions` property:
 
 - **`chatgpt`** - Opens the current page in ChatGPT
 - **`claude`** - Opens the current page in Claude
