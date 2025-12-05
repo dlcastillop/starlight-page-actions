@@ -64,7 +64,7 @@ export default defineConfig({
 
 ### `actions`
 
-**type:** `Actions`
+**type:** [`Actions`](/docs/reference/types#actions)
 
 Configure which built-in actions to display and define custom actions.
 
