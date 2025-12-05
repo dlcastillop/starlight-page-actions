@@ -1,0 +1,51 @@
+---
+title: Disable Page Actions per Page
+description: Learn how to disable page actions on specific documentation pages.
+lastUpdated: 2025-12-05
+---
+
+import { Steps, Tabs, TabItem } from "@astrojs/starlight/components";
+
+By default, page actions are enabled on all documentation pages. You can disable them on specific pages by extending the frontmatter schema and setting the `pageActions` property to `false`.
+
+## How to disable page actions per page
+
+<Steps>
+
+1. You need to extend the Starlight schema in your `content.config.ts` file to include the `pageActions` property.
+
+   ```diff lang="ts"
+   // content.config.ts
+    import { defineCollection } from "astro:content";
+    import { docsLoader } from "@astrojs/starlight/loaders";
+
+    export const collections = {
+      docs: defineCollection({
+        loader: docsLoader(),
+   +     schema: docsSchema({
+   +      extend: z.object({
+   +       pageActions: z.boolean().optional().default(true),
+   +      }),
+   +    }),
+      }),
+    };
+   ```
+
+2. Once you've extended the schema, you can disable page actions on any page by adding `pageActions: false` to the frontmatter.
+
+   ```mdx
+   ---
+   title: Getting Started
+   description: Learn how to get started with Starlight Page Actions.
+   lastUpdated: 2025-12-05
+   pageActions: false
+   ---
+
+   Your page content here...
+   ```
+
+</Steps>
+
+:::note
+The `pageActions` property defaults to `true`, so you only need to add it to pages where you want to disable the actions. All other pages will continue to show page actions normally.
+:::

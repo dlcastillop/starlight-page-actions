@@ -42,6 +42,10 @@ export default defineConfig({
               label: "Configure Page Actions",
               link: "docs/guides/configure-page-actions",
             },
+            {
+              label: "Disable Page Actions per Page",
+              link: "docs/guides/disable-page-actions",
+            },
           ],
         },
         {
@@ -50,6 +54,10 @@ export default defineConfig({
             {
               label: "Configuration Reference",
               link: "docs/reference/configuration",
+            },
+            {
+              label: "Types Reference",
+              link: "docs/reference/types",
             },
           ],
         },
