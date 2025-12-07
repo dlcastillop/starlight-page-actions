@@ -1,7 +1,7 @@
 ---
 title: Configuration Reference
 description: The full reference documentation for Starlight Page Actions plugin options.
-lastUpdated: 2025-12-05
+lastUpdated: 2025-12-07
 ---
 
 Starlight Page Actions exposes a two options to control its behavior.
@@ -77,17 +77,22 @@ import starlightPageActions from "starlight-page-actions";
 
 export default defineConfig({
   integrations: [
-    starlightPageActions({
-      actions: {
-        chatgpt: false,
-        v0: true,
-        custom: {
-          sciraAi: {
-            label: "Open in Scira AI",
-            href: "https://scira.ai/?q=",
+    starlight({
+      plugins: [
+        starlightPageActions({
+          actions: {
+            chatgpt: false,
+            v0: true,
+            custom: {
+              sciraAi: {
+                label: "Open in Scira AI",
+                href: "https://scira.ai/?q=",
+              },
+            },
           },
-        },
-      },
+        }),
+      ],
+      title: "My Docs",
     }),
   ],
 });

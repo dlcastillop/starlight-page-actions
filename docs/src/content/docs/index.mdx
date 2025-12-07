@@ -16,6 +16,8 @@ import Copy from "@lucide/astro/icons/copy";
 import MessageCircle from "@lucide/astro/icons/message-circle";
 import Eye from "@lucide/astro/icons/eye";
 import Bot from "@lucide/astro/icons/bot";
+import Joystick from "@lucide/astro/icons/joystick";
+import MessageCircleX from "@lucide/astro/icons/message-circle-x";
 
 <Hero
   title={{
@@ -62,6 +64,18 @@ import Bot from "@lucide/astro/icons/bot";
         "Automatically generate an optimized llms.txt file for your entire site. Follows community standards so LLMs can better index and understand your documentation.",
       icon: Bot,
     },
+    {
+      name: "Full Control Over Actions",
+      description:
+        "Choose which actions to display on your documentation. Show or hide default actions and add your own custom actions to fit your workflow and documentation needs.",
+      icon: Joystick,
+    },
+    {
+      name: "Page-Level Control",
+      description:
+        "Disable page actions on pages that aren't ideal for LLM consumption. Perfect for excluding changelog pages, legal documents, release notes, or any content that doesn't benefit from AI interaction.",
+      icon: MessageCircleX,
+    },
   ]}
 />
 
@@ -80,22 +94,22 @@ import Bot from "@lucide/astro/icons/bot";
     {
       question: "Can I customize which actions appear on my pages?",
       answer:
-        "Currently, all actions are enabled by default and cannot be individually disabled. We're considering adding granular control in future versions based on community feedback.",
+        "Yes! You have full control over which actions are displayed. You can show or hide any of the default actions and add your own custom actions to match your specific needs and workflow.",
     },
     {
       question: "How is the Markdown generated?",
       answer:
-        "The plugin uses vite-plugin-static-copy to create copies of your .md and .mdx files during the build process. This exposes the original Markdown files, making them accessible and ready to be consumed by LLMs or copied by users while preserving all formatting, code blocks, and structure.",
+        "The plugin uses vite-plugin-static-copy to create copies of your .md and .mdx files. This exposes the original Markdown files, making them accessible and ready to be consumed by LLMs or copied by users while preserving all formatting, code blocks, and structure.",
     },
     {
       question: "How is the llms.txt file generated?",
       answer:
-        "The llms.txt file is automatically generated from your Starlight sidebar configuration. The plugin reads your sidebar structure and creates a properly formatted llms.txt file that maps your documentation hierarchy, making it easy for LLMs to understand and navigate your content.",
+        "The llms.txt file is automatically generated from your Starlight sidebar configuration. The plugin reads your sidebar structure and creates a properly formatted llms.txt file that maps your documentation hierarchy, making it easy for LLMs to understand and navigate your content. In cases where the sidebar uses certain configurations like the autogenerate prop, the sidebar structure cannot be fully processed yet, so all pages are listed directly in a flat list instead of following the hierarchy.",
     },
     {
-      question: "Is this plugin free?",
+      question: "Can I disable page actions on specific pages?",
       answer:
-        "Yes, the plugin is open source and free to use. You can find it on npm and GitHub.",
+        "Yes! You can disable page actions on individual pages using frontmatter configuration. This is useful for pages that aren't ideal for LLM consumption, such as changelogs, legal documents, release notes, or any content that doesn't benefit from AI interaction.",
     },
   ]}
 />
