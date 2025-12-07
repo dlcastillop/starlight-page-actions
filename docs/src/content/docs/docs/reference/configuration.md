@@ -1,7 +1,7 @@
 ---
 title: Configuration Reference
 description: The full reference documentation for Starlight Page Actions plugin options.
-lastUpdated: 2025-12-05
+lastUpdated: 2025-12-07
 ---
 
 Starlight Page Actions exposes a two options to control its behavior.
