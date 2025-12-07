@@ -77,17 +77,22 @@ import starlightPageActions from "starlight-page-actions";
 
 export default defineConfig({
   integrations: [
-    starlightPageActions({
-      actions: {
-        chatgpt: false,
-        v0: true,
-        custom: {
-          sciraAi: {
-            label: "Open in Scira AI",
-            href: "https://scira.ai/?q=",
+    starlight({
+      plugins: [
+        starlightPageActions({
+          actions: {
+            chatgpt: false,
+            v0: true,
+            custom: {
+              sciraAi: {
+                label: "Open in Scira AI",
+                href: "https://scira.ai/?q=",
+              },
+            },
           },
-        },
-      },
+        }),
+      ],
+      title: "My Docs",
     }),
   ],
 });
