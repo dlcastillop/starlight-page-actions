@@ -1,5 +1,6 @@
 @source "../../node_modules/@dlcastillop/starlight-marketing-components/src";
 @import "@dlcastillop/starlight-marketing-components/styles";
+@import "starlight-ui-tweaks/styles";
 
 @theme {
   /* Accent color palettes. */
