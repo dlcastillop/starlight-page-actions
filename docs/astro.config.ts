@@ -110,10 +110,6 @@ export default defineConfig({
                   label: "Starlight UI Tweaks",
                   href: "https://starlight-ui-tweaks.dlcastillop.com/",
                 },
-                {
-                  label: "Hook Crafter",
-                  href: "https://hookcrafter.dev/",
-                },
               ],
             },
             secondColumn: {
