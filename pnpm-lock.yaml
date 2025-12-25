@@ -17,8 +17,8 @@ importers:
         specifier: ^4.0.2
         version: 4.0.2(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(tailwindcss@4.1.17)
       '@dlcastillop/starlight-marketing-components':
-        specifier: ^0.1.0
-        version: 0.1.0(@astrojs/starlight-tailwind@4.0.2(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(tailwindcss@4.1.17))(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(@lucide/astro@0.553.0(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))(tailwindcss@4.1.17)
+        specifier: ^0.1.1
+        version: 0.1.1(@astrojs/starlight-tailwind@4.0.2(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(tailwindcss@4.1.17))(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(@lucide/astro@0.553.0(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))(tailwindcss@4.1.17)
       '@lucide/astro':
         specifier: ^0.553.0
         version: 0.553.0(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))
@@ -125,14 +125,14 @@ packages:
     resolution: {integrity: sha512-kzyuwOAQnXJNLS9PSyrk0CWk35nWJW/zl/6KvnTBMFK65gm7U1/Z5BqjxeapjZCIhQcM/DsrEmcbRwDyXyXK4A==}
     engines: {node: '>=14'}
 
-  '@dlcastillop/starlight-marketing-components@0.1.0':
-    resolution: {integrity: sha512-tpXkAyljOx1ENynFIDJzk2SsaziOvIQB+HyFlCIE+GoJH/kNPZr0uNo2lkkz/bO+s1bHMsf0Hb4pvYGnoq+0gg==, tarball: https://npm.pkg.github.com/download/@dlcastillop/starlight-marketing-components/0.1.0/5b70855b917eceec26fb9c10ebbac4d323f90696}
+  '@dlcastillop/starlight-marketing-components@0.1.1':
+    resolution: {integrity: sha512-VpaHFAZAm8jyiyHzCBXC3H02i1Nw1SYgvrC2P6c9xOI7kQDVyxR/Ign1zuL5RR7NzkMEPJUrWUb4Zxk9MzCE7A==, tarball: https://npm.pkg.github.com/download/@dlcastillop/starlight-marketing-components/0.1.1/0b4017de9097b1e84dc13ece52f6d191a996b081}
     peerDependencies:
-      '@astrojs/starlight': 0.36.0
-      '@astrojs/starlight-tailwind': 4.0.1
-      '@lucide/astro': ^0.553.0
-      astro: 5.6.1
-      tailwindcss: 4.0.7
+      '@astrojs/starlight': '>=0.36.0'
+      '@astrojs/starlight-tailwind': '>=4.0.1'
+      '@lucide/astro': '>=0.553.0'
+      astro: '>=5.6.1'
+      tailwindcss: '>=4.0.7'
 
   '@emnapi/runtime@1.6.0':
     resolution: {integrity: sha512-obtUmAHTMjll499P+D9A3axeJFlhdjOWdKUNs/U6QIGT7V5RjcUW1xToAzjvmgTSQhDbYn/NwfTRoJcQ2rNBxA==}
@@ -2215,7 +2215,7 @@ snapshots:
 
   '@ctrl/tinycolor@4.2.0': {}
 
-  '@dlcastillop/starlight-marketing-components@0.1.0(@astrojs/starlight-tailwind@4.0.2(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(tailwindcss@4.1.17))(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(@lucide/astro@0.553.0(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))(tailwindcss@4.1.17)':
+  '@dlcastillop/starlight-marketing-components@0.1.1(@astrojs/starlight-tailwind@4.0.2(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(tailwindcss@4.1.17))(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(@lucide/astro@0.553.0(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))(tailwindcss@4.1.17)':
     dependencies:
       '@astrojs/starlight': 0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))
       '@astrojs/starlight-tailwind': 4.0.2(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))(tailwindcss@4.1.17)
