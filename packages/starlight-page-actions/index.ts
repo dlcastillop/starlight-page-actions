@@ -165,12 +165,11 @@ export default function starlightPageActions(
                               }
                             }
 
-                            const contentWithoutImports = markdownContent
-                              .split("\n")
-                              .filter(
-                                (line) => !line.trim().startsWith("import ")
-                              )
-                              .join("\n");
+                            const contentWithoutImports =
+                              markdownContent.replace(
+                                /import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g,
+                                ""
+                              );
 
                             let newContent = "";
 
