@@ -23,3 +23,13 @@ declare module "virtual:starlight-page-actions/config" {
   const config: PageActionsConfig;
   export default config;
 }
+
+declare namespace App {
+  type StarlightLocals = import("@astrojs/starlight").StarlightLocals;
+  interface Locals extends StarlightLocals {}
+}
+
+declare namespace StarlightApp {
+  type UIStrings = typeof import("./i18n/translations").translations.en;
+  interface I18n extends UIStrings {}
+}

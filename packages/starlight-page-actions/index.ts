@@ -4,6 +4,7 @@ import { normalizePath } from "./utils";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { translations } from "./i18n/translations";
 
 interface Actions {
   chatgpt?: boolean;
@@ -351,6 +352,9 @@ export default function starlightPageActions(
             ...starlightConfig.components,
           },
         });
+      },
+      "i18n:setup"({ injectTranslations }) {
+        injectTranslations(translations);
       },
     },
   };

@@ -21,27 +21,27 @@ const encodedPrompt = encodeURIComponent(prompt as string);
 
 const defaultOptions: OptionsProps[] = [
   {
-    label: "Open in ChatGPT",
+    label: Astro.locals.t("open.chatgpt"),
     href: `https://chatgpt.com/?q=${encodedPrompt}`,
     id: "chatgpt",
   },
   {
-    label: "Open in Claude",
+    label: Astro.locals.t("open.claude"),
     href: `https://claude.ai/new?q=${encodedPrompt}`,
     id: "claude",
   },
   {
-    label: "Open in T3 Chat",
+    label: Astro.locals.t("open.t3chat"),
     href: `https://t3.chat/new?q=${encodedPrompt}`,
     id: "t3chat",
   },
   {
-    label: "Open in v0",
+    label: Astro.locals.t("open.v0"),
     href: `https://v0.app/?q=${encodedPrompt}`,
     id: "v0",
   },
   {
-    label: "View in Markdown",
+    label: Astro.locals.t("view.markdown"),
     href: `${currentPath}.md`,
     id: "markdown",
   },
@@ -75,7 +75,7 @@ const options = [...filteredDefaultOptions, ...customOptions];
         <Icon name="mdx" size="1rem" class="icon-default" />
         <Icon name="approve-check" size="1rem" class="icon-success" />
         <Icon name="error" size="1rem" class="icon-error" />
-        <span>Copy Markdown</span>
+        <span>{Astro.locals.t("copy.markdown")}</span>
       </button>
 
       {
@@ -86,7 +86,7 @@ const options = [...filteredDefaultOptions, ...customOptions];
               id="dropdown-toggle"
               aria-label="More options"
             >
-              <span>Open</span>
+              <span>{Astro.locals.t("open")}</span>
               <Icon name="down-caret" size="1rem" />
             </button>
 
