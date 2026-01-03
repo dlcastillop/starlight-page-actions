@@ -43,9 +43,6 @@ importers:
 
   packages/starlight-page-actions:
     dependencies:
-      vite:
-        specifier: ^6.1.0
-        version: 6.4.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)
       vite-plugin-static-copy:
         specifier: ^3.1.4
         version: 3.1.4(vite@6.4.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2))

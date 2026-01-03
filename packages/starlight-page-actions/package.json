@@ -21,8 +21,7 @@
     "./overrides/PageTitle.astro": "./overrides/PageTitle.astro"
   },
   "dependencies": {
-    "vite-plugin-static-copy": "^3.1.4",
-    "vite": "^6.1.0"
+    "vite-plugin-static-copy": "^3.1.4"
   },
   "devDependencies": {
     "@astrojs/starlight": "^0.36.1",
