@@ -1,6 +1,6 @@
 import type { StarlightPlugin } from "@astrojs/starlight/types";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import { normalizePath } from "vite";
+import { normalizePath } from "./utils";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
