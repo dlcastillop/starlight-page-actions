@@ -1,0 +1,34 @@
+---
+title: "404"
+template: splash
+hero:
+  title: ""
+---
+
+import { NotFound } from "@dlcastillop/starlight-marketing-components";
+import FastForward from "@lucide/astro/icons/fast-forward";
+import BookOpen from "@lucide/astro/icons/book-open";
+import Library from "@lucide/astro/icons/library";
+
+<NotFound
+  links={[
+    {
+      name: "Getting Started",
+      href: "/docs/getting-started",
+      description: "Learn how to get started.",
+      icon: FastForward,
+    },
+    {
+      name: "Guides",
+      href: "/docs/guides/customize-prompt",
+      description: "Step-by-step tutorials and how-to guides.",
+      icon: BookOpen,
+    },
+    {
+      name: "Reference",
+      href: "/docs/reference/configuration",
+      description: "Technical documentation and API reference.",
+      icon: Library,
+    },
+  ]}
+/>
