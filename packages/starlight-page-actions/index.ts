@@ -166,19 +166,24 @@ export default function starlightPageActions(
                               }
                             }
 
-                            const contentWithoutImports =
-                              markdownContent.replace(
-                                /import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g,
-                                ""
-                              );
+                            // Clean markdown
+                            const regexs = [
+                              /import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g, // imports
+                              /<\s*\/?\s*Steps\b[^>]*>\s*/g, // <Steps>
+                            ];
 
-                            let newContent = "";
+                            let cleanContent = regexs.reduce(
+                              (content, regex) => content.replace(regex, ""),
+                              markdownContent
+                            );
 
-                            if (title) {
-                              newContent = `# ${title}\n\n`;
-                            }
+                            cleanContent = cleanContent.replace(
+                              /\n{3,}/g,
+                              "\n\n"
+                            );
 
-                            newContent += contentWithoutImports.trim();
+                            let newContent = title ? `# ${title}\n\n` : "";
+                            newContent += cleanContent.trim();
 
                             return newContent;
                           },
