@@ -1,10 +1,23 @@
 ---
 title: Changelog
 description: New features, bug fixes, and improvements made to Starlight Page Actions.
-lastUpdated: 2025-12-05
+lastUpdated: 2026-01-14
 ---
 
 New features, bug fixes, and improvements made to Starlight Page Actions.
+
+## v0.4.0
+
+### Features
+
+- Add internationalization for plugin UI texts
+- Remove `Steps` component from Markdown content
+- Replace `LinkCard` component with Markdown links
+- Apply `baseUrl` to internal links in Markdown
+
+### Bug Fixes
+
+- Fix multi-line imports not being fully removed from Markdown content
 
 ## v0.3.0
 
