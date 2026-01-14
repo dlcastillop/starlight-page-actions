@@ -189,6 +189,15 @@ export default function starlightPageActions(
                               (_, title, href) => `[${title}](${href})`
                             );
 
+                            // Apply baseUrl to internal links
+                            if (config.baseUrl) {
+                              cleanContent = cleanContent.replace(
+                                /\[([^\]]+)\]\((\/[^)]+)\)/g,
+                                (_, text, href) =>
+                                  `[${text}](${config.baseUrl}${href})`
+                              );
+                            }
+
                             // Normalize spacing
                             cleanContent = cleanContent.replace(
                               /\n{3,}/g,
