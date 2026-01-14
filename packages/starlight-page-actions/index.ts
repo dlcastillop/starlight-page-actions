@@ -169,7 +169,7 @@ export default function starlightPageActions(
                             // Clean markdown
                             const regexs = [
                               /import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g, // imports
-                              /<\s*\/?\s*Steps\b[^>]*>\s*/g, // <Steps>
+                              /<\s*\/?\s*Steps\b[^>]*>\s*/g, // Steps
                             ];
 
                             let cleanContent = regexs.reduce(
@@ -177,6 +177,19 @@ export default function starlightPageActions(
                               markdownContent
                             );
 
+                            // Replace <LinkCard />
+                            cleanContent = cleanContent.replace(
+                              /<LinkCard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/>/g,
+                              (_, title, href) => `[${title}](${href})`
+                            );
+
+                            // Replace {% linkcard %}
+                            cleanContent = cleanContent.replace(
+                              /{%\s*linkcard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/%}/g,
+                              (_, title, href) => `[${title}](${href})`
+                            );
+
+                            // Normalize spacing
                             cleanContent = cleanContent.replace(
                               /\n{3,}/g,
                               "\n\n"
