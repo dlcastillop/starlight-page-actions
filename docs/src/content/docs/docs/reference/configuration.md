@@ -1,10 +1,10 @@
 ---
 title: Configuration Reference
 description: The full reference documentation for Starlight Page Actions plugin options.
-lastUpdated: 2025-12-07
+lastUpdated: 2026-01-14
 ---
 
-Starlight Page Actions exposes a two options to control its behavior.
+Starlight Page Actions exposes a three options to control its behavior.
 
 ## Configure the plugin
 
@@ -39,9 +39,11 @@ export default defineConfig({
 
 **type:** `string`
 
-Required to generate the llms.txt file.
+Required to generate the `llms.txt` file.
 
-This URL is used as the base for all pages listed in llms.txt. Without it, the file will not be created.
+This URL is used as the base for all pages listed in `llms.txt`. Without it, the file will not be created.
+
+`baseUrl` is also applied to internal links in the Markdown content. When `baseUrl` is not specified, internal links are preserved as-is.
 
 ```js
 import starlight from "@astrojs/starlight";

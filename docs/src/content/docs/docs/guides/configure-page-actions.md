@@ -1,7 +1,7 @@
 ---
 title: Configure Page Actions
 description: Learn how to customize the page actions displayed on your documentation site.
-lastUpdated: 2025-12-05
+lastUpdated: 2026-01-14
 ---
 
 Starlight Page Actions allows you to customize which actions appear on your documentation pages, including built-in integrations with AI tools and custom actions.
@@ -31,6 +31,10 @@ starlightPageActions({
   },
 });
 ```
+
+:::note
+All default actions are internationalized and support English, Spanish, Portuguese, French, Italian, and German. The "Copy Markdown" button is also included in the internationalization.
+:::
 
 ## Custom actions
 
