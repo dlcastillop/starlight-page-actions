@@ -166,19 +166,37 @@ export default function starlightPageActions(
                               }
                             }
 
-                            const contentWithoutImports =
-                              markdownContent.replace(
-                                /import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g,
-                                ""
-                              );
+                            // Clean markdown
+                            const regexs = [
+                              /import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g, // imports
+                              /<\s*\/?\s*Steps\b[^>]*>\s*/g, // Steps
+                            ];
 
-                            let newContent = "";
+                            let cleanContent = regexs.reduce(
+                              (content, regex) => content.replace(regex, ""),
+                              markdownContent
+                            );
 
-                            if (title) {
-                              newContent = `# ${title}\n\n`;
-                            }
+                            // Replace <LinkCard />
+                            cleanContent = cleanContent.replace(
+                              /<LinkCard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/>/g,
+                              (_, title, href) => `[${title}](${href})`
+                            );
 
-                            newContent += contentWithoutImports.trim();
+                            // Replace {% linkcard %}
+                            cleanContent = cleanContent.replace(
+                              /{%\s*linkcard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/%}/g,
+                              (_, title, href) => `[${title}](${href})`
+                            );
+
+                            // Normalize spacing
+                            cleanContent = cleanContent.replace(
+                              /\n{3,}/g,
+                              "\n\n"
+                            );
+
+                            let newContent = title ? `# ${title}\n\n` : "";
+                            newContent += cleanContent.trim();
 
                             return newContent;
                           },
