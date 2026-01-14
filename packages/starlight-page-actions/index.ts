@@ -1,6 +1,6 @@
 import type { StarlightPlugin } from "@astrojs/starlight/types";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import { normalizePath } from "./utils";
+import { normalizePath, normalizeUrl } from "./utils";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -190,11 +190,12 @@ export default function starlightPageActions(
                             );
 
                             // Apply baseUrl to internal links
-                            if (config.baseUrl) {
+                            const baseUrl = normalizeUrl(config.baseUrl);
+                            if (baseUrl) {
                               cleanContent = cleanContent.replace(
                                 /\[([^\]]+)\]\((\/[^)]+)\)/g,
                                 (_, text, href) =>
-                                  `[${text}](${config.baseUrl}${href})`
+                                  `[${text}](${baseUrl}${href})`
                               );
                             }
 
@@ -255,11 +256,9 @@ export default function starlightPageActions(
               });
             },
             "astro:build:done": async ({ dir, pages }) => {
-              if (!config.baseUrl) return;
+              const baseUrl = normalizeUrl(config.baseUrl);
+              if (!baseUrl) return;
 
-              const baseUrl = config.baseUrl.endsWith("/")
-                ? config.baseUrl.slice(0, -1)
-                : config.baseUrl;
               const distPath = fileURLToPath(dir);
               const sidebar = starlightConfig.sidebar;
               let llmsTxtContent = `# ${starlightConfig.title} Documentation\n\n`;
