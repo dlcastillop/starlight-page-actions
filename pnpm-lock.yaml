@@ -35,8 +35,8 @@ importers:
         specifier: workspace:*
         version: link:../packages/starlight-page-actions
       starlight-ui-tweaks:
-        specifier: ^0.2.0
-        version: 0.2.0(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))
+        specifier: ^0.2.1
+        version: 0.2.1(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3)))
       tailwindcss:
         specifier: ^4.1.17
         version: 4.1.17
@@ -1763,8 +1763,8 @@ packages:
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
 
-  starlight-ui-tweaks@0.2.0:
-    resolution: {integrity: sha512-KbURk1HA1Sgb7N4wVo3S6RkiA47G0KQ193MbNxBiedID6mwJrZSrOtpUqhkoF+e/IwdzAe+NnM1I5TJx4pk3JA==}
+  starlight-ui-tweaks@0.2.1:
+    resolution: {integrity: sha512-VxrgZ0CPEnRwMJWd7KK/m9osBo5GqP0K5VCyygo4hUewYqtYO+ey6pn+7JuFE+Su0ZhNuX1dSwwtrcqtd63HGQ==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
     peerDependencies:
       '@astrojs/starlight': '>=0.36'
@@ -4310,7 +4310,7 @@ snapshots:
 
   space-separated-tokens@2.0.2: {}
 
-  starlight-ui-tweaks@0.2.0(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))):
+  starlight-ui-tweaks@0.2.1(@astrojs/starlight@0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))):
     dependencies:
       '@astrojs/starlight': 0.36.1(astro@5.15.1(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.5)(typescript@5.9.3))
 
