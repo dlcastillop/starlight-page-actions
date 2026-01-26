@@ -11,6 +11,7 @@ import {
   Features,
   Faq,
   Cta,
+  CompaniesLogos
 } from "@dlcastillop/starlight-marketing-components";
 import Copy from "@lucide/astro/icons/copy";
 import MessageCircle from "@lucide/astro/icons/message-circle";
@@ -34,6 +35,17 @@ import MessageCircleX from "@lucide/astro/icons/message-circle-x";
     title: "More developer tools",
     href: "https://www.patreon.com/dlcastillop/shop",
   }}
+/>
+
+<CompaniesLogos
+  title="Trusted by developers at"
+  images={[
+    {
+      whiteSrc: "/microsoft-white.avif",
+      blackSrc: "/microsoft-black.avif",
+      alt: "Microsoft logo",
+    },
+  ]}
 />
 
 <Features
