@@ -75,13 +75,18 @@ export default defineConfig({
         },
         {
           icon: "linkedin",
-          href: "https://linkedin.com/dlcastillop",
+          href: "https://linkedin.com/in/dlcastillop",
           label: "LinkedIn account",
         },
         {
           icon: "threads",
           href: "https://threads.com/@dlcastillop",
           label: "Threads account",
+        },
+        {
+          icon: "patreon",
+          href: "https://patreon.com/dlcastillop",
+          label: "Patreon account",
         },
       ],
       plugins: [

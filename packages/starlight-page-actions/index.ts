@@ -5,6 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { translations } from "./i18n/translations";
+import virtual from "vite-plugin-virtual";
 
 interface Actions {
   chatgpt?: boolean;
@@ -124,19 +125,10 @@ export default function starlightPageActions(
               updateConfig({
                 vite: {
                   plugins: [
-                    {
-                      name: "starlight-page-actions-config",
-                      resolveId(id) {
-                        if (id === "virtual:starlight-page-actions/config") {
-                          return "\0" + id;
-                        }
-                      },
-                      load(id) {
-                        if (id === "\0virtual:starlight-page-actions/config") {
-                          return `export default ${JSON.stringify(config)}`;
-                        }
-                      },
-                    },
+                    virtual({
+                      "virtual:module": `export default ${JSON.stringify(config)}`,
+                      "virtual:config": config,
+                    }),
                     viteStaticCopy({
                       targets: [
                         {
