@@ -1,5 +1,5 @@
 // env.d.ts
-declare module "virtual:starlight-page-actions/config" {
+declare module "virtual:config" {
   interface Actions {
     chatgpt?: boolean;
     claude?: boolean;
