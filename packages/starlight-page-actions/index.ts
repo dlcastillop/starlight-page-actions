@@ -189,6 +189,12 @@ export default function starlightPageActions(
                                 (_, title, content) => `**${title}**\n${content.trim()}\n`
                             );
 
+                            // Replace {% card %}
+                            cleanContent = cleanContent.replace(
+                                /\{%\s*card\s+title=["']([^"']+)["'][\s\S]*?\s*%\}([\s\S]*?)\{%\s*\/card\s*%\}/g,
+                                (_, title, content) => `**${title}**\n${content.trim()}\n`
+                            );
+
                             // Apply baseUrl to internal links
                             const baseUrl = normalizeUrl(config.baseUrl);
                             if (baseUrl) {
