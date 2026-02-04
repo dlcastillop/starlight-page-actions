@@ -183,6 +183,12 @@ export default function starlightPageActions(
                               (_, title, href) => `[${title}](${href})`
                             );
 
+                            // Replace <Card />
+                            cleanContent = cleanContent.replace(
+                                /<Card[\s\S]*?title=["']([^"']+)["'][\s\S]*?(?:icon=["'][^"']*["'][\s\S]*?)?>([\s\S]*?)<\/Card>/g,
+                                (_, title, content) => `**${title}**\n${content.trim()}\n`
+                            );
+
                             // Apply baseUrl to internal links
                             const baseUrl = normalizeUrl(config.baseUrl);
                             if (baseUrl) {
@@ -236,11 +242,9 @@ export default function starlightPageActions(
                             const directories = pathSegments
                               .slice(0, -1)
                               .join("/");
-                            const finalPath = directories
+                            return directories
                               ? `${directories}/${fileName}.md`
                               : `${fileName}.md`;
-
-                            return finalPath;
                           },
                         },
                       ],
