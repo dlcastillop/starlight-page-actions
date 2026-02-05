@@ -135,9 +135,9 @@ export default function starlightPageActions(
                           src: "src/content/docs/**/*.{md,mdx}",
                           dest: "",
                           transform: (content: string) => {
-                            const frontmatterRegex =
+                            const frontMatterRegex =
                               /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
-                            const match = content.match(frontmatterRegex);
+                            const match = content.match(frontMatterRegex);
 
                             let title = "";
                             let markdownContent = content;
@@ -147,10 +147,10 @@ export default function starlightPageActions(
                               match[1] !== undefined &&
                               match[2] !== undefined
                             ) {
-                              const frontmatter = match[1];
+                              const frontMatter = match[1];
                               markdownContent = match[2];
 
-                              const titleMatch = frontmatter.match(
+                              const titleMatch = frontMatter.match(
                                 /title:\s*["']?([^"'\n]+)["']?/
                               );
                               if (titleMatch && titleMatch[1] !== undefined) {
@@ -167,6 +167,8 @@ export default function starlightPageActions(
                               /\{%\s*\/?\s*cardgrid\s*%\}/g, // {% cardgrid %}
                               /<\s*\/?\s*FileTree\b[^>]*>\s*/g, // <FileTree />
                               /\{%\s*filetree\s*%\}([\s\S]*?)\{%\s*\/filetree\s*%\}/g, // {% filetree %}
+                              /<\s*\/?\s*Icon\b[^>]*>\s*/g, // <Icon />
+                              /\{%\s*icon\s*%\}([\s\S]*?)\{%\s*\/icon\s*%\}/g, // {% icon %}
                             ];
 
                             let cleanContent = regexes.reduce(
@@ -239,6 +241,7 @@ export default function starlightPageActions(
                                 cleanContent
                             );
 
+                            // Replace <Code /> and {% code %}
                             const codeRegexes = [
                               /<Code\s+code=(?:\{([^}]+)\}|["']([^"']+)["'])(?:\s+lang=["']([^"']+)["'])?(?:\s+title=(?:\{([^}]+)\}|["']([^"']+)["']))?[\s\S]*?\/>/g,
                               /\{%\s*code\s+code=["']([^"']+)["'](?:\s+lang=["']([^"']+)["'])?(?:\s+title=["']([^"']+)["'])?[\s\S]*?\/%\}/g
