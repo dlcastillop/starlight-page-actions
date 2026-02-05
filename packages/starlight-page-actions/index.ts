@@ -159,6 +159,7 @@ export default function starlightPageActions(
                             }
 
                             // Clean Markdown
+
                             // Remove components
                             const regexes = [
                               /<\s*\/?\s*Steps\b[^>]*>\s*/g, // <Steps />
@@ -291,10 +292,21 @@ export default function starlightPageActions(
                             }
 
                             // Normalize spacing
-                            cleanContent = cleanContent.replace(
-                              /\n{3,}/g,
-                              "\n\n"
-                            );
+                            cleanContent = cleanContent.replace(/\n{3,}/g, "\n\n");
+
+                            // Fix indentation issues
+                            cleanContent = cleanContent.split('\n').map((line, index, lines) => {
+                              if (/^\s+\d+\./.test(line)) {
+                                return line.replace(/^\s+/, '');
+                              }
+
+                              const prevLine = lines[index - 1];
+                              if (index > 0 && prevLine && /^\d+\./.test(prevLine.trim()) && /^\s{4,}/.test(line)) {
+                                return line.replace(/^\s+/, '   ');
+                              }
+
+                              return line;
+                            }).join('\n');
 
                             let newContent = title ? `# ${title}\n\n` : "";
                             newContent += cleanContent.trim();
