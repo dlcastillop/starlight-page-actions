@@ -189,7 +189,7 @@ export default function starlightPageActions(
 
                             // Replace <Card />
                             cleanContent = cleanContent.replace(
-                                /<Card[\s\S]*?title=["']([^"']+)["'][\s\S]*?(?:icon=["'][^"']*["'][\s\S]*?)?>([\s\S]*?)<\/Card>/g,
+                                /^\s*<Card[\s\S]*?title=["']([^"']+)["'][\s\S]*?(?:icon=["'][^"']*["'][\s\S]*?)?>([\s\S]*?)<\/Card>/gm,
                                 (_, title, content) => `**${title}**\n${content.trim()}\n`
                             );
 
