@@ -217,6 +217,25 @@ export default function starlightPageActions(
                                 }
                             );
 
+                            // Replace {% aside %}
+                            cleanContent = cleanContent.replace(
+                                /\{%\s*aside(?:\s+type=["'](\w+)["'])?(?:\s+title=["']([^"']+)["'])?\s*%\}([\s\S]*?)\{%\s*\/aside\s*%\}/gm,
+                                (_, type: "note"|"tip"|"caution"|"danger", title: string, content: string) => {
+                                  // Determinar el título basado en type o title
+                                  const defaultTitles = {
+                                    note: 'Note',
+                                    tip: 'Tip',
+                                    caution: 'Caution',
+                                    danger: 'Danger'
+                                  };
+
+                                  const finalType = type || 'note';
+                                  const finalTitle = title || defaultTitles[finalType];
+
+                                  return `**${finalTitle}:** ${content.trim()}\n`;
+                                }
+                            );
+
                             // Apply baseUrl to internal links
                             const baseUrl = normalizeUrl(config.baseUrl);
                             if (baseUrl) {
