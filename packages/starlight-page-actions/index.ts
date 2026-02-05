@@ -160,7 +160,8 @@ export default function starlightPageActions(
 
                             // Clean Markdown
                             const regexs = [
-                              /<\s*\/?\s*Steps\b[^>]*>\s*/g, // Steps
+                              /<\s*\/?\s*Steps\b[^>]*>\s*/g, // <Steps />
+                              /<\s*\/?\s*CardGrid\b[^>]*>\s*/g, // <CardGrid />
                             ];
 
                             let cleanContent = regexs.reduce(
