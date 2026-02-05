@@ -160,15 +160,18 @@ export default function starlightPageActions(
 
                             // Clean Markdown
                             const regexs = [
-                              /(```[\s\S]*?```)|import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g, // imports
                               /<\s*\/?\s*Steps\b[^>]*>\s*/g, // Steps
                             ];
 
                             let cleanContent = regexs.reduce(
-                                (content, regex) => content.replace(regex, (_, codeBlock) => {
-                                  return codeBlock || '';
-                                }),
+                                (content, regex) => content.replace(regex, ""),
                                 markdownContent
+                            );
+
+                            // imports
+                            cleanContent = cleanContent.replace(
+                                /(```[\s\S]*?```)|import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g,
+                                (_, codeBlock) => codeBlock || ''
                             );
 
                             // Replace <LinkCard />
