@@ -199,6 +199,24 @@ export default function starlightPageActions(
                                 (_, title, content) => `**${title}**\n${content.trim()}\n`
                             );
 
+                            // Replace <Aside />
+                            cleanContent = cleanContent.replace(
+                                /^\s*<Aside(?:\s+type=["'](\w+)["'])?(?:\s+title=["']([^"']+)["'])?\s*>([\s\S]*?)<\/Aside>/gm,
+                                (_, type: "note"|"tip"|"caution"|"danger", title: string, content: string) => {
+                                  const defaultTitles = {
+                                    note: 'Note',
+                                    tip: 'Tip',
+                                    caution: 'Caution',
+                                    danger: 'Danger'
+                                  };
+
+                                  const finalType = type || "note";
+                                  const finalTitle = title || defaultTitles[finalType];
+
+                                  return `**${finalTitle}:** ${content.trim()}`;
+                                }
+                            );
+
                             // Apply baseUrl to internal links
                             const baseUrl = normalizeUrl(config.baseUrl);
                             if (baseUrl) {
