@@ -159,81 +159,69 @@ export default function starlightPageActions(
                             }
 
                             // Clean Markdown
-                            const regexs = [
-                              /<\s*\/?\s*Steps\b[^>]*>\s*/g, // <Steps />
-                              /<\s*\/?\s*CardGrid\b[^>]*>\s*/g, // <CardGrid />
+                            // Remove <Steps /> and <CardGrid />
+                            const regexes = [
+                              /<\s*\/?\s*Steps\b[^>]*>\s*/g,
+                              /<\s*\/?\s*CardGrid\b[^>]*>\s*/g,
                             ];
 
-                            let cleanContent = regexs.reduce(
+                            let cleanContent = regexes.reduce(
                                 (content, regex) => content.replace(regex, ""),
                                 markdownContent
                             );
 
-                            // imports
+                            // Remove imports
                             cleanContent = cleanContent.replace(
                                 /(```[\s\S]*?```)|import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g,
                                 (_, codeBlock) => codeBlock || ''
                             );
 
-                            // Replace <LinkCard />
-                            cleanContent = cleanContent.replace(
+                            // Replace <LinkCard /> and {% linkcard %}
+                            const linkCardRegexes = [
                               /<LinkCard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/>/g,
-                              (_, title, href) => `[${title}](${href})`
+                              /{%\s*linkcard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/%}/g
+                            ];
+
+                            cleanContent = linkCardRegexes.reduce(
+                                (content, regex) => content.replace(regex, (_, title: string, href: string) => `[${title}](${href})`),
+                                cleanContent
                             );
 
-                            // Replace {% linkcard %}
-                            cleanContent = cleanContent.replace(
-                              /{%\s*linkcard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/%}/g,
-                              (_, title, href) => `[${title}](${href})`
+                            // Replace <Card /> and {% card %}
+                            const cardRegexes = [
+                              /^\s*<Card[\s\S]*?title=["']([^"']+)["'][\s\S]*?(?:icon=["'][^"']*["'][\s\S]*?)?>([\s\S]*?)<\/Card>/gm,
+                              /\{%\s*card\s+title=["']([^"']+)["'][\s\S]*?\s*%\}([\s\S]*?)\{%\s*\/card\s*%\}/g
+                            ];
+
+                            cleanContent = cardRegexes.reduce(
+                                (content, regex) => content.replace(regex, (_, title: string, content: string) => `**${title}**\n${content.trim()}\n`),
+                                cleanContent
                             );
 
-                            // Replace <Card />
-                            cleanContent = cleanContent.replace(
-                                /^\s*<Card[\s\S]*?title=["']([^"']+)["'][\s\S]*?(?:icon=["'][^"']*["'][\s\S]*?)?>([\s\S]*?)<\/Card>/gm,
-                                (_, title, content) => `**${title}**\n${content.trim()}\n`
-                            );
+                            // Replace <Aside /> and {% aside %}
+                            const asideRegexes = [
+                              /^\s*<Aside(?:\s+type=["'](\w+)["'])?(?:\s+title=["']([^"']+)["'])?\s*>([\s\S]*?)<\/Aside>/gm,
+                              /\{%\s*aside(?:\s+type=["'](\w+)["'])?(?:\s+title=["']([^"']+)["'])?\s*%\}([\s\S]*?)\{%\s*\/aside\s*%\}/gm
+                            ];
 
-                            // Replace {% card %}
-                            cleanContent = cleanContent.replace(
-                                /\{%\s*card\s+title=["']([^"']+)["'][\s\S]*?\s*%\}([\s\S]*?)\{%\s*\/card\s*%\}/g,
-                                (_, title, content) => `**${title}**\n${content.trim()}\n`
-                            );
+                            cleanContent = asideRegexes.reduce(
+                                (content, regex) => content.replace(
+                                    regex,
+                                    (_, type: "note"|"tip"|"caution"|"danger", title: string, contentText: string) => {
+                                      const defaultTitles = {
+                                        note: 'Note',
+                                        tip: 'Tip',
+                                        caution: 'Caution',
+                                        danger: 'Danger'
+                                      };
 
-                            // Replace <Aside />
-                            cleanContent = cleanContent.replace(
-                                /^\s*<Aside(?:\s+type=["'](\w+)["'])?(?:\s+title=["']([^"']+)["'])?\s*>([\s\S]*?)<\/Aside>/gm,
-                                (_, type: "note"|"tip"|"caution"|"danger", title: string, content: string) => {
-                                  const defaultTitles = {
-                                    note: 'Note',
-                                    tip: 'Tip',
-                                    caution: 'Caution',
-                                    danger: 'Danger'
-                                  };
+                                      const finalType = type || 'note';
+                                      const finalTitle = title || defaultTitles[finalType];
 
-                                  const finalType = type || "note";
-                                  const finalTitle = title || defaultTitles[finalType];
-
-                                  return `**${finalTitle}:** ${content.trim()}`;
-                                }
-                            );
-
-                            // Replace {% aside %}
-                            cleanContent = cleanContent.replace(
-                                /\{%\s*aside(?:\s+type=["'](\w+)["'])?(?:\s+title=["']([^"']+)["'])?\s*%\}([\s\S]*?)\{%\s*\/aside\s*%\}/gm,
-                                (_, type: "note"|"tip"|"caution"|"danger", title: string, content: string) => {
-                                  // Determinar el título basado en type o title
-                                  const defaultTitles = {
-                                    note: 'Note',
-                                    tip: 'Tip',
-                                    caution: 'Caution',
-                                    danger: 'Danger'
-                                  };
-
-                                  const finalType = type || 'note';
-                                  const finalTitle = title || defaultTitles[finalType];
-
-                                  return `**${finalTitle}:** ${content.trim()}\n`;
-                                }
+                                      return `**${finalTitle}:** ${contentText.trim()}`;
+                                    }
+                                ),
+                                cleanContent
                             );
 
                             // Apply baseUrl to internal links
