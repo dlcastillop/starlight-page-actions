@@ -247,6 +247,17 @@ export default function starlightPageActions(
                               /\{%\s*code\s+code=["']([^"']+)["'](?:\s+lang=["']([^"']+)["'])?(?:\s+title=["']([^"']+)["'])?[\s\S]*?\/%\}/g
                             ];
 
+                            // Replace <LinkButton /> and {% linkbutton %}
+                            const linkButtonRegexes = [
+                              /<LinkButton[\s\S]*?href=["']([^"']+)["'][\s\S]*?>([\s\S]*?)<\/LinkButton>/g,
+                              /\{%\s*linkbutton[\s\S]*?href=["']([^"']+)["'][\s\S]*?%\}([\s\S]*?)\{%\s*\/linkbutton\s*%\}/g
+                            ];
+
+                            cleanContent = linkButtonRegexes.reduce(
+                                (content, regex) => content.replace(regex, (_, href: string, text: string) => `[${text.trim()}](${href})`),
+                                cleanContent
+                            );
+
                             cleanContent = codeRegexes.reduce(
                                 (content, regex) => content.replace(
                                     regex,
