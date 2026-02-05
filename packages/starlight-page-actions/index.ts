@@ -43,7 +43,7 @@ export interface PageActionsConfig {
  * @see {@link https://starlight-page-actions.dlcastillop.com/docs/reference/configuration|Configuration Reference}
  *
  * @example
- * ```javascript
+ * ```js
  * // astro.config.mjs
  * import starlight from '@astrojs/starlight';
  * import starlightPageActions from 'starlight-page-actions';
@@ -232,6 +232,31 @@ export default function starlightPageActions(
 
                             cleanContent = badgeRegexes.reduce(
                                 (content, regex) => content.replace(regex, (_, text: string) => text),
+                                cleanContent
+                            );
+
+                            const codeRegexs = [
+                              /<Code\s+code=(?:\{([^}]+)\}|["']([^"']+)["'])(?:\s+lang=["']([^"']+)["'])?(?:\s+title=(?:\{([^}]+)\}|["']([^"']+)["']))?[\s\S]*?\/>/g,
+                              /\{%\s*code\s+code=["']([^"']+)["'](?:\s+lang=["']([^"']+)["'])?(?:\s+title=["']([^"']+)["'])?[\s\S]*?\/%\}/g
+                            ];
+
+                            cleanContent = codeRegexs.reduce(
+                                (content, regex) => content.replace(
+                                    regex,
+                                    (...matches) => {
+                                      // Para JSX: code puede estar en matches[1] (variable) o matches[2] (string)
+                                      // title puede estar en matches[4] (variable) o matches[5] (string)
+                                      const code = matches[1] || matches[2];
+                                      const lang = matches[3] || matches[2]; // Ajustar según el formato
+                                      const title = matches[4] || matches[5];
+
+                                      const finalLang = lang || '';
+                                      const codeContent = code?.replace(/^["']|["']$/g, '') || '';
+                                      const titleComment = title ? `// ${title.replace(/^["']|["']$/g, '')}\n` : '';
+
+                                      return `\`\`\`${finalLang}\n${titleComment}${codeContent}\n\`\`\``;
+                                    }
+                                ),
                                 cleanContent
                             );
 
