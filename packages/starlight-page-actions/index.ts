@@ -159,10 +159,12 @@ export default function starlightPageActions(
                             }
 
                             // Clean Markdown
-                            // Remove <Steps /> and <CardGrid />
+                            // Remove components
                             const regexes = [
-                              /<\s*\/?\s*Steps\b[^>]*>\s*/g,
-                              /<\s*\/?\s*CardGrid\b[^>]*>\s*/g,
+                              /<\s*\/?\s*Steps\b[^>]*>\s*/g, // <Steps />
+                              /\{%\s*steps\s*%\}([\s\S]*?)\{%\s*\/steps\s*%\}/g, // {% steps %}
+                              /<\s*\/?\s*CardGrid\b[^>]*>\s*/g, // <CardGrid />
+                              /\{%\s*\/?\s*cardgrid\s*%\}/g // {% cardgrid %}
                             ];
 
                             let cleanContent = regexes.reduce(
@@ -235,19 +237,17 @@ export default function starlightPageActions(
                                 cleanContent
                             );
 
-                            const codeRegexs = [
+                            const codeRegexes = [
                               /<Code\s+code=(?:\{([^}]+)\}|["']([^"']+)["'])(?:\s+lang=["']([^"']+)["'])?(?:\s+title=(?:\{([^}]+)\}|["']([^"']+)["']))?[\s\S]*?\/>/g,
                               /\{%\s*code\s+code=["']([^"']+)["'](?:\s+lang=["']([^"']+)["'])?(?:\s+title=["']([^"']+)["'])?[\s\S]*?\/%\}/g
                             ];
 
-                            cleanContent = codeRegexs.reduce(
+                            cleanContent = codeRegexes.reduce(
                                 (content, regex) => content.replace(
                                     regex,
                                     (...matches) => {
-                                      // Para JSX: code puede estar en matches[1] (variable) o matches[2] (string)
-                                      // title puede estar en matches[4] (variable) o matches[5] (string)
                                       const code = matches[1] || matches[2];
-                                      const lang = matches[3] || matches[2]; // Ajustar según el formato
+                                      const lang = matches[3] || matches[2];
                                       const title = matches[4] || matches[5];
 
                                       const finalLang = lang || '';
