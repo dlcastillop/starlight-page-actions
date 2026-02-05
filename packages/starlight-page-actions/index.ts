@@ -169,6 +169,10 @@ export default function starlightPageActions(
                               /\{%\s*filetree\s*%\}([\s\S]*?)\{%\s*\/filetree\s*%\}/g, // {% filetree %}
                               /<\s*\/?\s*Icon\b[^>]*>\s*/g, // <Icon />
                               /\{%\s*icon\s*%\}([\s\S]*?)\{%\s*\/icon\s*%\}/g, // {% icon %}
+                              /<\s*\/?\s*Tabs\b[^>]*>\s*/g, // <Tabs />
+                              /\{%\s*\/?\s*tabs\s*%\}/g, // {% tabs %}
+                              /<\s*\/?\s*TabItem\b[^>]*>\s*/g, // <TabItem />
+                              /\{%\s*\/?\s*tabitem\s*%\}/g, // {% tabitem %}
                             ];
 
                             let cleanContent = regexes.reduce(
@@ -247,17 +251,6 @@ export default function starlightPageActions(
                               /\{%\s*code\s+code=["']([^"']+)["'](?:\s+lang=["']([^"']+)["'])?(?:\s+title=["']([^"']+)["'])?[\s\S]*?\/%\}/g
                             ];
 
-                            // Replace <LinkButton /> and {% linkbutton %}
-                            const linkButtonRegexes = [
-                              /<LinkButton[\s\S]*?href=["']([^"']+)["'][\s\S]*?>([\s\S]*?)<\/LinkButton>/g,
-                              /\{%\s*linkbutton[\s\S]*?href=["']([^"']+)["'][\s\S]*?%\}([\s\S]*?)\{%\s*\/linkbutton\s*%\}/g
-                            ];
-
-                            cleanContent = linkButtonRegexes.reduce(
-                                (content, regex) => content.replace(regex, (_, href: string, text: string) => `[${text.trim()}](${href})`),
-                                cleanContent
-                            );
-
                             cleanContent = codeRegexes.reduce(
                                 (content, regex) => content.replace(
                                     regex,
@@ -273,6 +266,17 @@ export default function starlightPageActions(
                                       return `\`\`\`${finalLang}\n${titleComment}${codeContent}\n\`\`\``;
                                     }
                                 ),
+                                cleanContent
+                            );
+
+                            // Replace <LinkButton /> and {% linkbutton %}
+                            const linkButtonRegexes = [
+                              /<LinkButton[\s\S]*?href=["']([^"']+)["'][\s\S]*?>([\s\S]*?)<\/LinkButton>/g,
+                              /\{%\s*linkbutton[\s\S]*?href=["']([^"']+)["'][\s\S]*?%\}([\s\S]*?)\{%\s*\/linkbutton\s*%\}/g
+                            ];
+
+                            cleanContent = linkButtonRegexes.reduce(
+                                (content, regex) => content.replace(regex, (_, href: string, text: string) => `[${text.trim()}](${href})`),
                                 cleanContent
                             );
 
