@@ -164,7 +164,9 @@ export default function starlightPageActions(
                               /<\s*\/?\s*Steps\b[^>]*>\s*/g, // <Steps />
                               /\{%\s*steps\s*%\}([\s\S]*?)\{%\s*\/steps\s*%\}/g, // {% steps %}
                               /<\s*\/?\s*CardGrid\b[^>]*>\s*/g, // <CardGrid />
-                              /\{%\s*\/?\s*cardgrid\s*%\}/g // {% cardgrid %}
+                              /\{%\s*\/?\s*cardgrid\s*%\}/g, // {% cardgrid %}
+                              /<\s*\/?\s*FileTree\b[^>]*>\s*/g, // <FileTree />
+                              /\{%\s*filetree\s*%\}([\s\S]*?)\{%\s*\/filetree\s*%\}/g, // {% filetree %}
                             ];
 
                             let cleanContent = regexes.reduce(
