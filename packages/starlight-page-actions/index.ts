@@ -31,12 +31,12 @@ export interface PageActionsConfig {
  * Starlight plugin that adds page action buttons to your documentation.
  *
  * This plugin adds:
- * - A "Copy Markdown" button to copy the raw markdown content
+ * - A "Copy Markdown" button to copy the raw Markdown content
  * - An "Open" dropdown menu with options to open the page in AI chat services (ChatGPT, Claude, etc.)
  * - Automatic generation of the `llms.txt` file with all documentation URLs during build
  *
  * @param {PageActionsConfig} [userConfig] - Configuration options for the plugin.
- * @param {string} [userConfig.prompt] - The prompt template for AI chat services. Use `{url}` as placeholder for the markdown URL.
+ * @param {string} [userConfig.prompt] - The prompt template for AI chat services. Use `{url}` as the placeholder for the Markdown URL.
  * @param {string} [userConfig.baseUrl] - The base URL of your site, required for generating the `llms.txt` file.
  * @param {Actions} [userConfig.actions] - Configure which built-in actions to display and define custom actions.
  *
@@ -221,6 +221,17 @@ export default function starlightPageActions(
                                       return `**${finalTitle}:** ${contentText.trim()}`;
                                     }
                                 ),
+                                cleanContent
+                            );
+
+                            // Replace <Badge /> and {% badge %}
+                            const badgeRegexes = [
+                              /<Badge\s+text=["']([^"']+)["'](?:\s+variant=["'](\w+)["'])?\s*\/>/g,
+                              /\{%\s*badge\s+text=["']([^"']+)["'](?:\s+variant=["'](\w+)["'])?\s*\/%\}/g
+                            ];
+
+                            cleanContent = badgeRegexes.reduce(
+                                (content, regex) => content.replace(regex, (_, text: string) => text),
                                 cleanContent
                             );
 
