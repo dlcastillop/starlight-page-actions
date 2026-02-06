@@ -1,10 +1,21 @@
 ---
 title: Changelog
 description: New features, bug fixes, and improvements made to Starlight Page Actions.
-lastUpdated: 2026-01-14
+lastUpdated: 2026-02-06
 ---
 
 New features, bug fixes, and improvements made to Starlight Page Actions.
+
+## v0.5.0
+
+### Features
+
+- Remove or replace Starlight components in generated Markdown
+- "Share" dropdown menu with options to share the page on multiple platforms
+
+### Bug Fixes
+
+- Markdown cleanup removes imports from Astro front matter
 
 ## v0.4.0
 
