@@ -12,7 +12,7 @@ interface OptionsProps {
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
 const currentUrl = Astro.url.href;
-const { actions, prompt: userPrompt } = config;
+const { actions, prompt: userPrompt, share } = config;
 const { title, pageActions } = (Astro.locals as any).starlightRoute.entry.data;
 
 const prompt = userPrompt?.includes("{url}")
@@ -112,9 +112,13 @@ const shareOptions = [
       {
           actionOptions.length !== 0 && (
           <Dropdown label={Astro.locals.t("open")} options={actionOptions} id="0" />
-          <Dropdown label={Astro.locals.t("share")} options={shareOptions} id="1" />
         )
       }
+        {
+            share && (
+                        <Dropdown label={Astro.locals.t("share")} options={shareOptions} id="1" />
+            )
+        }
     </div>
   ) : (
     <DefaultPageTitle />

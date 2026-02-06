@@ -18,6 +18,7 @@ declare module "virtual:config" {
     prompt?: string;
     baseUrl?: string;
     actions?: Actions;
+    share?: boolean;
   }
 
   const config: PageActionsConfig;
