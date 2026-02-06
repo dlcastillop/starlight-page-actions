@@ -3,6 +3,7 @@ import DefaultPageTitle from "@astrojs/starlight/components/PageTitle.astro";
 import { Icon } from "@astrojs/starlight/components";
 import config from "virtual:config";
 import Dropdown from "../components/Dropdown.astro";
+import Button from "../components/Button.astro";
 
 interface OptionsProps {
   label: string;
@@ -102,12 +103,12 @@ const shareOptions = [
   pageActions || typeof pageActions === "undefined" ? (
     <DefaultPageTitle />
     <div class="actions-container">
-      <button class="action-button" id="copy-markdown" data-path={currentPath}>
+      <Button id="copy-markdown" dataPath={currentPath}>
         <Icon name="mdx" size="1rem" class="icon-default" />
         <Icon name="approve-check" size="1rem" class="icon-success" />
         <Icon name="error" size="1rem" class="icon-error" />
         <span>{Astro.locals.t("copy.markdown")}</span>
-      </button>
+      </Button>
 
       {
           actionOptions.length !== 0 && (
@@ -126,55 +127,42 @@ const shareOptions = [
 }
 
 <style>
-  .actions-container {
-    display: flex;
-    gap: 0.5rem;
-  }
+    .actions-container {
+        display: flex;
+        gap: 0.5rem;
+    }
 
-  .action-button {
-    background-color: var(--sl-color-gray-6);
-    color: var(--sl-color-white);
-    border: 1px solid var(--sl-color-gray-5);
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: opacity 0.2s ease;
-    height: 2rem;
-    line-height: 1;
-  }
+    #copy-markdown:disabled {
+        opacity: 0.7;
+    }
 
-  #copy-markdown:disabled {
-    opacity: 0.7;
-  }
+    :global(.icon-success),
+    :global(.icon-error) {
+        display: none;
+    }
 
-  .icon-success,
-  .icon-error {
-    display: none;
-  }
+    :global(#copy-markdown.copied .icon-default),
+    :global(#copy-markdown.error .icon-default) {
+        display: none;
+    }
 
-  #copy-markdown.copied .icon-default,
-  #copy-markdown.error .icon-default {
-    display: none;
-  }
+    :global(#copy-markdown.copied .icon-success) {
+        display: block;
+    }
 
-  #copy-markdown.copied .icon-success,
-  #copy-markdown.error .icon-error {
-    display: block;
-  }
+    :global(#copy-markdown.error .icon-error) {
+        display: block;
+    }
 </style>
 
 <script>
   const copyButton = document.querySelector(
     "#copy-markdown"
   ) as HTMLButtonElement;
-  let copyButttonClass: "copied" | "error" = "copied";
 
   copyButton?.addEventListener("click", async () => {
+    let copyButtonClass: "copied" | "error" = "copied";
+
     try {
       copyButton.disabled = true;
 
@@ -187,13 +175,13 @@ const shareOptions = [
       await navigator.clipboard.writeText(contentForClipboard);
     } catch (error) {
       console.error(error);
-      copyButttonClass = "error";
+      copyButtonClass = "error";
     } finally {
-      copyButton.classList.add(copyButttonClass);
+      copyButton.classList.add(copyButtonClass);
       copyButton.disabled = false;
 
       setTimeout(() => {
-        copyButton.classList.remove(copyButttonClass);
+        copyButton.classList.remove(copyButtonClass);
       }, 3000);
     }
   });
