@@ -1,5 +1,6 @@
 ---
 import {Icon} from "@astrojs/starlight/components";
+import Button from "./Button.astro"
 
 interface Props {
     label: string;
@@ -15,14 +16,10 @@ const dropdownId = id ? `dropdown-${id}` : "dropdown-0";
 ---
 
 <div class="dropdown" id={dropdownId}>
-    <button
-            class="action-button"
-            id="dropdown-toggle"
-            aria-label="More options"
-    >
+    <Button id="dropdown-toggle">
         <span>{label}</span>
         <Icon name="down-caret" size="1rem" />
-    </button>
+    </Button>
 
     <div id="dropdown-menu">
         {options.map((option) => {
@@ -37,23 +34,6 @@ const dropdownId = id ? `dropdown-${id}` : "dropdown-0";
 </div>
 
 <style>
-    .action-button {
-        background-color: var(--sl-color-gray-6);
-        color: var(--sl-color-white);
-        border: 1px solid var(--sl-color-gray-5);
-        padding: 0.5rem 0.75rem;
-        border-radius: 0.25rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: opacity 0.2s ease;
-        height: 2rem;
-        line-height: 1;
-    }
-
     .dropdown {
         position: relative;
     }
