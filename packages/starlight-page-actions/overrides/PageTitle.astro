@@ -113,12 +113,12 @@ const shareOptions = [
       <div class="dropdown-container">
       {
           actionOptions.length !== 0 && (
-                      <Dropdown label={Astro.locals.t("open")} options={actionOptions} id="0" />
+            <Dropdown label={Astro.locals.t("open")} options={actionOptions} id="0" />
           )
       }
       {
           share && (
-                      <Dropdown label={Astro.locals.t("share")} options={shareOptions} id="1" />
+            <Dropdown label={Astro.locals.t("share")} options={shareOptions} id="1" />
           )
       }
       </div>
