@@ -92,6 +92,7 @@ export default defineConfig({
       plugins: [
         starlightPageActions({
           baseUrl: "https://starlight-page-actions.dlcastillop.com",
+          share: true,
         }),
         starlightUiTweaks({
           footer: {

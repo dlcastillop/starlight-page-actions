@@ -25,6 +25,7 @@ export interface PageActionsConfig {
   prompt?: string;
   baseUrl?: string;
   actions?: Actions;
+  share?: boolean;
 }
 
 /**
@@ -85,6 +86,7 @@ export default function starlightPageActions(
       v0: false,
       markdown: true,
     },
+    share: false
   };
 
   const config: PageActionsConfig = {
