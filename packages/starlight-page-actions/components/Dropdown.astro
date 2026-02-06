@@ -105,6 +105,8 @@ const dropdownId = id ? `dropdown-${id}` : "dropdown-0";
 </style>
 
 <script>
+    const allDropdownIds = ["dropdown-0", "dropdown-1"]
+
     const handleDropdownToggle = (dropdownId: string) => {
         const dropdownToggle = document.querySelector(
             `#${dropdownId} > #dropdown-toggle`
@@ -113,6 +115,7 @@ const dropdownId = id ? `dropdown-${id}` : "dropdown-0";
 
         dropdownToggle?.addEventListener("click", (e) => {
             e.stopPropagation();
+            allDropdownIds.map((id) => document.querySelector(`#${id} > #dropdown-menu`)?.classList.remove("show"))
             dropdownMenu.classList.toggle("show");
         });
 
@@ -125,6 +128,5 @@ const dropdownId = id ? `dropdown-${id}` : "dropdown-0";
         });
     }
 
-    handleDropdownToggle("dropdown-0");
-    handleDropdownToggle("dropdown-1");
+    allDropdownIds.map((id) => handleDropdownToggle(id))
 </script>
