@@ -110,16 +110,18 @@ const shareOptions = [
         <span>{Astro.locals.t("copy.markdown")}</span>
       </Button>
 
+      <div class="dropdown-container">
       {
           actionOptions.length !== 0 && (
-          <Dropdown label={Astro.locals.t("open")} options={actionOptions} id="0" />
-        )
+                      <Dropdown label={Astro.locals.t("open")} options={actionOptions} id="0" />
+          )
       }
-        {
-            share && (
-              <Dropdown label={Astro.locals.t("share")} options={shareOptions} id="1" />
-            )
-        }
+      {
+          share && (
+                      <Dropdown label={Astro.locals.t("share")} options={shareOptions} id="1" />
+          )
+      }
+      </div>
     </div>
   ) : (
     <DefaultPageTitle />
@@ -127,9 +129,13 @@ const shareOptions = [
 }
 
 <style>
-    .actions-container {
+    .actions-container, .dropdown-container {
         display: flex;
         gap: 0.5rem;
+    }
+
+    .actions-container {
+        flex-direction: column;
     }
 
     #copy-markdown:disabled {
@@ -152,6 +158,12 @@ const shareOptions = [
 
     :global(#copy-markdown.error .icon-error) {
         display: block;
+    }
+
+    @media (min-width: 425px) {
+        .actions-container {
+           flex-direction: row;
+        }
     }
 </style>
 
