@@ -20,6 +20,8 @@ const prompt = userPrompt?.includes("{url}")
   ? userPrompt?.replace("{url}", currentUrl)
   : `${userPrompt} ${currentUrl}`;
 const encodedPrompt = encodeURIComponent(prompt as string);
+const encodedCurrentUrl = encodeURIComponent(currentUrl);
+const encodedTitle = encodeURIComponent(title as string);
 
 const defaultOptions: OptionsProps[] = [
   {
@@ -70,31 +72,31 @@ const actionOptions = [...filteredDefaultOptions, ...customOptions];
 const shareOptions = [
     {
         label: Astro.locals.t("share.linkedin"),
-        href: `https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`,
+        href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedCurrentUrl}`,
     },
     {
         label: Astro.locals.t("share.x"),
-        href: `https://twitter.com/intent/tweet?url=${currentUrl}&text=${title}`,
+        href: `https://twitter.com/intent/tweet?url=${encodedCurrentUrl}&text=${encodedTitle}`,
     },
     {
         label: Astro.locals.t("share.facebook"),
-        href: `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`,
+        href: `https://www.facebook.com/sharer/sharer.php?u=${encodedCurrentUrl}`,
     },
     {
         label: Astro.locals.t("share.reddit"),
-        href: `https://reddit.com/submit?url=${currentUrl}&title=${title}`,
+        href: `https://reddit.com/submit?url=${encodedCurrentUrl}&title=${encodedTitle}`,
     },
     {
         label: Astro.locals.t("share.email"),
-        href: `mailto:?subject=${title}&body=${currentUrl}`,
+        href: `mailto:?subject=${encodedTitle}&body=${encodedCurrentUrl}`,
     },
     {
         label: Astro.locals.t("share.whatsapp"),
-        href: `https://wa.me/?text=${title}%20${currentUrl}`,
+        href: `https://wa.me/?text=${encodedTitle}%20${encodedCurrentUrl}`,
     },
     {
         label: Astro.locals.t("share.telegram"),
-        href: `https://t.me/share/url?url=${currentUrl}&text=${title}`,
+        href: `https://t.me/share/url?url=${encodedCurrentUrl}&text=${encodedTitle}`,
     },
 ]
 ---
