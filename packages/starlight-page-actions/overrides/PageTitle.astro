@@ -1,7 +1,8 @@
 ---
-import Default from "@astrojs/starlight/components/PageTitle.astro";
+import DefaultPageTitle from "@astrojs/starlight/components/PageTitle.astro";
 import { Icon } from "@astrojs/starlight/components";
 import config from "virtual:config";
+import Dropdown from "../components/Dropdown.astro";
 
 interface OptionsProps {
   label: string;
@@ -12,7 +13,7 @@ interface OptionsProps {
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
 const currentUrl = Astro.url.href;
 const { actions, prompt: userPrompt } = config;
-const { pageActions } = (Astro.locals as any).starlightRoute.entry.data;
+const { title, pageActions } = (Astro.locals as any).starlightRoute.entry.data;
 
 const prompt = userPrompt?.includes("{url}")
   ? userPrompt?.replace("{url}", currentUrl)
@@ -64,12 +65,42 @@ const customOptions: OptionsProps[] = actions?.custom
       };
     })
   : [];
-const options = [...filteredDefaultOptions, ...customOptions];
+const actionOptions = [...filteredDefaultOptions, ...customOptions];
+const shareOptions = [
+    {
+        label: Astro.locals.t("share.linkedin"),
+        href: `https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`,
+    },
+    {
+        label: Astro.locals.t("share.x"),
+        href: `https://twitter.com/intent/tweet?url=${currentUrl}&text=${title}`,
+    },
+    {
+        label: Astro.locals.t("share.facebook"),
+        href: `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`,
+    },
+    {
+        label: Astro.locals.t("share.reddit"),
+        href: `https://reddit.com/submit?url=${currentUrl}&title=${title}`,
+    },
+    {
+        label: Astro.locals.t("share.email"),
+        href: `mailto:?subject=${title}&body=${currentUrl}`,
+    },
+    {
+        label: Astro.locals.t("share.whatsapp"),
+        href: `https://wa.me/?text=${title}%20${currentUrl}`,
+    },
+    {
+        label: Astro.locals.t("share.telegram"),
+        href: `https://t.me/share/url?url=${currentUrl}&text=${title}`,
+    },
+]
 ---
 
 {
   pageActions || typeof pageActions === "undefined" ? (
-    <Default />
+    <DefaultPageTitle />
     <div class="actions-container">
       <button class="action-button" id="copy-markdown" data-path={currentPath}>
         <Icon name="mdx" size="1rem" class="icon-default" />
@@ -79,33 +110,14 @@ const options = [...filteredDefaultOptions, ...customOptions];
       </button>
 
       {
-        options.length !== 0 && (
-          <div class="dropdown">
-            <button
-              class="action-button"
-              id="dropdown-toggle"
-              aria-label="More options"
-            >
-              <span>{Astro.locals.t("open")}</span>
-              <Icon name="down-caret" size="1rem" />
-            </button>
-
-            <div id="dropdown-menu">
-              {options.map((option) => {
-                return (
-                  <a href={option.href} class="dropdown-item" target="_blank">
-                    <span>{option.label}</span>
-                    <Icon name="external" size="1rem" class="external-icon" />
-                  </a>
-                );
-              })}
-            </div>
-          </div>
+          actionOptions.length !== 0 && (
+          <Dropdown label={Astro.locals.t("open")} options={actionOptions} id="0" />
+          <Dropdown label={Astro.locals.t("share")} options={shareOptions} id="1" />
         )
       }
     </div>
   ) : (
-    <Default />
+    <DefaultPageTitle />
   )
 }
 
@@ -124,7 +136,6 @@ const options = [...filteredDefaultOptions, ...customOptions];
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
-    font-family: var(--sl-font);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -150,55 +161,6 @@ const options = [...filteredDefaultOptions, ...customOptions];
   #copy-markdown.copied .icon-success,
   #copy-markdown.error .icon-error {
     display: block;
-  }
-
-  .dropdown {
-    position: relative;
-  }
-
-  #dropdown-menu {
-    position: absolute;
-    top: calc(100% + 0.5rem);
-    right: 0;
-    background-color: var(--sl-color-gray-6);
-    border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.25rem;
-    padding: 0.25rem;
-    min-width: 200px;
-    box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.3),
-      0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    display: none;
-    z-index: 10;
-  }
-
-  #dropdown-menu.show {
-    display: block;
-  }
-
-  .dropdown-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0.75rem;
-    color: var(--sl-color-white);
-    text-decoration: none;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
-    transition: background-color 0.15s ease;
-    cursor: pointer;
-  }
-
-  .dropdown-item:hover {
-    background-color: var(--sl-color-gray-5);
-  }
-
-  .dropdown-item span {
-    flex: 1;
-  }
-
-  .dropdown-item .external-icon {
-    margin-left: auto;
   }
 </style>
 
@@ -230,23 +192,5 @@ const options = [...filteredDefaultOptions, ...customOptions];
         copyButton.classList.remove(copyButttonClass);
       }, 3000);
     }
-  });
-
-  const dropdownToggle = document.querySelector(
-    "#dropdown-toggle"
-  ) as HTMLButtonElement;
-  const dropdownMenu = document.querySelector("#dropdown-menu") as HTMLElement;
-
-  dropdownToggle?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    dropdownMenu.classList.toggle("show");
-  });
-
-  document.addEventListener("click", () => {
-    dropdownMenu?.classList.remove("show");
-  });
-
-  dropdownMenu?.addEventListener("click", (e) => {
-    e.stopPropagation();
   });
 </script>
