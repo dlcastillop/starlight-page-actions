@@ -76,7 +76,15 @@ const shareOptions = [
     },
     {
         label: Astro.locals.t("share.x"),
-        href: `https://twitter.com/intent/tweet?url=${encodedCurrentUrl}&text=${encodedTitle}`,
+        href: `https://x.com/intent/tweet?url=${encodedCurrentUrl}&text=${encodedTitle}`,
+    },
+    {
+        label: Astro.locals.t("share.threads"),
+        href: `https://threads.net/intent/post?url=${encodedCurrentUrl}&text=${encodedTitle}`,
+    },
+    {
+        label: Astro.locals.t("share.bluesky"),
+        href: `https://bsky.app/intent/compose?text=${encodedTitle}%20${encodedCurrentUrl}`,
     },
     {
         label: Astro.locals.t("share.facebook"),
@@ -85,6 +93,10 @@ const shareOptions = [
     {
         label: Astro.locals.t("share.reddit"),
         href: `https://reddit.com/submit?url=${encodedCurrentUrl}&title=${encodedTitle}`,
+    },
+    {
+        label: Astro.locals.t("share.hackernews"),
+        href: `https://news.ycombinator.com/submitlink?u=${encodedCurrentUrl}&t=${encodedTitle}`,
     },
     {
         label: Astro.locals.t("share.email"),
