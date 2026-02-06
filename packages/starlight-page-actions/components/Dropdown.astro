@@ -1,0 +1,130 @@
+---
+import {Icon} from "@astrojs/starlight/components";
+
+interface Props {
+    label: string;
+    options: {
+        label: string;
+        href: string;
+    }[];
+    id?: "0" | "1"
+}
+
+const {label, options, id} = Astro.props;
+const dropdownId = id ? `dropdown-${id}` : "dropdown-0";
+---
+
+<div class="dropdown" id={dropdownId}>
+    <button
+            class="action-button"
+            id="dropdown-toggle"
+            aria-label="More options"
+    >
+        <span>{label}</span>
+        <Icon name="down-caret" size="1rem" />
+    </button>
+
+    <div id="dropdown-menu">
+        {options.map((option) => {
+            return (
+                    <a href={option.href} class="dropdown-item" target="_blank">
+                        <span>{option.label}</span>
+                        <Icon name="external" size="1rem" class="external-icon" />
+                    </a>
+            );
+        })}
+    </div>
+</div>
+
+<style>
+    .action-button {
+        background-color: var(--sl-color-gray-6);
+        color: var(--sl-color-white);
+        border: 1px solid var(--sl-color-gray-5);
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: opacity 0.2s ease;
+        height: 2rem;
+        line-height: 1;
+    }
+
+    .dropdown {
+        position: relative;
+    }
+
+    #dropdown-menu {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        background-color: var(--sl-color-gray-6);
+        border: 1px solid var(--sl-color-gray-5);
+        border-radius: 0.25rem;
+        padding: 0.25rem;
+        min-width: 200px;
+        box-shadow:
+                0 4px 6px -1px rgba(0, 0, 0, 0.3),
+                0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        display: none;
+        z-index: 10;
+    }
+
+    #dropdown-menu.show {
+        display: block;
+    }
+
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 0.75rem;
+        color: var(--sl-color-white);
+        text-decoration: none;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        transition: background-color 0.15s ease;
+        cursor: pointer;
+    }
+
+    .dropdown-item:hover {
+        background-color: var(--sl-color-gray-5);
+    }
+
+    .dropdown-item span {
+        flex: 1;
+    }
+
+    .dropdown-item .external-icon {
+        margin-left: auto;
+    }
+</style>
+
+<script>
+    const handleDropdownToggle = (dropdownId: string) => {
+        const dropdownToggle = document.querySelector(
+            `#${dropdownId} > #dropdown-toggle`
+        ) as HTMLButtonElement;
+        const dropdownMenu = document.querySelector(`#${dropdownId} > #dropdown-menu`) as HTMLElement;
+
+        dropdownToggle?.addEventListener("click", (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle("show");
+        });
+
+        document.addEventListener("click", () => {
+            dropdownMenu?.classList.remove("show");
+        });
+
+        dropdownMenu?.addEventListener("click", (e) => {
+            e.stopPropagation();
+        });
+    }
+
+    handleDropdownToggle("dropdown-0");
+    handleDropdownToggle("dropdown-1");
+</script>
