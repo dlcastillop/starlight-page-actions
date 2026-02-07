@@ -4,8 +4,9 @@ A Starlight plugin that adds page action buttons to your documentation.
 
 This plugin adds:
 
-- A "Copy Markdown" button to copy the raw markdown content
+- A "Copy Markdown" button to copy the raw Markdown content
 - An "Open" dropdown menu with options to open the page in AI chat services (ChatGPT, Claude, etc.)
+- A "Share" dropdown menu with options to share the page via social media, email, and messaging platforms.
 - Automatic generation of the `llms.txt` file with all documentation URLs during build
 
 ## Getting started
