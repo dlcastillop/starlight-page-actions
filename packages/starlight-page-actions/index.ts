@@ -34,13 +34,14 @@ export interface PageActionsConfig {
  * This plugin adds:
  * - A "Copy Markdown" button to copy the raw Markdown content
  * - An "Open" dropdown menu with options to open the page in AI chat services (ChatGPT, Claude, etc.)
+ * - A "Share" dropdown menu with options to share the page via social media, email, and messaging platforms.
  * - Automatic generation of the `llms.txt` file with all documentation URLs during build
  *
  * @param {PageActionsConfig} [userConfig] - Configuration options for the plugin.
  * @param {string} [userConfig.prompt] - The prompt template for AI chat services. Use `{url}` as the placeholder for the Markdown URL.
  * @param {string} [userConfig.baseUrl] - The base URL of your site, required for generating the `llms.txt` file.
  * @param {Actions} [userConfig.actions] - Configure which built-in actions to display and define custom actions.
- *
+ * @param {boolean} [userConfig.share] - Enable sharing options for documentation pages.
  * @see {@link https://starlight-page-actions.dlcastillop.com/docs/reference/configuration|Configuration Reference}
  *
  * @example
@@ -56,6 +57,7 @@ export interface PageActionsConfig {
  *         starlightPageActions({
  *           prompt: "Read {url} and explain its main points briefly.",
  *           baseUrl: "https://mydocs.example.com",
+ *           share: true,
  *           actions: {
  *            chatgpt: false,
  *            v0: true,

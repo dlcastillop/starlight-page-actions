@@ -1,10 +1,10 @@
 ---
 title: Configuration Reference
 description: The full reference documentation for Starlight Page Actions plugin options.
-lastUpdated: 2026-01-14
+lastUpdated: 2026-02-06
 ---
 
-Starlight Page Actions exposes a three options to control its behavior.
+Starlight Page Actions exposes four options to control its behavior.
 
 ## Configure the plugin
 
@@ -92,6 +92,34 @@ export default defineConfig({
               },
             },
           },
+        }),
+      ],
+      title: "My Docs",
+    }),
+  ],
+});
+```
+
+### `share`
+
+**type:** `boolean`  
+**default:** `false`
+
+Enable sharing options for documentation pages.
+
+When set to `true`, a dropdown menu with multiple sharing channels will be available.
+
+```js
+import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config";
+import starlightPageActions from "starlight-page-actions";
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      plugins: [
+        starlightPageActions({
+          share: true,
         }),
       ],
       title: "My Docs",

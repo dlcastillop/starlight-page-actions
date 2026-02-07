@@ -46,6 +46,10 @@ export default defineConfig({
               label: "Disable Page Actions per Page",
               link: "docs/guides/disable-page-actions",
             },
+            {
+              label: "Share Documentation",
+              link: "docs/guides/share-documentation",
+            },
           ],
         },
         {

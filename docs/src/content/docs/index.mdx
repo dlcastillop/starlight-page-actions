@@ -15,10 +15,10 @@ import {
 } from "@dlcastillop/starlight-marketing-components";
 import Copy from "@lucide/astro/icons/copy";
 import MessageCircle from "@lucide/astro/icons/message-circle";
-import Eye from "@lucide/astro/icons/eye";
 import Bot from "@lucide/astro/icons/bot";
 import Joystick from "@lucide/astro/icons/joystick";
 import MessageCircleX from "@lucide/astro/icons/message-circle-x";
+import Share from "@lucide/astro/icons/share-2";
 
 <Hero
   title={{
@@ -54,9 +54,9 @@ import MessageCircleX from "@lucide/astro/icons/message-circle-x";
   description="Turn your Starlight site into a knowledge source ready to share, query, and process."
   features={[
     {
-      name: "Copy to Markdown",
+      name: "Markdown Tools",
       description:
-        "Copy any documentation page in clean Markdown format with a single click.",
+        "View and copy documentation in clean Markdown format. See the raw Markdown structure or copy it with a single click.",
       icon: Copy,
     },
     {
@@ -64,11 +64,6 @@ import MessageCircleX from "@lucide/astro/icons/message-circle-x";
       description:
         "Open documentation directly in ChatGPT or Claude with the full page context. Let your users ask specific questions about your docs without manual copy-pasting.",
       icon: MessageCircle,
-    },
-    {
-      name: "See Markdown",
-      description: "View the raw Markdown of any page.",
-      icon: Eye,
     },
     {
       name: "llms.txt Generator",
@@ -88,6 +83,12 @@ import MessageCircleX from "@lucide/astro/icons/message-circle-x";
         "Disable page actions on pages that aren't ideal for LLM consumption. Perfect for excluding changelog pages, legal documents, release notes, or any content that doesn't benefit from AI interaction.",
       icon: MessageCircleX,
     },
+    {
+      name: "One-Click Sharing",
+      description:
+        "Share any documentation page with a single click. Choose from multiple sharing options including social media, email, and direct links to help users spread your documentation effortlessly.",
+      icon: Share,
+    }
   ]}
 />
 

@@ -4,7 +4,7 @@ description: Learn how to disable page actions on specific documentation pages.
 lastUpdated: 2025-12-05
 ---
 
-import { Steps, Tabs, TabItem } from "@astrojs/starlight/components";
+import { Steps, Tabs, TabItem, Aside } from "@astrojs/starlight/components";
 
 By default, page actions are enabled on all documentation pages. You can disable them on specific pages by extending the frontmatter schema and setting the `pageActions` property to `false`.
 
@@ -46,6 +46,6 @@ By default, page actions are enabled on all documentation pages. You can disable
 
 </Steps>
 
-:::note
+<Aside>
 The `pageActions` property defaults to `true`, so you only need to add it to pages where you want to disable the actions. All other pages will continue to show page actions normally.
-:::
+</Aside>
