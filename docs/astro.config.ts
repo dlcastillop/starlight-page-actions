@@ -87,11 +87,6 @@ export default defineConfig({
           href: "https://threads.com/@dlcastillop",
           label: "Threads account",
         },
-        {
-          icon: "patreon",
-          href: "https://patreon.com/dlcastillop",
-          label: "Patreon account",
-        },
       ],
       plugins: [
         starlightPageActions({
