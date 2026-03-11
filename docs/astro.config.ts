@@ -147,6 +147,10 @@ export default defineConfig({
               title: "More",
               links: [
                 {
+                  label: "Become a Sponsor",
+                  href: "https://ko-fi.com/dlcastillop/tiers",
+                },
+                {
                   label: "Contact",
                   href: "mailto:daniel@dlcastillop.com",
                 },
