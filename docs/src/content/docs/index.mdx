@@ -11,7 +11,7 @@ import {
   Features,
   Faq,
   Cta,
-  CompaniesLogos
+  CompaniesLogos,
 } from "@dlcastillop/starlight-marketing-components";
 import Copy from "@lucide/astro/icons/copy";
 import MessageCircle from "@lucide/astro/icons/message-circle";
@@ -21,6 +21,12 @@ import MessageCircleX from "@lucide/astro/icons/message-circle-x";
 import Share from "@lucide/astro/icons/share-2";
 
 <Hero
+  announcement={{
+    title: "New",
+    ctaTitle:
+      "Skillit: turn your Starlight docs into AI skills with a single command",
+    href: "https://skillit.dlcastillop.com/",
+  }}
   title={{
     fistPart: "Turn your Starlight docs into",
     highlightedPart: "AI-ready",
@@ -88,7 +94,7 @@ import Share from "@lucide/astro/icons/share-2";
       description:
         "Share any documentation page with a single click. Choose from multiple sharing options including social media, email, and direct links to help users spread your documentation effortlessly.",
       icon: Share,
-    }
+    },
   ]}
 />
 
