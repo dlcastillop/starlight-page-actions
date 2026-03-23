@@ -53,6 +53,15 @@ export default defineConfig({
           ],
         },
         {
+          label: "AI",
+          items: [
+            {
+              label: "Agent Skills",
+              slug: "docs/ai/agent-skills",
+            },
+          ],
+        },
+        {
           label: "Reference",
           items: [
             {
@@ -127,6 +136,10 @@ export default defineConfig({
                 {
                   label: "Guides",
                   href: "/docs/guides/customize-prompt",
+                },
+                {
+                  label: "AI",
+                  href: "docs/ai/agent-skills",
                 },
                 {
                   label: "Reference",

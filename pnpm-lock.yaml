@@ -6,7 +6,11 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      skillit:
+        specifier: ^0.1.0
+        version: 0.1.0
 
   docs:
     dependencies:
@@ -1904,6 +1908,10 @@ packages:
   sitemap@8.0.1:
     resolution: {integrity: sha512-4Y8ynSMFAy/DadeAeio8Kx4zfC8/0VcKi7TH0I1SazvBcrU2fpJaGoeWsX1FMRaHoe3VGMA53DqVoLErZrtG9Q==}
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    hasBin: true
+
+  skillit@0.1.0:
+    resolution: {integrity: sha512-l2G9NIChPzmQoqLY4QyDP+IUxs8a/V+6NVfsAisIgBvEgJQcj3Tc+kZRCkht5JLLrFBRrQgD4iVp9wB7kamYVg==}
     hasBin: true
 
   smol-toml@1.4.2:
@@ -4908,6 +4916,10 @@ snapshots:
       '@types/sax': 1.2.7
       arg: 5.0.2
       sax: 1.4.1
+
+  skillit@0.1.0:
+    dependencies:
+      prompts: 2.4.2
 
   smol-toml@1.4.2: {}
 

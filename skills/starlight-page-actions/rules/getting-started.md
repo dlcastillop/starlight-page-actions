@@ -1,0 +1,51 @@
+---
+title: Getting Started
+description: Learn how to get started with Starlight Page Actions, a Starlight plugin that adds common page actions like copy Markdown, open docs in ChatGPT, and more.
+---
+
+Starlight Page Actions is a Starlight plugin that adds page action buttons to your documentation like the ones you see above.
+
+- A "Copy Markdown" button to copy the raw markdown content
+- An "Open" dropdown menu with options to open the page in AI chat services (ChatGPT, Claude, etc.)
+- A "Share" dropdown menu with options to share the page via social media, email, and messaging platforms.
+- Automatic generation of the `llms.txt` file with all documentation URLs during build
+
+## Prerequisites
+
+You will need to have a Starlight website set up. If you don't have one yet, you can follow the ["Getting Started"](https://starlight.astro.build/getting-started) guide in the Starlight docs to create one.
+
+## Installation
+
+1. Install it by running the following command in your terminal:
+
+   ```sh
+   npm install starlight-page-actions
+   ```
+
+   ```sh
+   yarn add starlight-page-actions
+   ```
+
+   ```sh
+   pnpm add starlight-page-actions
+   ```
+
+2. Configure the plugin in your Starlight configuration in the `astro.config.mjs` file.
+
+   ```diff lang="js"
+   // astro.config.mjs
+   import starlight from '@astrojs/starlight'
+   import { defineConfig } from 'astro/config'
+   +import starlightPageActions from 'starlight-page-actions'
+
+   export default defineConfig({
+     integrations: [
+       starlight({
+   +      plugins: [starlightPageActions()],
+         title: 'My Docs',
+       }),
+     ],
+   })
+   ```
+
+3. Start the development server to preview the plugin in action.
