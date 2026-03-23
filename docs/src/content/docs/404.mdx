@@ -9,6 +9,7 @@ import { NotFound } from "@dlcastillop/starlight-marketing-components";
 import FastForward from "@lucide/astro/icons/fast-forward";
 import BookOpen from "@lucide/astro/icons/book-open";
 import Library from "@lucide/astro/icons/library";
+import Bot from "@lucide/astro/icons/bot";
 
 <NotFound
   links={[
@@ -23,6 +24,12 @@ import Library from "@lucide/astro/icons/library";
       href: "/docs/guides/customize-prompt",
       description: "Step-by-step tutorials and how-to guides.",
       icon: BookOpen,
+    },
+    {
+      name: "AI",
+      href: "/docs/ai/agent-skills",
+      description: "Use Starlight Page Actions with AI",
+      icon: Bot,
     },
     {
       name: "Reference",
