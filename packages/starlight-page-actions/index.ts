@@ -12,6 +12,9 @@ interface Actions {
   claude?: boolean;
   t3chat?: boolean;
   v0?: boolean;
+  cursor?: boolean;
+  perplexity?: boolean;
+  githubCopilot?: boolean;
   markdown?: boolean;
   custom?: Record<string, CustomAction>;
 }
@@ -86,6 +89,9 @@ export default function starlightPageActions(
       claude: true,
       t3chat: false,
       v0: false,
+      cursor: false,
+      perplexity: false,
+      githubCopilot: false,
       markdown: true,
     },
     share: false
