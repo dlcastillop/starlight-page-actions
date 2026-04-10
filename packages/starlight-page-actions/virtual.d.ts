@@ -5,6 +5,9 @@ declare module "virtual:config" {
     claude?: boolean;
     t3chat?: boolean;
     v0?: boolean;
+    cursor?: boolean;
+    perplexity?: boolean;
+    githubCopilot?: boolean;
     markdown?: boolean;
     custom?: Record<string, CustomAction>;
   }
