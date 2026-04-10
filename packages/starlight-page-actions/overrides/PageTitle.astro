@@ -8,7 +8,7 @@ import Button from "../components/Button.astro";
 interface OptionsProps {
   label: string;
   href: string;
-  id: "chatgpt" | "claude" | "markdown" | "v0" | "t3chat";
+  id: "chatgpt" | "claude" | "markdown" | "v0" | "t3chat" | "cursor" | "perplexity" | "githubCopilot";
 }
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
@@ -43,6 +43,21 @@ const defaultOptions: OptionsProps[] = [
     label: Astro.locals.t("open.v0"),
     href: `https://v0.app/?q=${encodedPrompt}`,
     id: "v0",
+  },
+  {
+    label: Astro.locals.t("open.cursor"),
+    href: `https://cursor.com/link/prompt?${encodedPrompt}`,
+    id: "cursor",
+  },
+  {
+    label: Astro.locals.t("open.perplexity"),
+    href: `https://www.perplexity.ai/?q=${encodedPrompt}`,
+    id: "perplexity",
+  },
+  {
+    label: Astro.locals.t("open.githubCopilot"),
+    href: `https://github.com/copilot/?prompt=${encodedPrompt}`,
+    id: "githubCopilot",
   },
   {
     label: Astro.locals.t("view.markdown"),
