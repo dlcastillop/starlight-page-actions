@@ -7,8 +7,7 @@ const slash = (p: string): string => {
 };
 
 export const normalizePath = (p: string): string => {
-  const isWindows: boolean =
-    typeof process !== "undefined" && process.platform === "win32";
+  const isWindows: boolean = typeof process !== "undefined" && process.platform === "win32";
 
   return path.posix.normalize(isWindows ? slash(p) : p);
 };
