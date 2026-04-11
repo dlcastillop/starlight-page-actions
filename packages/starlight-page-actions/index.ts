@@ -328,36 +328,45 @@ export default function starlightPageActions(
                             fileExtension: string,
                             fullPath: string
                           ) => {
+                            const DOCS_CONTENT_DIR = "src/content/docs/";
+                            const DOCS_CONTENT_SEGMENTS = DOCS_CONTENT_DIR
+                                .replace(/\/$/, "")
+                                .split("/").length;
                             const fullPathNormalized = normalizePath(fullPath);
-                            const relativePath = (
-                              fullPathNormalized.split(
-                                "src/content/docs/"
-                              )[1] as string
-                            ).replace(new RegExp(`\\.${fileExtension}$`), "");
+                            const docsRelativePathWithExtension = fullPathNormalized.includes(
+                                DOCS_CONTENT_DIR
+                            )
+                                ? (fullPathNormalized.split(DOCS_CONTENT_DIR)[1] as string)
+                                : path.posix.basename(fullPathNormalized);
+                            const relativePath = docsRelativePathWithExtension.replace(
+                                new RegExp(`\\.${fileExtension}$`),
+                                ""
+                            );
                             const pathSegments = relativePath.split("/");
+
+                            let outputPath: string;
 
                             if (fileName === "index") {
                               if (pathSegments.length === 1) {
-                                return "index.md";
+                                outputPath = "index.md";
                               } else {
-                                const directories = pathSegments
-                                  .slice(0, -2)
-                                  .join("/");
-                                const folderName =
-                                  pathSegments[pathSegments.length - 2];
+                                const directories = pathSegments.slice(0, -2).join("/");
+                                const folderName = pathSegments[pathSegments.length - 2];
 
-                                return directories
-                                  ? `${directories}/${folderName}.md`
-                                  : `${folderName}.md`;
+                                outputPath = directories
+                                    ? `${directories}/${folderName}.md`
+                                    : `${folderName}.md`;
                               }
+                            } else {
+                              const directories = pathSegments.slice(0, -1).join("/");
+
+                              outputPath = directories ? `${directories}/${fileName}.md` : `${fileName}.md`;
                             }
 
-                            const directories = pathSegments
-                              .slice(0, -1)
-                              .join("/");
-                            return directories
-                              ? `${directories}/${fileName}.md`
-                              : `${fileName}.md`;
+                            const sourceDirSegments = Math.max(pathSegments.length - 1, 0);
+                            const goUpSegments = DOCS_CONTENT_SEGMENTS + sourceDirSegments;
+
+                            return path.posix.join("../".repeat(goUpSegments), outputPath);
                           },
                         },
                       ],
