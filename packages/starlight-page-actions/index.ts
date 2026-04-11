@@ -79,9 +79,7 @@ export interface PageActionsConfig {
  * ```
  *
  */
-export default function starlightPageActions(
-  userConfig?: PageActionsConfig
-): StarlightPlugin {
+export default function starlightPageActions(userConfig?: PageActionsConfig): StarlightPlugin {
   const defaultConfig: PageActionsConfig = {
     prompt: "Read {url}. I want to ask questions about it.",
     actions: {
@@ -94,7 +92,7 @@ export default function starlightPageActions(
       githubCopilot: false,
       markdown: true,
     },
-    share: false
+    share: false,
   };
 
   const config: PageActionsConfig = {
@@ -109,20 +107,14 @@ export default function starlightPageActions(
   return {
     name: "starlight-page-actions",
     hooks: {
-      "config:setup"({
-        addIntegration,
-        updateConfig,
-        config: starlightConfig,
-        logger,
-      }) {
+      "config:setup"({ addIntegration, updateConfig, config: starlightConfig, logger }) {
         const hasActions =
           config.actions?.chatgpt ||
           config.actions?.claude ||
           config.actions?.t3chat ||
           config.actions?.v0 ||
           config.actions?.markdown ||
-          (config.actions?.custom &&
-            Object.keys(config.actions.custom).length > 0);
+          (config.actions?.custom && Object.keys(config.actions.custom).length > 0);
 
         if (!hasActions) {
           logger.warn("No actions enabled. The dropdown will be hidden.");
@@ -145,24 +137,17 @@ export default function starlightPageActions(
                           src: "src/content/docs/**/*.{md,mdx}",
                           dest: "",
                           transform: (content: string) => {
-                            const frontMatterRegex =
-                              /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+                            const frontMatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
                             const match = content.match(frontMatterRegex);
 
                             let title = "";
                             let markdownContent = content;
 
-                            if (
-                              match &&
-                              match[1] !== undefined &&
-                              match[2] !== undefined
-                            ) {
+                            if (match && match[1] !== undefined && match[2] !== undefined) {
                               const frontMatter = match[1];
                               markdownContent = match[2];
 
-                              const titleMatch = frontMatter.match(
-                                /title:\s*["']?([^"'\n]+)["']?/
-                              );
+                              const titleMatch = frontMatter.match(/title:\s*["']?([^"'\n]+)["']?/);
                               if (titleMatch && titleMatch[1] !== undefined) {
                                 title = titleMatch[1].trim();
                               }
@@ -187,108 +172,127 @@ export default function starlightPageActions(
                             ];
 
                             let cleanContent = regexes.reduce(
-                                (content, regex) => content.replace(regex, ""),
-                                markdownContent
+                              (content, regex) => content.replace(regex, ""),
+                              markdownContent,
                             );
 
                             // Remove imports
                             cleanContent = cleanContent.replace(
-                                /(```[\s\S]*?```)|import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g,
-                                (_, codeBlock) => codeBlock || ''
+                              /(```[\s\S]*?```)|import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g,
+                              (_, codeBlock) => codeBlock || "",
                             );
 
                             // Replace <LinkCard /> and {% linkcard %}
                             const linkCardRegexes = [
                               /<LinkCard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/>/g,
-                              /{%\s*linkcard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/%}/g
+                              /{%\s*linkcard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/%}/g,
                             ];
 
                             cleanContent = linkCardRegexes.reduce(
-                                (content, regex) => content.replace(regex, (_, title: string, href: string) => `[${title}](${href})`),
-                                cleanContent
+                              (content, regex) =>
+                                content.replace(
+                                  regex,
+                                  (_, title: string, href: string) => `[${title}](${href})`,
+                                ),
+                              cleanContent,
                             );
 
                             // Replace <Card /> and {% card %}
                             const cardRegexes = [
                               /^\s*<Card[\s\S]*?title=["']([^"']+)["'][\s\S]*?(?:icon=["'][^"']*["'][\s\S]*?)?>([\s\S]*?)<\/Card>/gm,
-                              /\{%\s*card\s+title=["']([^"']+)["'][\s\S]*?\s*%\}([\s\S]*?)\{%\s*\/card\s*%\}/g
+                              /\{%\s*card\s+title=["']([^"']+)["'][\s\S]*?\s*%\}([\s\S]*?)\{%\s*\/card\s*%\}/g,
                             ];
 
                             cleanContent = cardRegexes.reduce(
-                                (content, regex) => content.replace(regex, (_, title: string, content: string) => `**${title}**\n${content.trim()}\n`),
-                                cleanContent
+                              (content, regex) =>
+                                content.replace(
+                                  regex,
+                                  (_, title: string, content: string) =>
+                                    `**${title}**\n${content.trim()}\n`,
+                                ),
+                              cleanContent,
                             );
 
                             // Replace <Aside /> and {% aside %}
                             const asideRegexes = [
                               /^\s*<Aside(?:\s+type=["'](\w+)["'])?(?:\s+title=["']([^"']+)["'])?\s*>([\s\S]*?)<\/Aside>/gm,
-                              /\{%\s*aside(?:\s+type=["'](\w+)["'])?(?:\s+title=["']([^"']+)["'])?\s*%\}([\s\S]*?)\{%\s*\/aside\s*%\}/gm
+                              /\{%\s*aside(?:\s+type=["'](\w+)["'])?(?:\s+title=["']([^"']+)["'])?\s*%\}([\s\S]*?)\{%\s*\/aside\s*%\}/gm,
                             ];
 
                             cleanContent = asideRegexes.reduce(
-                                (content, regex) => content.replace(
-                                    regex,
-                                    (_, type: "note"|"tip"|"caution"|"danger", title: string, contentText: string) => {
-                                      const defaultTitles = {
-                                        note: 'Note',
-                                        tip: 'Tip',
-                                        caution: 'Caution',
-                                        danger: 'Danger'
-                                      };
+                              (content, regex) =>
+                                content.replace(
+                                  regex,
+                                  (
+                                    _,
+                                    type: "note" | "tip" | "caution" | "danger",
+                                    title: string,
+                                    contentText: string,
+                                  ) => {
+                                    const defaultTitles = {
+                                      note: "Note",
+                                      tip: "Tip",
+                                      caution: "Caution",
+                                      danger: "Danger",
+                                    };
 
-                                      const finalType = type || 'note';
-                                      const finalTitle = title || defaultTitles[finalType];
+                                    const finalType = type || "note";
+                                    const finalTitle = title || defaultTitles[finalType];
 
-                                      return `**${finalTitle}:** ${contentText.trim()}`;
-                                    }
+                                    return `**${finalTitle}:** ${contentText.trim()}`;
+                                  },
                                 ),
-                                cleanContent
+                              cleanContent,
                             );
 
                             // Replace <Badge /> and {% badge %}
                             const badgeRegexes = [
                               /<Badge\s+text=["']([^"']+)["'](?:\s+variant=["'](\w+)["'])?\s*\/>/g,
-                              /\{%\s*badge\s+text=["']([^"']+)["'](?:\s+variant=["'](\w+)["'])?\s*\/%\}/g
+                              /\{%\s*badge\s+text=["']([^"']+)["'](?:\s+variant=["'](\w+)["'])?\s*\/%\}/g,
                             ];
 
                             cleanContent = badgeRegexes.reduce(
-                                (content, regex) => content.replace(regex, (_, text: string) => text),
-                                cleanContent
+                              (content, regex) => content.replace(regex, (_, text: string) => text),
+                              cleanContent,
                             );
 
                             // Replace <Code /> and {% code %}
                             const codeRegexes = [
                               /<Code\s+code=(?:\{([^}]+)\}|["']([^"']+)["'])(?:\s+lang=["']([^"']+)["'])?(?:\s+title=(?:\{([^}]+)\}|["']([^"']+)["']))?[\s\S]*?\/>/g,
-                              /\{%\s*code\s+code=["']([^"']+)["'](?:\s+lang=["']([^"']+)["'])?(?:\s+title=["']([^"']+)["'])?[\s\S]*?\/%\}/g
+                              /\{%\s*code\s+code=["']([^"']+)["'](?:\s+lang=["']([^"']+)["'])?(?:\s+title=["']([^"']+)["'])?[\s\S]*?\/%\}/g,
                             ];
 
                             cleanContent = codeRegexes.reduce(
-                                (content, regex) => content.replace(
-                                    regex,
-                                    (...matches) => {
-                                      const code = matches[1] || matches[2];
-                                      const lang = matches[3] || matches[2];
-                                      const title = matches[4] || matches[5];
+                              (content, regex) =>
+                                content.replace(regex, (...matches) => {
+                                  const code = matches[1] || matches[2];
+                                  const lang = matches[3] || matches[2];
+                                  const title = matches[4] || matches[5];
 
-                                      const finalLang = lang || '';
-                                      const codeContent = code?.replace(/^["']|["']$/g, '') || '';
-                                      const titleComment = title ? `// ${title.replace(/^["']|["']$/g, '')}\n` : '';
+                                  const finalLang = lang || "";
+                                  const codeContent = code?.replace(/^["']|["']$/g, "") || "";
+                                  const titleComment = title
+                                    ? `// ${title.replace(/^["']|["']$/g, "")}\n`
+                                    : "";
 
-                                      return `\`\`\`${finalLang}\n${titleComment}${codeContent}\n\`\`\``;
-                                    }
-                                ),
-                                cleanContent
+                                  return `\`\`\`${finalLang}\n${titleComment}${codeContent}\n\`\`\``;
+                                }),
+                              cleanContent,
                             );
 
                             // Replace <LinkButton /> and {% linkbutton %}
                             const linkButtonRegexes = [
                               /<LinkButton[\s\S]*?href=["']([^"']+)["'][\s\S]*?>([\s\S]*?)<\/LinkButton>/g,
-                              /\{%\s*linkbutton[\s\S]*?href=["']([^"']+)["'][\s\S]*?%\}([\s\S]*?)\{%\s*\/linkbutton\s*%\}/g
+                              /\{%\s*linkbutton[\s\S]*?href=["']([^"']+)["'][\s\S]*?%\}([\s\S]*?)\{%\s*\/linkbutton\s*%\}/g,
                             ];
 
                             cleanContent = linkButtonRegexes.reduce(
-                                (content, regex) => content.replace(regex, (_, href: string, text: string) => `[${text.trim()}](${href})`),
-                                cleanContent
+                              (content, regex) =>
+                                content.replace(
+                                  regex,
+                                  (_, href: string, text: string) => `[${text.trim()}](${href})`,
+                                ),
+                              cleanContent,
                             );
 
                             // Apply baseUrl to internal links
@@ -296,8 +300,7 @@ export default function starlightPageActions(
                             if (baseUrl) {
                               cleanContent = cleanContent.replace(
                                 /\[([^\]]+)\]\((\/[^)]+)\)/g,
-                                (_, text, href) =>
-                                  `[${text}](${baseUrl}${href})`
+                                (_, text, href) => `[${text}](${baseUrl}${href})`,
                               );
                             }
 
@@ -305,42 +308,46 @@ export default function starlightPageActions(
                             cleanContent = cleanContent.replace(/\n{3,}/g, "\n\n");
 
                             // Fix indentation issues
-                            cleanContent = cleanContent.split('\n').map((line, index, lines) => {
-                              if (/^\s+\d+\./.test(line)) {
-                                return line.replace(/^\s+/, '');
-                              }
+                            cleanContent = cleanContent
+                              .split("\n")
+                              .map((line, index, lines) => {
+                                if (/^\s+\d+\./.test(line)) {
+                                  return line.replace(/^\s+/, "");
+                                }
 
-                              const prevLine = lines[index - 1];
-                              if (index > 0 && prevLine && /^\d+\./.test(prevLine.trim()) && /^\s{4,}/.test(line)) {
-                                return line.replace(/^\s+/, '   ');
-                              }
+                                const prevLine = lines[index - 1];
+                                if (
+                                  index > 0 &&
+                                  prevLine &&
+                                  /^\d+\./.test(prevLine.trim()) &&
+                                  /^\s{4,}/.test(line)
+                                ) {
+                                  return line.replace(/^\s+/, "   ");
+                                }
 
-                              return line;
-                            }).join('\n');
+                                return line;
+                              })
+                              .join("\n");
 
                             let newContent = title ? `# ${title}\n\n` : "";
                             newContent += cleanContent.trim();
 
                             return newContent;
                           },
-                          rename: (
-                            fileName: string,
-                            fileExtension: string,
-                            fullPath: string
-                          ) => {
+                          rename: (fileName: string, fileExtension: string, fullPath: string) => {
                             const DOCS_CONTENT_DIR = "src/content/docs/";
-                            const DOCS_CONTENT_SEGMENTS = DOCS_CONTENT_DIR
-                                .replace(/\/$/, "")
-                                .split("/").length;
+                            const DOCS_CONTENT_SEGMENTS = DOCS_CONTENT_DIR.replace(/\/$/, "").split(
+                              "/",
+                            ).length;
                             const fullPathNormalized = normalizePath(fullPath);
                             const docsRelativePathWithExtension = fullPathNormalized.includes(
-                                DOCS_CONTENT_DIR
+                              DOCS_CONTENT_DIR,
                             )
-                                ? (fullPathNormalized.split(DOCS_CONTENT_DIR)[1] as string)
-                                : path.posix.basename(fullPathNormalized);
+                              ? (fullPathNormalized.split(DOCS_CONTENT_DIR)[1] as string)
+                              : path.posix.basename(fullPathNormalized);
                             const relativePath = docsRelativePathWithExtension.replace(
-                                new RegExp(`\\.${fileExtension}$`),
-                                ""
+                              new RegExp(`\\.${fileExtension}$`),
+                              "",
                             );
                             const pathSegments = relativePath.split("/");
 
@@ -354,13 +361,15 @@ export default function starlightPageActions(
                                 const folderName = pathSegments[pathSegments.length - 2];
 
                                 outputPath = directories
-                                    ? `${directories}/${folderName}.md`
-                                    : `${folderName}.md`;
+                                  ? `${directories}/${folderName}.md`
+                                  : `${folderName}.md`;
                               }
                             } else {
                               const directories = pathSegments.slice(0, -1).join("/");
 
-                              outputPath = directories ? `${directories}/${fileName}.md` : `${fileName}.md`;
+                              outputPath = directories
+                                ? `${directories}/${fileName}.md`
+                                : `${fileName}.md`;
                             }
 
                             const sourceDirSegments = Math.max(pathSegments.length - 1, 0);
@@ -418,14 +427,11 @@ export default function starlightPageActions(
 
                   if (item.link && typeof item.link === "string") {
                     const isExternalLink =
-                      item.link.startsWith("http://") ||
-                      item.link.startsWith("https://");
+                      item.link.startsWith("http://") || item.link.startsWith("https://");
 
                     if (!isExternalLink) {
                       const cleanLink = item.link.replace(/^\/+|\/+$/g, "");
-                      const url = cleanLink
-                        ? `${baseUrl}/${cleanLink}`
-                        : `${baseUrl}`;
+                      const url = cleanLink ? `${baseUrl}/${cleanLink}` : `${baseUrl}`;
 
                       if (item.label) {
                         content += `- [${item.label}](${url})\n`;
@@ -437,9 +443,7 @@ export default function starlightPageActions(
 
                   if (item.slug && typeof item.slug === "string") {
                     const cleanSlug = item.slug.replace(/^\/+|\/+$/g, "");
-                    const url = cleanSlug
-                      ? `${baseUrl}/${cleanSlug}`
-                      : `${baseUrl}`;
+                    const url = cleanSlug ? `${baseUrl}/${cleanSlug}` : `${baseUrl}`;
 
                     if (item.label) {
                       content += `- [${item.label}](${url})\n`;
@@ -452,13 +456,10 @@ export default function starlightPageActions(
                     for (const subItem of item.items) {
                       if (typeof subItem === "string") {
                         const cleanSlug = subItem.replace(/^\/+|\/+$/g, "");
-                        const url = cleanSlug
-                          ? `${baseUrl}/${cleanSlug}`
-                          : `${baseUrl}`;
+                        const url = cleanSlug ? `${baseUrl}/${cleanSlug}` : `${baseUrl}`;
                         content += `- ${url}\n`;
                       } else if (typeof subItem === "object") {
-                        const hasNestedItems =
-                          subItem.items && Array.isArray(subItem.items);
+                        const hasNestedItems = subItem.items && Array.isArray(subItem.items);
                         const nextLevel = hasNestedItems ? level + 1 : level;
                         content += processSidebarItem(subItem, nextLevel);
                       }
@@ -477,12 +478,10 @@ export default function starlightPageActions(
                 }
               } else {
                 const mdFiles = pages.filter(
-                  (page) => page.pathname !== "" && page.pathname !== "404/"
+                  (page) => page.pathname !== "" && page.pathname !== "404/",
                 );
 
-                const urls = mdFiles.map(
-                  (file) => `- ${baseUrl}/${file.pathname}`
-                );
+                const urls = mdFiles.map((file) => `- ${baseUrl}/${file.pathname}`);
                 llmsTxtContent += urls.join("\n");
               }
 
