@@ -21,9 +21,17 @@
     ".": "./index.ts",
     "./overrides/PageTitle.astro": "./overrides/PageTitle.astro"
   },
+  "scripts": {
+    "fmt": "oxfmt",
+    "lint": "oxlint"
+  },
   "dependencies": {
     "vite-plugin-static-copy": "4.0.1",
     "vite-plugin-virtual": "0.5.0"
+  },
+  "devDependencies": {
+    "oxfmt": "0.44.0",
+    "oxlint": "1.59.0"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.36.0",
