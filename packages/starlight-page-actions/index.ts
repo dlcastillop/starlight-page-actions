@@ -24,11 +24,16 @@ interface CustomAction {
   href: string;
 }
 
+interface LocaleConfig {
+  prompt?: string;
+}
+
 export interface PageActionsConfig {
   prompt?: string;
   baseUrl?: string;
   actions?: Actions;
   share?: boolean;
+  locales?: Record<string, LocaleConfig>;
 }
 
 /**
@@ -96,6 +101,7 @@ export default function starlightPageActions(userConfig?: PageActionsConfig): St
   };
 
   const config: PageActionsConfig = {
+    locales: {},
     ...defaultConfig,
     ...userConfig,
     actions: {

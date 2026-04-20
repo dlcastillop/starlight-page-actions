@@ -4,6 +4,7 @@ import { Icon } from "@astrojs/starlight/components";
 import config from "virtual:config";
 import Dropdown from "../components/Dropdown.astro";
 import Button from "../components/Button.astro";
+import {getLocaleConfig} from "../utils/getLocaleConfig.ts";
 
 interface OptionsProps {
   label: string;
@@ -13,8 +14,11 @@ interface OptionsProps {
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
 const currentUrl = Astro.url.href;
-const { actions, prompt: userPrompt, share } = config;
+const { actions, share } = config;
 const { title, pageActions } = (Astro.locals as any).starlightRoute.entry.data;
+
+const currentLocale = Astro.currentLocale;
+const userPrompt = getLocaleConfig(config, currentLocale, "prompt");
 
 const prompt = userPrompt?.includes("{url}")
   ? userPrompt?.replace("{url}", currentUrl)
