@@ -4,17 +4,32 @@ import { Icon } from "@astrojs/starlight/components";
 import config from "virtual:config";
 import Dropdown from "../components/Dropdown.astro";
 import Button from "../components/Button.astro";
+import { getLocaleConfig } from "../utils/getLocaleConfig.ts";
 
+type DefaultActionId =
+  | "chatgpt"
+  | "claude"
+  | "markdown"
+  | "v0"
+  | "t3chat"
+  | "cursor"
+  | "perplexity"
+  | "githubCopilot";
 interface OptionsProps {
   label: string;
   href: string;
-  id: "chatgpt" | "claude" | "markdown" | "v0" | "t3chat" | "cursor" | "perplexity" | "githubCopilot";
+  id: string;
 }
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
 const currentUrl = Astro.url.href;
-const { actions, prompt: userPrompt, share } = config;
+const currentLocale = Astro.currentLocale;
+const { actions, share } = config;
 const { title, pageActions } = (Astro.locals as any).starlightRoute.entry.data;
+
+const userPrompt = getLocaleConfig(config, currentLocale, "prompt");
+const localeActions = getLocaleConfig(config, currentLocale, "actions");
+const localeCustomActions = localeActions?.custom;
 
 const prompt = userPrompt?.includes("{url}")
   ? userPrompt?.replace("{url}", currentUrl)
@@ -23,7 +38,7 @@ const encodedPrompt = encodeURIComponent(prompt as string);
 const encodedCurrentUrl = encodeURIComponent(currentUrl);
 const encodedTitle = encodeURIComponent(title as string);
 
-const defaultOptions: OptionsProps[] = [
+const defaultOptions: Array<OptionsProps & { id: DefaultActionId }> = [
   {
     label: Astro.locals.t("open.chatgpt"),
     href: `https://chatgpt.com/?q=${encodedPrompt}`,
@@ -76,10 +91,12 @@ const filteredDefaultOptions = defaultOptions.filter((option) => {
 });
 const customOptions: OptionsProps[] = actions?.custom
   ? Object.entries(actions.custom).map(([key, value]) => {
+      const localeCustomAction = localeCustomActions?.[key];
+
       return {
-        label: value.label,
-        href: `${value.href}${encodedPrompt}`,
-        id: key as OptionsProps["id"],
+        label: localeCustomAction?.label ?? value.label,
+        href: `${localeCustomAction?.href ?? value.href}${encodedPrompt}`,
+        id: key,
       };
     })
   : [];

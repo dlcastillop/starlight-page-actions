@@ -24,11 +24,21 @@ interface CustomAction {
   href: string;
 }
 
+interface LocaleActions {
+  custom?: Record<string, Partial<CustomAction>>;
+}
+
+interface LocaleConfig {
+  prompt?: string;
+  actions?: LocaleActions;
+}
+
 export interface PageActionsConfig {
   prompt?: string;
   baseUrl?: string;
   actions?: Actions;
   share?: boolean;
+  locales?: Record<string, LocaleConfig>;
 }
 
 /**
@@ -45,6 +55,7 @@ export interface PageActionsConfig {
  * @param {string} [userConfig.baseUrl] - The base URL of your site, required for generating the `llms.txt` file.
  * @param {Actions} [userConfig.actions] - Configure which built-in actions to display and define custom actions.
  * @param {boolean} [userConfig.share] - Enable sharing options for documentation pages.
+ * @param {Record<string, LocaleConfig>} [userConfig.locales] - Locale-specific prompt and custom action overrides.
  * @see {@link https://starlight-page-actions.dlcastillop.com/docs/reference/configuration|Configuration Reference}
  *
  * @example
@@ -71,6 +82,18 @@ export interface PageActionsConfig {
  *              }
  *            }
  *           }
+ *           locales: {
+ *             es: {
+ *               prompt: "Lee {url} y explica sus puntos principales brevemente.",
+ *               actions: {
+ *                 custom: {
+ *                   sciraAi: {
+ *                     label: "Abrir en Scira AI"
+ *                   }
+ *                 }
+ *               }
+ *             }
+ *           }
  *         })
  *       ]
  *     })
@@ -96,6 +119,7 @@ export default function starlightPageActions(userConfig?: PageActionsConfig): St
   };
 
   const config: PageActionsConfig = {
+    locales: {},
     ...defaultConfig,
     ...userConfig,
     actions: {
