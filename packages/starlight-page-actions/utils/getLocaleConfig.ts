@@ -7,7 +7,7 @@ export function getLocaleConfig<T extends LocaleConfigKey>(
   config: PageActionsConfig,
   locale: string | undefined,
   key: T,
-): PageActionsConfig[T] {
+): LocaleConfig[T] | PageActionsConfig[T] {
   const localeConfig = locale ? config.locales?.[locale] : undefined;
   const localeValue = localeConfig?.[key];
 
