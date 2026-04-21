@@ -58,6 +58,10 @@ export default defineConfig({
               label: "Share Documentation",
               link: "docs/guides/share-documentation",
             },
+            {
+              label: "Internationalization",
+              link: "docs/guides/internationalization",
+            },
           ],
         },
         {
