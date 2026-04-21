@@ -1,10 +1,17 @@
 ---
 title: Changelog
 description: New features, bug fixes, and improvements made to Starlight Page Actions.
-lastUpdated: 2026-02-06
+lastUpdated: 2026-04-21
 ---
 
 New features, bug fixes, and improvements made to Starlight Page Actions.
+
+## v0.6.0
+
+### Features
+
+- Add actions for Cursor, Perplexity, and GitHub Copilot
+- Add internationalization for prompts and custom actions
 
 ## v0.5.0
 
