@@ -9,18 +9,20 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.37.6",
-    "@astrojs/starlight-tailwind": "^4.0.2",
-    "@dlcastillop/starlight-marketing-components": "^0.3.0",
-    "@lucide/astro": "^0.563.0",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.17.1",
-    "sharp": "^0.34.5",
+    "@astrojs/starlight": "0.38.3",
+    "@astrojs/starlight-tailwind": "5.0.0",
+    "@dlcastillop/starlight-marketing-components": "0.3.0",
+    "@lucide/astro": "1.8.0",
+    "@tailwindcss/vite": "4.2.2",
+    "astro": "6.1.8",
+    "sharp": "0.34.5",
     "starlight-page-actions": "workspace:*",
-    "starlight-ui-tweaks": "^0.2.1",
-    "tailwindcss": "^4.1.18"
+    "starlight-ui-tweaks": "0.2.2",
+    "tailwindcss": "4.2.2",
+    "seo-in-astro": "1.0.0"
   },
-  "engines": {
-    "node": "^18.17.1 || ^20.3.0 || >=21.0.0"
+  "devDependencies": {
+    "oxfmt": "0.46.0",
+    "oxlint": "1.61.0"
   }
 }
