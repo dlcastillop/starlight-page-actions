@@ -15,6 +15,9 @@ The plugin includes five built-in actions that you can enable or disable using t
 - **`claude`** - Opens the current page in Claude
 - **`t3chat`** - Opens the current page in T3 Chat (disabled by default)
 - **`v0`** - Opens the current page in v0 (disabled by default)
+- **`cursor`** - Opens the current page in Cursor (disabled by default)
+- **`perplexity`** - Opens the current page in Perplexity (disabled by default)
+- **`githubCopilot`** - Opens the current page in GitHub Copilot (disabled by default)
 - **`markdown`** - View the page content in Markdown format
 
 You can enable or disable any of these actions by setting them to `true` or `false`:
@@ -29,7 +32,8 @@ starlightPageActions({
     markdown: false, // Disable Markdown action
   },
 });
-```**Note:** All default actions are internationalized and support English, Spanish, Portuguese, French, Italian, and German. The "Copy Markdown" button is also included in the internationalization.
+```**Note:** All default actions are internationalized and support English, Spanish, Portuguese, French,
+  Italian, and German. The "Copy Markdown" button is also included in the internationalization.
 
 ## Custom actions
 
@@ -46,7 +50,9 @@ starlightPageActions({
     },
   },
 });
-```**Tip:** The `href` should include the complete URL with the appropriate query parameter structure for the service you're integrating. Make sure to include the query parameter name (e.g., `?q=`, `?query=`, `?prompt=`) at the end.
+```**Tip:** The `href` should include the complete URL with the appropriate query parameter structure for the
+  service you're integrating. Make sure to include the query parameter name (e.g., `?q=`, `?query=`,
+  `?prompt=`) at the end.
 
 ## Combining default and custom actions
 
@@ -65,4 +71,60 @@ starlightPageActions({
     },
   },
 });
-```**Note:** If all default actions are set to `false` and no custom actions are specified, the page actions section will not be displayed.
+```**Note:** If all default actions are set to `false` and no custom actions are specified, the page actions
+  section will not be displayed.
+
+## Internationalization
+
+Custom actions can be internationalized. See the [Internationalization guide](internationalization.md) for more details.
+
+```js
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
+import starlightPageActions from "starlight-page-actions";
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      locales: {
+        root: {
+          label: "English",
+          lang: "en",
+        },
+        es: {
+          label: "Español",
+          lang: "es",
+        },
+      },
+      plugins: [
+        starlightPageActions({
+          actions: {
+            chatgpt: false,
+            v0: true,
+            custom: {
+              sciraAi: {
+                label: "Open in Scira AI",
+                href: "https://scira.ai/?q=",
+              },
+            },
+          },
+          locales: {
+            es: {
+              prompt: "Lee {url} y explica brevemente sus puntos principales.",
+              actions: {
+                custom: {
+                  sciraAi: {
+                    label: "Abrir en Scira AI",
+                    href: "https://scira.ai/?q=",
+                  },
+                },
+              },
+            },
+          },
+        }),
+      ],
+      title: "My Docs",
+    }),
+  ],
+});
+```

@@ -3,12 +3,20 @@ import { defineConfig } from "astro/config";
 import starlightPageActions from "starlight-page-actions";
 import starlightUiTweaks from "starlight-ui-tweaks";
 import tailwindcss from "@tailwindcss/vite";
+import { seoInAstro } from "seo-in-astro";
+
+const BASE_URL = "https://starlight-page-actions.dlcastillop.com";
+const SITE_NAME = "Starlight Page Actions";
 
 export default defineConfig({
-  site: "https://starlight-page-actions.dlcastillop.com",
+  site: BASE_URL,
   integrations: [
+    seoInAstro({
+      baseUrl: BASE_URL,
+      siteName: SITE_NAME,
+    }),
     starlight({
-      title: "Starlight Page Actions",
+      title: SITE_NAME,
       logo: {
         src: "./src/assets/logo.svg",
         replacesTitle: true,
@@ -49,6 +57,10 @@ export default defineConfig({
             {
               label: "Share Documentation",
               link: "docs/guides/share-documentation",
+            },
+            {
+              label: "Internationalization",
+              link: "docs/guides/internationalization",
             },
           ],
         },

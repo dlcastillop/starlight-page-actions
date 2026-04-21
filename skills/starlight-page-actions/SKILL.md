@@ -13,5 +13,6 @@ Read individual rule files for detailed explanations and code examples.
 - [Disable Page Actions per Page](rules/disable-page-actions.md)
 - [Generate the llms.txt file](rules/generate-llms-txt.md)
 - [Getting Started](rules/getting-started.md)
+- [Internationalization](rules/internationalization.md)
 - [Share Documentation](rules/share-documentation.md)
 - [Types Reference](rules/types.md)

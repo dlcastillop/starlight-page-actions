@@ -5,6 +5,6 @@
   },
   "packageManager": "pnpm@9.6.0",
   "devDependencies": {
-    "skillit": "^0.1.0"
+    "skillit": "0.1.0"
   }
 }
