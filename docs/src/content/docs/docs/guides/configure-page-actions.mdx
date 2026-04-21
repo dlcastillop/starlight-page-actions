@@ -84,3 +84,58 @@ starlightPageActions({
 <Aside>
 If all default actions are set to `false` and no custom actions are specified, the page actions section will not be displayed.
 </Aside>
+
+## Internationalization
+
+Custom actions can be internationalized. See the [Internationalization guide](/docs/guides/internationalization) for more details.
+
+```js
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
+import starlightPageActions from "starlight-page-actions";
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      locales: {
+        root: {
+          label: "English",
+          lang: "en",
+        },
+        es: {
+          label: "Español",
+          lang: "es",
+        },
+      },
+        plugins: [
+            starlightPageActions({
+            actions: {
+                chatgpt: false,
+                v0: true,
+                custom: {
+                  sciraAi: {
+                    label: "Open in Scira AI",
+                    href: "https://scira.ai/?q=",
+                  },
+                },
+              },
+                locales: {
+                    "es": {
+                        prompt: "Lee {url} y explica brevemente sus puntos principales.",
+                        actions: {
+                                        custom: {
+                                          sciraAi: {
+                                            label: "Abrir en Scira AI",
+                                            href: "https://scira.ai/?q=",
+                                          },
+                                        },
+                                      }
+                    }
+                }
+            }),
+        ],
+      title: "My Docs",
+    }),
+  ],
+});
+```

@@ -6,7 +6,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "fmt": "oxfmt",
+    "lint": "oxlint"
   },
   "dependencies": {
     "@astrojs/starlight": "0.38.3",
@@ -22,7 +24,7 @@
     "seo-in-astro": "1.0.0"
   },
   "devDependencies": {
-    "oxfmt": "0.46.0",
-    "oxlint": "1.61.0"
+    "oxfmt": "0.44.0",
+    "oxlint": "1.59.0"
   }
 }
