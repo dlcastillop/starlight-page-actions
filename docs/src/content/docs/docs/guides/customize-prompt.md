@@ -82,16 +82,16 @@ export default defineConfig({
           lang: "es",
         },
       },
-        plugins: [
-            starlightPageActions({
-                prompt: "Read {url} and explain its main points briefly.",
-                locales: {
-                    "es": {
-                        prompt: "Lee {url} y explica brevemente sus puntos principales."
-                    }
-                }
-            }),
-        ],
+      plugins: [
+        starlightPageActions({
+          prompt: "Read {url} and explain its main points briefly.",
+          locales: {
+            es: {
+              prompt: "Lee {url} y explica brevemente sus puntos principales.",
+            },
+          },
+        }),
+      ],
       title: "My Docs",
     }),
   ],

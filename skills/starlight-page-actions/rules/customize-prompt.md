@@ -58,3 +58,41 @@ You are a technical assistant. Read {url} and summarize the most important conce
 The `{url}` placeholder will automatically be replaced at runtime.
 
 If you do not include `{url}` in your prompt, the page URL will be automatically appended at the end.
+
+## Internationalization
+
+The prompt can be internationalized. See the [Internationalization guide](internationalization.md) for more details.
+
+```js
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
+import starlightPageActions from "starlight-page-actions";
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      locales: {
+        root: {
+          label: "English",
+          lang: "en",
+        },
+        es: {
+          label: "Español",
+          lang: "es",
+        },
+      },
+      plugins: [
+        starlightPageActions({
+          prompt: "Read {url} and explain its main points briefly.",
+          locales: {
+            es: {
+              prompt: "Lee {url} y explica brevemente sus puntos principales.",
+            },
+          },
+        }),
+      ],
+      title: "My Docs",
+    }),
+  ],
+});
+```

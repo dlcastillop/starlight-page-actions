@@ -38,7 +38,8 @@ starlightPageActions({
 ```
 
 <Aside>
-All default actions are internationalized and support English, Spanish, Portuguese, French, Italian, and German. The "Copy Markdown" button is also included in the internationalization.
+  All default actions are internationalized and support English, Spanish, Portuguese, French,
+  Italian, and German. The "Copy Markdown" button is also included in the internationalization.
 </Aside>
 
 ## Custom actions
@@ -59,7 +60,9 @@ starlightPageActions({
 ```
 
 <Aside type="tip">
-The `href` should include the complete URL with the appropriate query parameter structure for the service you're integrating. Make sure to include the query parameter name (e.g., `?q=`, `?query=`, `?prompt=`) at the end.
+  The `href` should include the complete URL with the appropriate query parameter structure for the
+  service you're integrating. Make sure to include the query parameter name (e.g., `?q=`, `?query=`,
+  `?prompt=`) at the end.
 </Aside>
 
 ## Combining default and custom actions
@@ -82,7 +85,8 @@ starlightPageActions({
 ```
 
 <Aside>
-If all default actions are set to `false` and no custom actions are specified, the page actions section will not be displayed.
+  If all default actions are set to `false` and no custom actions are specified, the page actions
+  section will not be displayed.
 </Aside>
 
 ## Internationalization
@@ -107,33 +111,33 @@ export default defineConfig({
           lang: "es",
         },
       },
-        plugins: [
-            starlightPageActions({
-            actions: {
-                chatgpt: false,
-                v0: true,
+      plugins: [
+        starlightPageActions({
+          actions: {
+            chatgpt: false,
+            v0: true,
+            custom: {
+              sciraAi: {
+                label: "Open in Scira AI",
+                href: "https://scira.ai/?q=",
+              },
+            },
+          },
+          locales: {
+            es: {
+              prompt: "Lee {url} y explica brevemente sus puntos principales.",
+              actions: {
                 custom: {
                   sciraAi: {
-                    label: "Open in Scira AI",
+                    label: "Abrir en Scira AI",
                     href: "https://scira.ai/?q=",
                   },
                 },
               },
-                locales: {
-                    "es": {
-                        prompt: "Lee {url} y explica brevemente sus puntos principales.",
-                        actions: {
-                                        custom: {
-                                          sciraAi: {
-                                            label: "Abrir en Scira AI",
-                                            href: "https://scira.ai/?q=",
-                                          },
-                                        },
-                                      }
-                    }
-                }
-            }),
-        ],
+            },
+          },
+        }),
+      ],
       title: "My Docs",
     }),
   ],
