@@ -1,10 +1,17 @@
 ---
 title: Changelog
 description: New features, bug fixes, and improvements made to Starlight Page Actions.
-lastUpdated: 2026-04-21
+lastUpdated: 2026-06-09
 ---
 
 New features, bug fixes, and improvements made to Starlight Page Actions.
+
+## v0.6.1
+
+### Bug Fixes
+
+- Fix generated Markdown files being copied to the wrong output directory in Astro 6 projects using the Netlify adapter
+- Use the active locale's default prompt when opening pages in AI tools
 
 ## v0.6.0
 
