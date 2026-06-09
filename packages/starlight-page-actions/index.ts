@@ -104,7 +104,6 @@ export interface PageActionsConfig {
  */
 export default function starlightPageActions(userConfig?: PageActionsConfig): StarlightPlugin {
   const defaultConfig: PageActionsConfig = {
-    prompt: "Read {url}. I want to ask questions about it.",
     actions: {
       chatgpt: true,
       claude: true,
