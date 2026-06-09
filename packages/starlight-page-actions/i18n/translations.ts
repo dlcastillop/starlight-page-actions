@@ -1,5 +1,6 @@
 export const translations = {
   en: {
+    "prompt.default": "Read {url}. I want to ask questions about it.",
     "copy.markdown": "Copy Markdown",
     open: "Open",
     "open.chatgpt": "Open in ChatGPT",
@@ -23,6 +24,7 @@ export const translations = {
     "share.telegram": "Share on Telegram",
   },
   es: {
+    "prompt.default": "Lee {url}. Quiero hacer preguntas sobre esta página.",
     "copy.markdown": "Copiar Markdown",
     open: "Abrir",
     "open.chatgpt": "Abrir en ChatGPT",
@@ -46,6 +48,7 @@ export const translations = {
     "share.telegram": "Compartir en Telegram",
   },
   pt: {
+    "prompt.default": "Leia {url}. Quero fazer perguntas sobre isso.",
     "copy.markdown": "Copiar Markdown",
     open: "Abrir",
     "open.chatgpt": "Abrir no ChatGPT",
@@ -69,6 +72,7 @@ export const translations = {
     "share.telegram": "Compartilhar no Telegram",
   },
   fr: {
+    "prompt.default": "Lisez {url}. Je veux poser des questions à son sujet.",
     "copy.markdown": "Copier le Markdown",
     open: "Ouvrir",
     "open.chatgpt": "Ouvrir dans ChatGPT",
@@ -92,6 +96,7 @@ export const translations = {
     "share.telegram": "Partager sur Telegram",
   },
   it: {
+    "prompt.default": "Leggi {url}. Voglio fare domande al riguardo.",
     "copy.markdown": "Copia Markdown",
     open: "Apri",
     "open.chatgpt": "Apri in ChatGPT",
@@ -115,6 +120,7 @@ export const translations = {
     "share.telegram": "Condividi su Telegram",
   },
   de: {
+    "prompt.default": "Lies {url}. Ich möchte Fragen dazu stellen.",
     "copy.markdown": "Markdown kopieren",
     open: "Öffnen",
     "open.chatgpt": "In ChatGPT öffnen",

@@ -31,9 +31,10 @@ const userPrompt = getLocaleConfig(config, currentLocale, "prompt");
 const localeActions = getLocaleConfig(config, currentLocale, "actions");
 const localeCustomActions = localeActions?.custom;
 
-const prompt = userPrompt?.includes("{url}")
-  ? userPrompt?.replace("{url}", currentUrl)
-  : `${userPrompt} ${currentUrl}`;
+const promptTemplate = userPrompt ?? Astro.locals.t("prompt.default");
+const prompt = promptTemplate.includes("{url}")
+  ? promptTemplate.replace("{url}", currentUrl)
+  : `${promptTemplate} ${currentUrl}`;
 const encodedPrompt = encodeURIComponent(prompt as string);
 const encodedCurrentUrl = encodeURIComponent(currentUrl);
 const encodedTitle = encodeURIComponent(title as string);
