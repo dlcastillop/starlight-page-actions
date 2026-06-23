@@ -75,6 +75,7 @@ const dropdownId = id ? `dropdown-${id}` : "dropdown-0";
   }
 
   .dropdown-item {
+    --dropdown-item-bg: var(--sl-color-gray-6);
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -88,6 +89,7 @@ const dropdownId = id ? `dropdown-${id}` : "dropdown-0";
   }
 
   .dropdown-item:hover {
+    --dropdown-item-bg: var(--sl-color-gray-5);
     background-color: var(--sl-color-gray-5);
   }
 
@@ -119,6 +121,10 @@ const dropdownId = id ? `dropdown-${id}` : "dropdown-0";
     fill: currentColor;
   }
 
+  .dropdown-item :global(.action-icon [data-preserve-fill]) {
+    fill: var(--dropdown-item-bg);
+  }
+
   .dropdown-item :global(.action-icon[data-action-icon="t3chat"]) {
     transform: scale(1.35);
   }
@@ -133,6 +139,15 @@ const dropdownId = id ? `dropdown-${id}` : "dropdown-0";
 
   .dropdown-item :global(.action-icon[data-action-icon="cursor"]) {
     transform: scale(0.92);
+  }
+
+  .dropdown-item :global(.action-icon[data-action-icon="facebook"]),
+  .dropdown-item :global(.action-icon[data-action-icon="reddit"]) {
+    transform: scale(1.2);
+  }
+
+  .dropdown-item :global(.action-icon[data-action-icon="telegram"]) {
+    transform: scale(1.6);
   }
 
   .dropdown-item .external-icon {
