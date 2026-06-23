@@ -1,0 +1,41 @@
+<svg viewBox="0 0 64 64" {...Astro.props}>
+  <defs>
+    <linearGradient id="t3chat-bg" x1="31.022" y1="-4.145" x2="31.022" y2="68.983" gradientUnits="userSpaceOnUse">
+      <stop offset="0.2279" stop-color="#fc2aa6" />
+      <stop offset="1" stop-color="#af078b" stop-opacity="0.9961" />
+    </linearGradient>
+    <linearGradient id="t3chat-tail" x1="11.947" y1="34.826" x2="25.347" y2="48.083" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff93f6" />
+      <stop offset="1" stop-color="#f895e6" />
+    </linearGradient>
+    <linearGradient id="t3chat-bubble" x1="26.396" y1="14.001" x2="41.593" y2="40.001" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffb2fb" />
+      <stop offset="1" stop-color="#f88be5" />
+    </linearGradient>
+    <radialGradient
+      id="t3chat-highlight"
+      cx="26.552"
+      cy="23.84"
+      r="11.944"
+      fx="26.552"
+      fy="23.84"
+      gradientTransform="matrix(1.208941 0 0 .82717019 -.34461661 .15361538)"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop offset="0" stop-color="#fff" stop-opacity="0.7015" />
+      <stop offset="1" stop-color="#fff" stop-opacity="0" />
+    </radialGradient>
+    <clipPath id="t3chat-circle">
+      <circle cx="32" cy="32" r="27" />
+    </clipPath>
+  </defs>
+  <circle cx="32" cy="32" r="27" fill="url(#t3chat-bg)" />
+  <g clip-path="url(#t3chat-circle)" opacity="0.808" transform="matrix(.84607574 0 0 .94903175 3.3792104 4.7454126)">
+    <path
+      fill="url(#t3chat-tail)"
+      d="M19.977 35.127c-.764 4.647-.609 3.682-1.172 8.304 5.039-1.904 6.46-2.449 10.927-4.227"
+    />
+    <ellipse cx="34" cy="27" rx="19" ry="13" fill="url(#t3chat-bubble)" />
+    <ellipse cx="33.655" cy="27.154" rx="19" ry="13" fill="url(#t3chat-highlight)" />
+  </g>
+</svg>
