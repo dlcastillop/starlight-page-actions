@@ -5,6 +5,14 @@ import config from "virtual:config";
 import Dropdown from "../components/Dropdown.astro";
 import Button from "../components/Button.astro";
 import { getLocaleConfig } from "../utils/getLocaleConfig.ts";
+import ChatGPTIcon from "../icons/Chatgpt.astro";
+import ClaudeIcon from "../icons/Claude.astro";
+import CursorIcon from "../icons/Cursor.astro";
+import GitHubCopilotIcon from "../icons/GitHubCopilot.astro";
+import MarkdownIcon from "../icons/Markdown.astro";
+import PerplexityIcon from "../icons/Perplexity.astro";
+import T3ChatIcon from "../icons/T3Chat.astro";
+import V0Icon from "../icons/v0.astro";
 
 type DefaultActionId =
   | "chatgpt"
@@ -15,10 +23,13 @@ type DefaultActionId =
   | "cursor"
   | "perplexity"
   | "githubCopilot";
+type IconComponent = (_props: Record<string, unknown>) => unknown;
+
 interface OptionsProps {
   label: string;
   href: string;
   id: string;
+  icon?: IconComponent;
 }
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
@@ -44,41 +55,49 @@ const defaultOptions: Array<OptionsProps & { id: DefaultActionId }> = [
     label: Astro.locals.t("open.chatgpt"),
     href: `https://chatgpt.com/?q=${encodedPrompt}`,
     id: "chatgpt",
+    icon: ChatGPTIcon,
   },
   {
     label: Astro.locals.t("open.claude"),
     href: `https://claude.ai/new?q=${encodedPrompt}`,
     id: "claude",
+    icon: ClaudeIcon,
   },
   {
     label: Astro.locals.t("open.t3chat"),
     href: `https://t3.chat/new?q=${encodedPrompt}`,
     id: "t3chat",
+    icon: T3ChatIcon,
   },
   {
     label: Astro.locals.t("open.v0"),
     href: `https://v0.app/?q=${encodedPrompt}`,
     id: "v0",
+    icon: V0Icon,
   },
   {
     label: Astro.locals.t("open.cursor"),
     href: `https://cursor.com/link/prompt?${encodedPrompt}`,
     id: "cursor",
+    icon: CursorIcon,
   },
   {
     label: Astro.locals.t("open.perplexity"),
     href: `https://perplexity.ai/?q=${encodedPrompt}`,
     id: "perplexity",
+    icon: PerplexityIcon,
   },
   {
     label: Astro.locals.t("open.githubCopilot"),
     href: `https://github.com/copilot/?prompt=${encodedPrompt}`,
     id: "githubCopilot",
+    icon: GitHubCopilotIcon,
   },
   {
     label: Astro.locals.t("view.markdown"),
     href: `${currentPath}.md`,
     id: "markdown",
+    icon: MarkdownIcon,
   },
 ];
 const filteredDefaultOptions = defaultOptions.filter((option) => {
