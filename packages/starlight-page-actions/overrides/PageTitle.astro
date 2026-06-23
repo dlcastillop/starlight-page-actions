@@ -8,11 +8,21 @@ import { getLocaleConfig } from "../utils/getLocaleConfig.ts";
 import ChatGPTIcon from "../icons/Chatgpt.astro";
 import ClaudeIcon from "../icons/Claude.astro";
 import CursorIcon from "../icons/Cursor.astro";
+import EmailIcon from "../icons/Email.astro";
+import FacebookIcon from "../icons/Facebook.astro";
 import GitHubCopilotIcon from "../icons/GitHubCopilot.astro";
+import HackerNewsIcon from "../icons/HackerNews.astro";
+import LinkedInIcon from "../icons/LinkedIn.astro";
 import MarkdownIcon from "../icons/Markdown.astro";
 import PerplexityIcon from "../icons/Perplexity.astro";
+import BlueskyIcon from "../icons/Bluesky.astro";
+import RedditIcon from "../icons/Reddit.astro";
 import T3ChatIcon from "../icons/T3Chat.astro";
+import TelegramIcon from "../icons/Telegram.astro";
+import ThreadsIcon from "../icons/Threads.astro";
 import V0Icon from "../icons/v0.astro";
+import WhatsAppIcon from "../icons/WhatsApp.astro";
+import XIcon from "../icons/X.astro";
 
 type DefaultActionId =
   | "chatgpt"
@@ -123,44 +133,64 @@ const customOptions: OptionsProps[] = actions?.custom
 const actionOptions = [...filteredDefaultOptions, ...customOptions];
 const shareOptions = [
     {
+        id: "linkedin",
         label: Astro.locals.t("share.linkedin"),
         href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedCurrentUrl}`,
+        icon: LinkedInIcon,
     },
     {
+        id: "x",
         label: Astro.locals.t("share.x"),
         href: `https://x.com/intent/tweet?url=${encodedCurrentUrl}&text=${encodedTitle}`,
+        icon: XIcon,
     },
     {
+        id: "threads",
         label: Astro.locals.t("share.threads"),
         href: `https://threads.net/intent/post?url=${encodedCurrentUrl}&text=${encodedTitle}`,
+        icon: ThreadsIcon,
     },
     {
+        id: "bluesky",
         label: Astro.locals.t("share.bluesky"),
         href: `https://bsky.app/intent/compose?text=${encodedTitle}%20${encodedCurrentUrl}`,
+        icon: BlueskyIcon,
     },
     {
+        id: "facebook",
         label: Astro.locals.t("share.facebook"),
         href: `https://www.facebook.com/sharer/sharer.php?u=${encodedCurrentUrl}`,
+        icon: FacebookIcon,
     },
     {
+        id: "reddit",
         label: Astro.locals.t("share.reddit"),
         href: `https://reddit.com/submit?url=${encodedCurrentUrl}&title=${encodedTitle}`,
+        icon: RedditIcon,
     },
     {
+        id: "hackernews",
         label: Astro.locals.t("share.hackernews"),
         href: `https://news.ycombinator.com/submitlink?u=${encodedCurrentUrl}&t=${encodedTitle}`,
+        icon: HackerNewsIcon,
     },
     {
+        id: "email",
         label: Astro.locals.t("share.email"),
         href: `mailto:?subject=${encodedTitle}&body=${encodedCurrentUrl}`,
+        icon: EmailIcon,
     },
     {
+        id: "whatsapp",
         label: Astro.locals.t("share.whatsapp"),
         href: `https://wa.me/?text=${encodedTitle}%20${encodedCurrentUrl}`,
+        icon: WhatsAppIcon,
     },
     {
+        id: "telegram",
         label: Astro.locals.t("share.telegram"),
         href: `https://t.me/share/url?url=${encodedCurrentUrl}&text=${encodedTitle}`,
+        icon: TelegramIcon,
     },
 ]
 ---
