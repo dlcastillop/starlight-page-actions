@@ -200,7 +200,7 @@ const shareOptions = [
     <DefaultPageTitle />
     <div class="actions-container">
       <Button id="copy-markdown" dataPath={currentPath}>
-        <Icon name="mdx" size="1rem" class="icon-default" />
+        <MarkdownIcon class="icon-default copy-markdown-icon" aria-hidden="true" />
         <Icon name="approve-check" size="1rem" class="icon-success" />
         <Icon name="error" size="1rem" class="icon-error" />
         <span>{Astro.locals.t("copy.markdown")}</span>
@@ -236,6 +236,21 @@ const shareOptions = [
 
     #copy-markdown:disabled {
         opacity: 0.7;
+    }
+
+    :global(.copy-markdown-icon) {
+        color: currentColor;
+        width: 1rem;
+        height: 1rem;
+        transform: scale(1.2);
+    }
+
+    :global(.copy-markdown-icon [fill]:not([fill="none"])) {
+        fill: currentColor;
+    }
+
+    :global(.copy-markdown-icon [stroke]:not([stroke="none"])) {
+        stroke: currentColor;
     }
 
     :global(.icon-success),
