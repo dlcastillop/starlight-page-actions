@@ -137,6 +137,10 @@ const dropdownId = id ? `dropdown-${id}` : "dropdown-0";
     transform: scale(1.2);
   }
 
+  .dropdown-item :global(.action-icon[data-action-icon="markdown"] [stroke]) {
+    stroke-width: 10;
+  }
+
   .dropdown-item :global(.action-icon[data-action-icon="cursor"]) {
     transform: scale(0.92);
   }
