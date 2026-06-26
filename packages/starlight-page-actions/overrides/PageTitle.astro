@@ -23,6 +23,7 @@ import ThreadsIcon from "../icons/Threads.astro";
 import V0Icon from "../icons/v0.astro";
 import WhatsAppIcon from "../icons/WhatsApp.astro";
 import XIcon from "../icons/X.astro";
+import AIIcon from "../icons/AI.astro";
 
 type DefaultActionId =
   | "chatgpt"
@@ -127,6 +128,7 @@ const customOptions: OptionsProps[] = actions?.custom
         label: localeCustomAction?.label ?? value.label,
         href: `${localeCustomAction?.href ?? value.href}${encodedPrompt}`,
         id: key,
+        icon: AIIcon
       };
     })
   : [];
