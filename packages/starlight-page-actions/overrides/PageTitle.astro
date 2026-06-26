@@ -5,6 +5,25 @@ import config from "virtual:config";
 import Dropdown from "../components/Dropdown.astro";
 import Button from "../components/Button.astro";
 import { getLocaleConfig } from "../utils/getLocaleConfig.ts";
+import ChatGPTIcon from "../icons/Chatgpt.astro";
+import ClaudeIcon from "../icons/Claude.astro";
+import CursorIcon from "../icons/Cursor.astro";
+import EmailIcon from "../icons/Email.astro";
+import FacebookIcon from "../icons/Facebook.astro";
+import GitHubCopilotIcon from "../icons/GitHubCopilot.astro";
+import HackerNewsIcon from "../icons/HackerNews.astro";
+import LinkedInIcon from "../icons/LinkedIn.astro";
+import MarkdownIcon from "../icons/Markdown.astro";
+import PerplexityIcon from "../icons/Perplexity.astro";
+import BlueskyIcon from "../icons/Bluesky.astro";
+import RedditIcon from "../icons/Reddit.astro";
+import T3ChatIcon from "../icons/T3Chat.astro";
+import TelegramIcon from "../icons/Telegram.astro";
+import ThreadsIcon from "../icons/Threads.astro";
+import V0Icon from "../icons/v0.astro";
+import WhatsAppIcon from "../icons/WhatsApp.astro";
+import XIcon from "../icons/X.astro";
+import AIIcon from "../icons/AI.astro";
 
 type DefaultActionId =
   | "chatgpt"
@@ -15,10 +34,13 @@ type DefaultActionId =
   | "cursor"
   | "perplexity"
   | "githubCopilot";
+type IconComponent = (_props: Record<string, unknown>) => unknown;
+
 interface OptionsProps {
   label: string;
   href: string;
   id: string;
+  icon?: IconComponent;
 }
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
@@ -44,41 +66,49 @@ const defaultOptions: Array<OptionsProps & { id: DefaultActionId }> = [
     label: Astro.locals.t("open.chatgpt"),
     href: `https://chatgpt.com/?q=${encodedPrompt}`,
     id: "chatgpt",
+    icon: ChatGPTIcon,
   },
   {
     label: Astro.locals.t("open.claude"),
     href: `https://claude.ai/new?q=${encodedPrompt}`,
     id: "claude",
+    icon: ClaudeIcon,
   },
   {
     label: Astro.locals.t("open.t3chat"),
     href: `https://t3.chat/new?q=${encodedPrompt}`,
     id: "t3chat",
+    icon: T3ChatIcon,
   },
   {
     label: Astro.locals.t("open.v0"),
     href: `https://v0.app/?q=${encodedPrompt}`,
     id: "v0",
+    icon: V0Icon,
   },
   {
     label: Astro.locals.t("open.cursor"),
     href: `https://cursor.com/link/prompt?${encodedPrompt}`,
     id: "cursor",
+    icon: CursorIcon,
   },
   {
     label: Astro.locals.t("open.perplexity"),
     href: `https://perplexity.ai/?q=${encodedPrompt}`,
     id: "perplexity",
+    icon: PerplexityIcon,
   },
   {
     label: Astro.locals.t("open.githubCopilot"),
     href: `https://github.com/copilot/?prompt=${encodedPrompt}`,
     id: "githubCopilot",
+    icon: GitHubCopilotIcon,
   },
   {
     label: Astro.locals.t("view.markdown"),
     href: `${currentPath}.md`,
     id: "markdown",
+    icon: MarkdownIcon,
   },
 ];
 const filteredDefaultOptions = defaultOptions.filter((option) => {
@@ -98,50 +128,71 @@ const customOptions: OptionsProps[] = actions?.custom
         label: localeCustomAction?.label ?? value.label,
         href: `${localeCustomAction?.href ?? value.href}${encodedPrompt}`,
         id: key,
+        icon: AIIcon
       };
     })
   : [];
 const actionOptions = [...filteredDefaultOptions, ...customOptions];
 const shareOptions = [
     {
+        id: "linkedin",
         label: Astro.locals.t("share.linkedin"),
         href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedCurrentUrl}`,
+        icon: LinkedInIcon,
     },
     {
+        id: "x",
         label: Astro.locals.t("share.x"),
         href: `https://x.com/intent/tweet?url=${encodedCurrentUrl}&text=${encodedTitle}`,
+        icon: XIcon,
     },
     {
+        id: "threads",
         label: Astro.locals.t("share.threads"),
         href: `https://threads.net/intent/post?url=${encodedCurrentUrl}&text=${encodedTitle}`,
+        icon: ThreadsIcon,
     },
     {
+        id: "bluesky",
         label: Astro.locals.t("share.bluesky"),
         href: `https://bsky.app/intent/compose?text=${encodedTitle}%20${encodedCurrentUrl}`,
+        icon: BlueskyIcon,
     },
     {
+        id: "facebook",
         label: Astro.locals.t("share.facebook"),
         href: `https://www.facebook.com/sharer/sharer.php?u=${encodedCurrentUrl}`,
+        icon: FacebookIcon,
     },
     {
+        id: "reddit",
         label: Astro.locals.t("share.reddit"),
         href: `https://reddit.com/submit?url=${encodedCurrentUrl}&title=${encodedTitle}`,
+        icon: RedditIcon,
     },
     {
+        id: "hackernews",
         label: Astro.locals.t("share.hackernews"),
         href: `https://news.ycombinator.com/submitlink?u=${encodedCurrentUrl}&t=${encodedTitle}`,
+        icon: HackerNewsIcon,
     },
     {
+        id: "email",
         label: Astro.locals.t("share.email"),
         href: `mailto:?subject=${encodedTitle}&body=${encodedCurrentUrl}`,
+        icon: EmailIcon,
     },
     {
+        id: "whatsapp",
         label: Astro.locals.t("share.whatsapp"),
         href: `https://wa.me/?text=${encodedTitle}%20${encodedCurrentUrl}`,
+        icon: WhatsAppIcon,
     },
     {
+        id: "telegram",
         label: Astro.locals.t("share.telegram"),
         href: `https://t.me/share/url?url=${encodedCurrentUrl}&text=${encodedTitle}`,
+        icon: TelegramIcon,
     },
 ]
 ---
@@ -151,7 +202,7 @@ const shareOptions = [
     <DefaultPageTitle />
     <div class="actions-container">
       <Button id="copy-markdown" dataPath={currentPath}>
-        <Icon name="mdx" size="1rem" class="icon-default" />
+        <MarkdownIcon class="icon-default copy-markdown-icon" aria-hidden="true" />
         <Icon name="approve-check" size="1rem" class="icon-success" />
         <Icon name="error" size="1rem" class="icon-error" />
         <span>{Astro.locals.t("copy.markdown")}</span>
@@ -187,6 +238,22 @@ const shareOptions = [
 
     #copy-markdown:disabled {
         opacity: 0.7;
+    }
+
+    :global(.copy-markdown-icon) {
+        color: currentColor;
+        width: 1rem;
+        height: 1rem;
+        transform: scale(1.2);
+    }
+
+    :global(.copy-markdown-icon [fill]:not([fill="none"])) {
+        fill: currentColor;
+    }
+
+    :global(.copy-markdown-icon [stroke]:not([stroke="none"])) {
+        stroke: currentColor;
+        stroke-width: 10;
     }
 
     :global(.icon-success),

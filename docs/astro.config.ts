@@ -113,6 +113,10 @@ export default defineConfig({
         starlightPageActions({
           baseUrl: "https://starlight-page-actions.dlcastillop.com",
           share: true,
+          actions: {
+            cursor: true,
+            githubCopilot: true,
+          },
         }),
         starlightUiTweaks({
           footer: {
