@@ -1,10 +1,16 @@
 ---
 title: Changelog
 description: New features, bug fixes, and improvements made to Starlight Page Actions.
-lastUpdated: 2026-06-09
+lastUpdated: 2026-06-27
 ---
 
 New features, bug fixes, and improvements made to Starlight Page Actions.
+
+## v0.6.2
+
+### Improvements
+
+- Add consistent icons for built-in page actions and share options
 
 ## v0.6.1
 

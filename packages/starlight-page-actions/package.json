@@ -1,6 +1,6 @@
 {
   "name": "starlight-page-actions",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "A Starlight plugin that adds page action buttons to your documentation.",
   "homepage": "https://starlight-page-actions.dlcastillop.com",
   "bugs": "https://github.com/dlcastillop/starlight-page-actions/issues",
@@ -15,7 +15,7 @@
     "url": "https://github.com/dlcastillop/starlight-page-actions.git",
     "directory": "packages/starlight-page-actions"
   },
-  "funding": "https://ko-fi.com/dlcastillop/tiers",
+  "funding": "https://ko-fi.com/dlcastillop",
   "type": "module",
   "exports": {
     ".": "./index.ts",
