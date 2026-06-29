@@ -33,9 +33,12 @@ interface LocaleConfig {
   actions?: LocaleActions;
 }
 
+type PageActionsPosition = "page-title" | "table-of-contents";
+
 export interface PageActionsConfig {
   prompt?: string;
   baseUrl?: string;
+  position?: PageActionsPosition;
   actions?: Actions;
   share?: boolean;
   locales?: Record<string, LocaleConfig>;
@@ -53,6 +56,7 @@ export interface PageActionsConfig {
  * @param {PageActionsConfig} [userConfig] - Configuration options for the plugin.
  * @param {string} [userConfig.prompt] - The prompt template for AI chat services. Use `{url}` as the placeholder for the Markdown URL.
  * @param {string} [userConfig.baseUrl] - The base URL of your site, required for generating the `llms.txt` file.
+ * @param {PageActionsPosition} [userConfig.position] - Where to render the page actions.
  * @param {Actions} [userConfig.actions] - Configure which built-in actions to display and define custom actions.
  * @param {boolean} [userConfig.share] - Enable sharing options for documentation pages.
  * @param {Record<string, LocaleConfig>} [userConfig.locales] - Locale-specific prompt and custom action overrides.
@@ -104,6 +108,7 @@ export interface PageActionsConfig {
  */
 export default function starlightPageActions(userConfig?: PageActionsConfig): StarlightPlugin {
   const defaultConfig: PageActionsConfig = {
+    position: "page-title",
     actions: {
       chatgpt: true,
       claude: true,

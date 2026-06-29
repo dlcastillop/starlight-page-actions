@@ -17,9 +17,12 @@ declare module "virtual:config" {
     href: string;
   }
 
+  type PageActionsPosition = "page-title" | "table-of-contents";
+
   export interface PageActionsConfig {
     prompt?: string;
     baseUrl?: string;
+    position?: PageActionsPosition;
     actions?: Actions;
     share?: boolean;
   }
