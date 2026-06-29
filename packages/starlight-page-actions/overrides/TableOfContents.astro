@@ -1,5 +1,8 @@
 ---
 import DefaultTableOfContents from "@astrojs/starlight/components/TableOfContents.astro";
+import config from "virtual:config";
+import PageActions from "../components/PageActions.astro";
 ---
 
 <DefaultTableOfContents />
+{config.position === "table-of-contents" && <PageActions />}
