@@ -517,6 +517,7 @@ export default function starlightPageActions(userConfig?: PageActionsConfig): St
         updateConfig({
           components: {
             PageTitle: "starlight-page-actions/overrides/PageTitle.astro",
+            TableOfContents: "starlight-page-actions/overrides/TableOfContents.astro",
             ...starlightConfig.components,
           },
         });
