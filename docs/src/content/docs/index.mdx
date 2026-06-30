@@ -19,6 +19,7 @@ import Bot from "@lucide/astro/icons/bot";
 import Joystick from "@lucide/astro/icons/joystick";
 import MessageCircleX from "@lucide/astro/icons/message-circle-x";
 import Share from "@lucide/astro/icons/share-2";
+import LayoutGrid from "@lucide/astro/icons/layout-grid";
 
 <Hero
   title={{
@@ -55,14 +56,13 @@ import Share from "@lucide/astro/icons/share-2";
   features={[
     {
       name: "Markdown Tools",
-      description:
-        "View and copy documentation in clean Markdown format. See the raw Markdown structure or copy it with a single click.",
+      description: "View and copy documentation in clean Markdown format.",
       icon: Copy,
     },
     {
-      name: "Open in ChatGPT or Claude",
+      name: "Open in ChatGPT, Claude, or any AI",
       description:
-        "Open documentation directly in ChatGPT or Claude with the full page context. Let your users ask specific questions about your docs without manual copy-pasting.",
+        "Open documentation directly in ChatGPT, Claude, or any AI with the full page context. Let your users ask specific questions about your docs without manual copy-pasting.",
       icon: MessageCircle,
     },
     {
@@ -89,16 +89,17 @@ import Share from "@lucide/astro/icons/share-2";
         "Share any documentation page with a single click. Choose from multiple sharing options including social media, email, and direct links to help users spread your documentation effortlessly.",
       icon: Share,
     },
+    {
+      name: "Choose where to display the actions",
+      description:
+        "You can display the actions wherever you prefer: below the title or below the page's table of contents.",
+      icon: LayoutGrid,
+    },
   ]}
 />
 
 <Faq
   faqs={[
-    {
-      question: "What is llms.txt and why do I need it?",
-      answer:
-        "llms.txt is a community standard file that helps AI models better understand and index your site. It provides a structured format that LLMs can easily parse, making your docs more discoverable and useful when users interact with AI assistants.",
-    },
     {
       question: "Does this plugin work with all Starlight themes?",
       answer:
@@ -113,11 +114,6 @@ import Share from "@lucide/astro/icons/share-2";
       question: "How is the Markdown generated?",
       answer:
         "The plugin uses vite-plugin-static-copy to create copies of your .md and .mdx files. This exposes the original Markdown files, making them accessible and ready to be consumed by LLMs or copied by users while preserving all formatting, code blocks, and structure.",
-    },
-    {
-      question: "How is the llms.txt file generated?",
-      answer:
-        "The llms.txt file is automatically generated from your Starlight sidebar configuration. The plugin reads your sidebar structure and creates a properly formatted llms.txt file that maps your documentation hierarchy, making it easy for LLMs to understand and navigate your content. In cases where the sidebar uses certain configurations like the autogenerate prop, the sidebar structure cannot be fully processed yet, so all pages are listed directly in a flat list instead of following the hierarchy.",
     },
     {
       question: "Can I disable page actions on specific pages?",
