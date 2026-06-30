@@ -59,6 +59,10 @@ export default defineConfig({
               link: "docs/guides/share-documentation",
             },
             {
+              label: "Configure Page Actions Position",
+              link: "docs/guides/configure-page-actions-position",
+            },
+            {
               label: "Internationalization",
               link: "docs/guides/internationalization",
             },
@@ -111,7 +115,7 @@ export default defineConfig({
       ],
       plugins: [
         starlightPageActions({
-          baseUrl: "https://starlight-page-actions.dlcastillop.com",
+          baseUrl: BASE_URL,
           share: true,
           actions: {
             cursor: true,
