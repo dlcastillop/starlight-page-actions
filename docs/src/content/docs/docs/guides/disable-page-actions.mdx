@@ -1,7 +1,7 @@
 ---
 title: Disable Page Actions per Page
 description: Learn how to disable page actions on specific documentation pages.
-lastUpdated: 2025-12-05
+lastUpdated: 2026-06-29
 ---
 
 import { Steps, Tabs, TabItem, Aside } from "@astrojs/starlight/components";
@@ -18,6 +18,8 @@ By default, page actions are enabled on all documentation pages. You can disable
    // content.config.ts
     import { defineCollection } from "astro:content";
     import { docsLoader } from "@astrojs/starlight/loaders";
+    import { docsSchema } from "@astrojs/starlight/schema";
+   +import { z } from "astro/zod";
 
     export const collections = {
       docs: defineCollection({

@@ -2,6 +2,7 @@
 title: Changelog
 description: New features, bug fixes, and improvements made to Starlight Page Actions.
 lastUpdated: 2026-06-27
+pageActions: false
 ---
 
 New features, bug fixes, and improvements made to Starlight Page Actions.
