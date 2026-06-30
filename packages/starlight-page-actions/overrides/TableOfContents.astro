@@ -5,4 +5,18 @@ import PageActions from "../components/PageActions.astro";
 ---
 
 <DefaultTableOfContents />
-{config.position === "table-of-contents" && <PageActions variant="table-of-contents" />}
+{
+  config.position === "table-of-contents" && (
+    <div class="page-actions-toc-desktop">
+      <PageActions variant="table-of-contents" />
+    </div>
+  )
+}
+
+<style>
+  @media (max-width: 71.999rem) {
+    .page-actions-toc-desktop {
+      display: none;
+    }
+  }
+</style>

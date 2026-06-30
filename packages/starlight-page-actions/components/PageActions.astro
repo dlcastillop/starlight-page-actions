@@ -212,7 +212,7 @@ const shareOptions = [
   (pageActions || typeof pageActions === "undefined") &&
   variant === "page-title" ? (
     <div class="actions-container">
-      <Button id="copy-markdown" dataPath={currentPath}>
+      <Button dataPath={currentPath} data-page-action="copy-markdown">
         <MarkdownIcon
           class="icon-default copy-markdown-icon"
           aria-hidden="true"
@@ -241,7 +241,11 @@ const shareOptions = [
     </div>
   ) : pageActions || typeof pageActions === "undefined" ? (
     <div class="toc-actions">
-      <button class="toc-action" id="copy-markdown" data-path={currentPath}>
+      <button
+        class="toc-action"
+        data-path={currentPath}
+        data-page-action="copy-markdown"
+      >
         <MarkdownIcon
           class="toc-action-icon icon-default copy-markdown-icon"
           aria-hidden="true"
@@ -396,7 +400,7 @@ const shareOptions = [
     transform: scale(0.92);
   }
 
-  #copy-markdown:disabled {
+  [data-page-action="copy-markdown"]:disabled {
     opacity: 0.7;
   }
 
@@ -421,16 +425,16 @@ const shareOptions = [
     display: none;
   }
 
-  :global(#copy-markdown.copied .icon-default),
-  :global(#copy-markdown.error .icon-default) {
+  :global([data-page-action="copy-markdown"].copied .icon-default),
+  :global([data-page-action="copy-markdown"].error .icon-default) {
     display: none;
   }
 
-  :global(#copy-markdown.copied .icon-success) {
+  :global([data-page-action="copy-markdown"].copied .icon-success) {
     display: block;
   }
 
-  :global(#copy-markdown.error .icon-error) {
+  :global([data-page-action="copy-markdown"].error .icon-error) {
     display: block;
   }
 
@@ -442,33 +446,38 @@ const shareOptions = [
 </style>
 
 <script>
-  const copyButton = document.querySelector(
-    "#copy-markdown"
-  ) as HTMLButtonElement;
+  const copyButtons = document.querySelectorAll<HTMLButtonElement>(
+    '[data-page-action="copy-markdown"]'
+  );
 
-  copyButton?.addEventListener("click", async () => {
-    let copyButtonClass: "copied" | "error" = "copied";
+  copyButtons.forEach((copyButton) => {
+    if (copyButton.dataset.pageActionReady === "true") return;
+    copyButton.dataset.pageActionReady = "true";
 
-    try {
-      copyButton.disabled = true;
+    copyButton.addEventListener("click", async () => {
+      let copyButtonClass: "copied" | "error" = "copied";
 
-      const currentPath = copyButton.dataset.path;
-      const mdPath = `${currentPath}.md`;
+      try {
+        copyButton.disabled = true;
 
-      const res = await fetch(mdPath);
-      const contentForClipboard = await res.text();
+        const currentPath = copyButton.dataset.path;
+        const mdPath = `${currentPath}.md`;
 
-      await navigator.clipboard.writeText(contentForClipboard);
-    } catch (error) {
-      console.error(error);
-      copyButtonClass = "error";
-    } finally {
-      copyButton.classList.add(copyButtonClass);
-      copyButton.disabled = false;
+        const res = await fetch(mdPath);
+        const contentForClipboard = await res.text();
 
-      setTimeout(() => {
-        copyButton.classList.remove(copyButtonClass);
-      }, 3000);
-    }
+        await navigator.clipboard.writeText(contentForClipboard);
+      } catch (error) {
+        console.error(error);
+        copyButtonClass = "error";
+      } finally {
+        copyButton.classList.add(copyButtonClass);
+        copyButton.disabled = false;
+
+        setTimeout(() => {
+          copyButton.classList.remove(copyButtonClass);
+        }, 3000);
+      }
+    });
   });
 </script>

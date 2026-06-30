@@ -6,3 +6,22 @@ import PageActions from "../components/PageActions.astro";
 
 <DefaultPageTitle />
 {config.position === "page-title" && <PageActions />}
+{
+  config.position === "table-of-contents" && (
+    <div class="page-actions-toc-fallback">
+      <PageActions />
+    </div>
+  )
+}
+
+<style>
+  .page-actions-toc-fallback {
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 72rem) {
+    .page-actions-toc-fallback {
+      display: none;
+    }
+  }
+</style>
