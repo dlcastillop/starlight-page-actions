@@ -117,6 +117,7 @@ export default defineConfig({
             cursor: true,
             githubCopilot: true,
           },
+          position: "table-of-contents",
         }),
         starlightUiTweaks({
           footer: {
