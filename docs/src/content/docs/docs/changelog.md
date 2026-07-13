@@ -1,12 +1,22 @@
 ---
 title: Changelog
 description: New features, bug fixes, and improvements made to Starlight Page Actions.
-lastUpdated: 2026-06-27
+lastUpdated: 2026-07-13
 tableOfContents:
   maxHeadingLevel: 2
 ---
 
 New features, bug fixes, and improvements made to Starlight Page Actions.
+
+## v0.7.0
+
+### Features
+
+- Add a configuration option to position page actions below either the page title or the table of contents.
+
+### Improvements
+
+- Clean up Markdown and MDX content with tidymd.
 
 ## v0.6.2
 
