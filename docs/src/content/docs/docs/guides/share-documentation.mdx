@@ -1,8 +1,10 @@
 ---
 title: Share Documentation
 description: Learn how to add sharing options to your documentation pages.
-lastUpdated: 2026-02-06
+lastUpdated: 2026-06-30
 ---
+
+import { Aside } from "@astrojs/starlight/components";
 
 Starlight Page Actions allows users to share your documentation pages through multiple channels with a single click.
 
@@ -30,3 +32,9 @@ export default defineConfig({
   ],
 });
 ```
+
+<Aside>
+  If page actions are displayed in the table of contents, sharing options are not shown there
+  because the share menu can include many options. See the [Configure Page Actions Position
+  guide](/docs/guides/configure-page-actions-position) for details.
+</Aside>

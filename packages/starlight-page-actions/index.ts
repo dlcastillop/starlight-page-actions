@@ -6,6 +6,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { translations } from "./i18n/translations";
 import virtual from "vite-plugin-virtual";
+import { cleanStarlightMarkdown, type StarlightInternalLinkMode } from "tidymd";
 
 interface Actions {
   chatgpt?: boolean;
@@ -33,9 +34,12 @@ interface LocaleConfig {
   actions?: LocaleActions;
 }
 
+type PageActionsPosition = "page-title" | "table-of-contents";
+
 export interface PageActionsConfig {
   prompt?: string;
   baseUrl?: string;
+  position?: PageActionsPosition;
   actions?: Actions;
   share?: boolean;
   locales?: Record<string, LocaleConfig>;
@@ -53,6 +57,7 @@ export interface PageActionsConfig {
  * @param {PageActionsConfig} [userConfig] - Configuration options for the plugin.
  * @param {string} [userConfig.prompt] - The prompt template for AI chat services. Use `{url}` as the placeholder for the Markdown URL.
  * @param {string} [userConfig.baseUrl] - The base URL of your site, required for generating the `llms.txt` file.
+ * @param {PageActionsPosition} [userConfig.position] - Where to render the page actions.
  * @param {Actions} [userConfig.actions] - Configure which built-in actions to display and define custom actions.
  * @param {boolean} [userConfig.share] - Enable sharing options for documentation pages.
  * @param {Record<string, LocaleConfig>} [userConfig.locales] - Locale-specific prompt and custom action overrides.
@@ -104,6 +109,7 @@ export interface PageActionsConfig {
  */
 export default function starlightPageActions(userConfig?: PageActionsConfig): StarlightPlugin {
   const defaultConfig: PageActionsConfig = {
+    position: "page-title",
     actions: {
       chatgpt: true,
       claude: true,
@@ -160,200 +166,21 @@ export default function starlightPageActions(userConfig?: PageActionsConfig): St
                           src: "src/content/docs/**/*.{md,mdx}",
                           dest: "",
                           transform: (content: string) => {
-                            const frontMatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
-                            const match = content.match(frontMatterRegex);
+                            let internalLinks: StarlightInternalLinkMode = {
+                              mode: "preserve",
+                            };
 
-                            let title = "";
-                            let markdownContent = content;
-
-                            if (match && match[1] !== undefined && match[2] !== undefined) {
-                              const frontMatter = match[1];
-                              markdownContent = match[2];
-
-                              const titleMatch = frontMatter.match(/title:\s*["']?([^"'\n]+)["']?/);
-                              if (titleMatch && titleMatch[1] !== undefined) {
-                                title = titleMatch[1].trim();
-                              }
+                            if (config.baseUrl) {
+                              internalLinks = {
+                                mode: "baseUrl",
+                                baseUrl: config.baseUrl,
+                              };
                             }
 
-                            // Clean Markdown
-
-                            // Remove components
-                            const regexes = [
-                              /<\s*\/?\s*Steps\b[^>]*>\s*/g, // <Steps />
-                              /\{%\s*steps\s*%\}([\s\S]*?)\{%\s*\/steps\s*%\}/g, // {% steps %}
-                              /<\s*\/?\s*CardGrid\b[^>]*>\s*/g, // <CardGrid />
-                              /\{%\s*\/?\s*cardgrid\s*%\}/g, // {% cardgrid %}
-                              /<\s*\/?\s*FileTree\b[^>]*>\s*/g, // <FileTree />
-                              /\{%\s*filetree\s*%\}([\s\S]*?)\{%\s*\/filetree\s*%\}/g, // {% filetree %}
-                              /<\s*\/?\s*Icon\b[^>]*>\s*/g, // <Icon />
-                              /\{%\s*icon\s*%\}([\s\S]*?)\{%\s*\/icon\s*%\}/g, // {% icon %}
-                              /<\s*\/?\s*Tabs\b[^>]*>\s*/g, // <Tabs />
-                              /\{%\s*\/?\s*tabs\s*%\}/g, // {% tabs %}
-                              /<\s*\/?\s*TabItem\b[^>]*>\s*/g, // <TabItem />
-                              /\{%\s*\/?\s*tabitem\s*%\}/g, // {% tabitem %}
-                            ];
-
-                            let cleanContent = regexes.reduce(
-                              (content, regex) => content.replace(regex, ""),
-                              markdownContent,
-                            );
-
-                            // Remove imports
-                            cleanContent = cleanContent.replace(
-                              /(```[\s\S]*?```)|import\s+[\s\S]*?from\s+['"].*?['"];?\s*/g,
-                              (_, codeBlock) => codeBlock || "",
-                            );
-
-                            // Replace <LinkCard /> and {% linkcard %}
-                            const linkCardRegexes = [
-                              /<LinkCard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/>/g,
-                              /{%\s*linkcard[\s\S]*?title=["']([^"']+)["'][\s\S]*?href=["']([^"']+)["'][\s\S]*?\/%}/g,
-                            ];
-
-                            cleanContent = linkCardRegexes.reduce(
-                              (content, regex) =>
-                                content.replace(
-                                  regex,
-                                  (_, title: string, href: string) => `[${title}](${href})`,
-                                ),
-                              cleanContent,
-                            );
-
-                            // Replace <Card /> and {% card %}
-                            const cardRegexes = [
-                              /^\s*<Card[\s\S]*?title=["']([^"']+)["'][\s\S]*?(?:icon=["'][^"']*["'][\s\S]*?)?>([\s\S]*?)<\/Card>/gm,
-                              /\{%\s*card\s+title=["']([^"']+)["'][\s\S]*?\s*%\}([\s\S]*?)\{%\s*\/card\s*%\}/g,
-                            ];
-
-                            cleanContent = cardRegexes.reduce(
-                              (content, regex) =>
-                                content.replace(
-                                  regex,
-                                  (_, title: string, content: string) =>
-                                    `**${title}**\n${content.trim()}\n`,
-                                ),
-                              cleanContent,
-                            );
-
-                            // Replace <Aside /> and {% aside %}
-                            const asideRegexes = [
-                              /^\s*<Aside(?:\s+type=["'](\w+)["'])?(?:\s+title=["']([^"']+)["'])?\s*>([\s\S]*?)<\/Aside>/gm,
-                              /\{%\s*aside(?:\s+type=["'](\w+)["'])?(?:\s+title=["']([^"']+)["'])?\s*%\}([\s\S]*?)\{%\s*\/aside\s*%\}/gm,
-                            ];
-
-                            cleanContent = asideRegexes.reduce(
-                              (content, regex) =>
-                                content.replace(
-                                  regex,
-                                  (
-                                    _,
-                                    type: "note" | "tip" | "caution" | "danger",
-                                    title: string,
-                                    contentText: string,
-                                  ) => {
-                                    const defaultTitles = {
-                                      note: "Note",
-                                      tip: "Tip",
-                                      caution: "Caution",
-                                      danger: "Danger",
-                                    };
-
-                                    const finalType = type || "note";
-                                    const finalTitle = title || defaultTitles[finalType];
-
-                                    return `**${finalTitle}:** ${contentText.trim()}`;
-                                  },
-                                ),
-                              cleanContent,
-                            );
-
-                            // Replace <Badge /> and {% badge %}
-                            const badgeRegexes = [
-                              /<Badge\s+text=["']([^"']+)["'](?:\s+variant=["'](\w+)["'])?\s*\/>/g,
-                              /\{%\s*badge\s+text=["']([^"']+)["'](?:\s+variant=["'](\w+)["'])?\s*\/%\}/g,
-                            ];
-
-                            cleanContent = badgeRegexes.reduce(
-                              (content, regex) => content.replace(regex, (_, text: string) => text),
-                              cleanContent,
-                            );
-
-                            // Replace <Code /> and {% code %}
-                            const codeRegexes = [
-                              /<Code\s+code=(?:\{([^}]+)\}|["']([^"']+)["'])(?:\s+lang=["']([^"']+)["'])?(?:\s+title=(?:\{([^}]+)\}|["']([^"']+)["']))?[\s\S]*?\/>/g,
-                              /\{%\s*code\s+code=["']([^"']+)["'](?:\s+lang=["']([^"']+)["'])?(?:\s+title=["']([^"']+)["'])?[\s\S]*?\/%\}/g,
-                            ];
-
-                            cleanContent = codeRegexes.reduce(
-                              (content, regex) =>
-                                content.replace(regex, (...matches) => {
-                                  const code = matches[1] || matches[2];
-                                  const lang = matches[3] || matches[2];
-                                  const title = matches[4] || matches[5];
-
-                                  const finalLang = lang || "";
-                                  const codeContent = code?.replace(/^["']|["']$/g, "") || "";
-                                  const titleComment = title
-                                    ? `// ${title.replace(/^["']|["']$/g, "")}\n`
-                                    : "";
-
-                                  return `\`\`\`${finalLang}\n${titleComment}${codeContent}\n\`\`\``;
-                                }),
-                              cleanContent,
-                            );
-
-                            // Replace <LinkButton /> and {% linkbutton %}
-                            const linkButtonRegexes = [
-                              /<LinkButton[\s\S]*?href=["']([^"']+)["'][\s\S]*?>([\s\S]*?)<\/LinkButton>/g,
-                              /\{%\s*linkbutton[\s\S]*?href=["']([^"']+)["'][\s\S]*?%\}([\s\S]*?)\{%\s*\/linkbutton\s*%\}/g,
-                            ];
-
-                            cleanContent = linkButtonRegexes.reduce(
-                              (content, regex) =>
-                                content.replace(
-                                  regex,
-                                  (_, href: string, text: string) => `[${text.trim()}](${href})`,
-                                ),
-                              cleanContent,
-                            );
-
-                            // Apply baseUrl to internal links
-                            const baseUrl = normalizeUrl(config.baseUrl);
-                            if (baseUrl) {
-                              cleanContent = cleanContent.replace(
-                                /\[([^\]]+)\]\((\/[^)]+)\)/g,
-                                (_, text, href) => `[${text}](${baseUrl}${href})`,
-                              );
-                            }
-
-                            // Normalize spacing
-                            cleanContent = cleanContent.replace(/\n{3,}/g, "\n\n");
-
-                            // Fix indentation issues
-                            cleanContent = cleanContent
-                              .split("\n")
-                              .map((line, index, lines) => {
-                                if (/^\s+\d+\./.test(line)) {
-                                  return line.replace(/^\s+/, "");
-                                }
-
-                                const prevLine = lines[index - 1];
-                                if (
-                                  index > 0 &&
-                                  prevLine &&
-                                  /^\d+\./.test(prevLine.trim()) &&
-                                  /^\s{4,}/.test(line)
-                                ) {
-                                  return line.replace(/^\s+/, "   ");
-                                }
-
-                                return line;
-                              })
-                              .join("\n");
-
-                            let newContent = title ? `# ${title}\n\n` : "";
-                            newContent += cleanContent.trim();
+                            const newContent = cleanStarlightMarkdown(content, {
+                              frontmatter: "title-as-heading",
+                              internalLinks,
+                            });
 
                             return newContent;
                           },
@@ -517,6 +344,7 @@ export default function starlightPageActions(userConfig?: PageActionsConfig): St
         updateConfig({
           components: {
             PageTitle: "starlight-page-actions/overrides/PageTitle.astro",
+            TableOfContents: "starlight-page-actions/overrides/TableOfContents.astro",
             ...starlightConfig.components,
           },
         });

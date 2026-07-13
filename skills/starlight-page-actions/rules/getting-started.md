@@ -3,7 +3,7 @@ title: Getting Started
 description: Learn how to get started with Starlight Page Actions, a Starlight plugin that adds common page actions like copy Markdown, open docs in ChatGPT, and more.
 ---
 
-Starlight Page Actions is a Starlight plugin that adds page action buttons to your documentation like the ones you see above.
+Starlight Page Actions is a Starlight plugin that adds page action buttons to your documentation.
 
 - A "Copy Markdown" button to copy the raw markdown content
 - An "Open" dropdown menu with options to open the page in AI chat services (ChatGPT, Claude, etc.)

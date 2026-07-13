@@ -28,4 +28,6 @@ export default defineConfig({
     }),
   ],
 });
-```
+```**Note:** If page actions are displayed in the table of contents, sharing options are not shown there
+  because the share menu can include many options. See the [Configure Page Actions Position
+  guide](configure-page-actions-position.md) for details.

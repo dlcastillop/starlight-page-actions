@@ -1,10 +1,10 @@
 ---
 title: Configuration Reference
 description: The full reference documentation for Starlight Page Actions plugin options.
-lastUpdated: 2026-04-21
+lastUpdated: 2026-06-30
 ---
 
-Starlight Page Actions exposes five options to control its behavior.
+Starlight Page Actions exposes six options to control its behavior.
 
 ## Configure the plugin
 
@@ -189,3 +189,33 @@ export default defineConfig({
 ```
 
 See the [Internationalization guide](/docs/guides/internationalization) for more details.
+
+### `position`
+
+**type:** [`PageActionsPosition`](/docs/reference/types#pageactionsposition)  
+**default:** `"page-title"`
+
+Choose where page actions are displayed.
+
+Use `page-title` to display actions below the page title. Use `table-of-contents` to display actions in the table of contents on desktop layouts.
+
+```js
+import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config";
+import starlightPageActions from "starlight-page-actions";
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      plugins: [
+        starlightPageActions({
+          position: "table-of-contents",
+        }),
+      ],
+      title: "My Docs",
+    }),
+  ],
+});
+```
+
+See the [Configure Page Actions Position guide](/docs/guides/configure-page-actions-position) for more details.
