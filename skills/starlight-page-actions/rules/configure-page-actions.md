@@ -32,7 +32,8 @@ starlightPageActions({
     markdown: false, // Disable Markdown action
   },
 });
-```**Note:** All default actions are internationalized and support English, Spanish, Portuguese, French,
+```
+**Note:** All default actions are internationalized and support English, Spanish, Portuguese, French,
   Italian, and German. The "Copy Markdown" button is also included in the internationalization.
 
 ## Custom actions
@@ -50,7 +51,8 @@ starlightPageActions({
     },
   },
 });
-```**Tip:** The `href` should include the complete URL with the appropriate query parameter structure for the
+```
+**Tip:** The `href` should include the complete URL with the appropriate query parameter structure for the
   service you're integrating. Make sure to include the query parameter name (e.g., `?q=`, `?query=`,
   `?prompt=`) at the end.
 
@@ -71,7 +73,8 @@ starlightPageActions({
     },
   },
 });
-```**Note:** If all default actions are set to `false` and no custom actions are specified, the page actions
+```
+**Note:** If all default actions are set to `false` and no custom actions are specified, the page actions
   section will not be displayed.
 
 ## Internationalization

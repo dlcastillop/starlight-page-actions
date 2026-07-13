@@ -36,3 +36,10 @@ Properties:
 
 - `prompt` (`string`): Locale-specific prompt used when opening the current page in AI tools
 - `actions` (`LocaleActions`): Locale-specific custom action overrides
+
+## `PageActionsPosition`
+
+Values:
+
+- `page-title`: Display page actions below the page title
+- `table-of-contents`: Display page actions in the table of contents on desktop layouts

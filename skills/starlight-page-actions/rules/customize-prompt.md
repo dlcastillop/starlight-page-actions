@@ -11,17 +11,6 @@ Read {url}. I want to ask questions about it.
 
 You can override this behavior by providing your own custom prompt.
 
-## Why customize the prompt?
-
-You may want to:
-
-- Give the AI more structure or context
-- Automatically set a role or behavior
-- Provide instructions for how the AI should analyze your docs
-- Tailor the prompt for a specific AI assistant
-
-Customizing the prompt lets you fully control the message sent to the AI.
-
 ## How to customize the prompt
 
 Use the `prompt` option inside the plugin configuration:
