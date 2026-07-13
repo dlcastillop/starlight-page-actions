@@ -8,6 +8,7 @@ description: Use this skill whenever the user is working with Starlight Page Act
 Read individual rule files for detailed explanations and code examples.
 
 - [Configuration Reference](rules/configuration.md)
+- [Configure Page Actions Position](rules/configure-page-actions-position.md)
 - [Configure Page Actions](rules/configure-page-actions.md)
 - [Customize the Prompt](rules/customize-prompt.md)
 - [Disable Page Actions per Page](rules/disable-page-actions.md)

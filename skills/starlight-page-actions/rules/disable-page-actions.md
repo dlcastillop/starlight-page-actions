@@ -13,6 +13,8 @@ By default, page actions are enabled on all documentation pages. You can disable
    // content.config.ts
     import { defineCollection } from "astro:content";
     import { docsLoader } from "@astrojs/starlight/loaders";
+    import { docsSchema } from "@astrojs/starlight/schema";
+   +import { z } from "astro/zod";
 
     export const collections = {
       docs: defineCollection({
@@ -37,4 +39,5 @@ By default, page actions are enabled on all documentation pages. You can disable
    ---
 
    Your page content here...
-   ```**Note:** The `pageActions` property defaults to `true`, so you only need to add it to pages where you want to disable the actions. All other pages will continue to show page actions normally.
+   ```**Note:** The `pageActions` property defaults to `true`, so you only need to add it to pages where you want
+  to disable the actions. All other pages will continue to show page actions normally.
