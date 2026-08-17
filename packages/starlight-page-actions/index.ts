@@ -6,7 +6,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { translations } from "./i18n/translations";
 import virtual from "vite-plugin-virtual";
-import { cleanStarlightMarkdown, type StarlightInternalLinkMode } from "tidymd";
+import {
+  cleanStarlightMarkdown,
+  extractStarlightFrontmatter,
+  type StarlightInternalLinkMode,
+} from "tidymd";
 
 interface Actions {
   chatgpt?: boolean;
@@ -34,6 +38,10 @@ interface LocaleConfig {
   actions?: LocaleActions;
 }
 
+interface DocsFrontmatter {
+  slug?: unknown;
+}
+
 type PageActionsPosition = "page-title" | "table-of-contents";
 
 export interface PageActionsConfig {
@@ -43,6 +51,47 @@ export interface PageActionsConfig {
   actions?: Actions;
   share?: boolean;
   locales?: Record<string, LocaleConfig>;
+}
+
+function getOutputPathFromSlug(slug: string): string | undefined {
+  const trimmedSlug = slug.trim();
+
+  if (!trimmedSlug) return;
+
+  const normalizedSlug = trimmedSlug.replace(/\\/g, "/").replace(/^\/+|\/+$/g, "");
+
+  if (!normalizedSlug) return "index.md";
+
+  const segments = normalizedSlug.split("/");
+
+  if (segments.some((segment) => !segment || segment === "." || segment === "..")) {
+    return;
+  }
+
+  if (segments.at(-1) === "index") {
+    const directories = segments.slice(0, -1).join("/");
+
+    return directories ? `${directories}.md` : "index.md";
+  }
+
+  return `${segments.join("/")}.md`;
+}
+
+function getOutputPathFromSourcePath(pathSegments: string[], fileName: string): string {
+  if (fileName === "index") {
+    if (pathSegments.length === 1) {
+      return "index.md";
+    }
+
+    const directories = pathSegments.slice(0, -2).join("/");
+    const folderName = pathSegments[pathSegments.length - 2];
+
+    return directories ? `${directories}/${folderName}.md` : `${folderName}.md`;
+  }
+
+  const directories = pathSegments.slice(0, -1).join("/");
+
+  return directories ? `${directories}/${fileName}.md` : `${fileName}.md`;
 }
 
 /**
@@ -201,26 +250,18 @@ export default function starlightPageActions(userConfig?: PageActionsConfig): St
                             );
                             const pathSegments = relativePath.split("/");
 
-                            let outputPath: string;
-
-                            if (fileName === "index") {
-                              if (pathSegments.length === 1) {
-                                outputPath = "index.md";
-                              } else {
-                                const directories = pathSegments.slice(0, -2).join("/");
-                                const folderName = pathSegments[pathSegments.length - 2];
-
-                                outputPath = directories
-                                  ? `${directories}/${folderName}.md`
-                                  : `${folderName}.md`;
-                              }
-                            } else {
-                              const directories = pathSegments.slice(0, -1).join("/");
-
-                              outputPath = directories
-                                ? `${directories}/${fileName}.md`
-                                : `${fileName}.md`;
-                            }
+                            const content = fs.readFileSync(fullPath, "utf-8");
+                            const frontmatter =
+                              extractStarlightFrontmatter<DocsFrontmatter>(content);
+                            const slug =
+                              typeof frontmatter?.slug === "string"
+                                ? frontmatter.slug
+                                : undefined;
+                            const outputPath =
+                              slug !== undefined
+                                ? (getOutputPathFromSlug(slug) ??
+                                  getOutputPathFromSourcePath(pathSegments, fileName))
+                                : getOutputPathFromSourcePath(pathSegments, fileName);
 
                             const sourceDirSegments = Math.max(pathSegments.length - 1, 0);
                             const goUpSegments = DOCS_CONTENT_SEGMENTS + sourceDirSegments;
