@@ -53,7 +53,7 @@ export interface PageActionsConfig {
   locales?: Record<string, LocaleConfig>;
 }
 
-function getOutputPathFromSlug(slug: string): string | undefined {
+const getOutputPathFromSlug = (slug: string): string | undefined => {
   const trimmedSlug = slug.trim();
 
   if (!trimmedSlug) return;
@@ -75,9 +75,9 @@ function getOutputPathFromSlug(slug: string): string | undefined {
   }
 
   return `${segments.join("/")}.md`;
-}
+};
 
-function getOutputPathFromSourcePath(pathSegments: string[], fileName: string): string {
+const getOutputPathFromSourcePath = (pathSegments: string[], fileName: string): string => {
   if (fileName === "index") {
     if (pathSegments.length === 1) {
       return "index.md";
@@ -92,7 +92,7 @@ function getOutputPathFromSourcePath(pathSegments: string[], fileName: string): 
   const directories = pathSegments.slice(0, -1).join("/");
 
   return directories ? `${directories}/${fileName}.md` : `${fileName}.md`;
-}
+};
 
 /**
  * Starlight plugin that adds page action buttons to your documentation.
@@ -254,9 +254,7 @@ export default function starlightPageActions(userConfig?: PageActionsConfig): St
                             const frontmatter =
                               extractStarlightFrontmatter<DocsFrontmatter>(content);
                             const slug =
-                              typeof frontmatter?.slug === "string"
-                                ? frontmatter.slug
-                                : undefined;
+                              typeof frontmatter?.slug === "string" ? frontmatter.slug : undefined;
                             const outputPath =
                               slug !== undefined
                                 ? (getOutputPathFromSlug(slug) ??
