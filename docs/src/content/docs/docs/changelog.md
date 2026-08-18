@@ -1,12 +1,18 @@
 ---
 title: Changelog
 description: New features, bug fixes, and improvements made to Starlight Page Actions.
-lastUpdated: 2026-07-13
+lastUpdated: 2026-08-18
 tableOfContents:
   maxHeadingLevel: 2
 ---
 
 New features, bug fixes, and improvements made to Starlight Page Actions.
+
+## v0.7.1
+
+### Bug Fixes
+
+- Fix Markdown actions and copied Markdown output for pages that use a custom `slug`
 
 ## v0.7.0
 
