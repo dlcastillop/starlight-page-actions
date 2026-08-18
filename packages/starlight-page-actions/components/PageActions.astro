@@ -464,6 +464,10 @@ const shareOptions = [
         const mdPath = `${currentPath}.md`;
 
         const res = await fetch(mdPath);
+        if (!res.ok) {
+          throw new Error(`Failed to fetch Markdown: ${res.status}`);
+        }
+
         const contentForClipboard = await res.text();
 
         await navigator.clipboard.writeText(contentForClipboard);
